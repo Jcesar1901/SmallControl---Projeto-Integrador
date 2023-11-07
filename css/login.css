@@ -1,0 +1,11 @@
+.login {width: 100vw; height: 100vh; margin: 0 auto; display: flex; flex-direction: row; justify-content: center; align-items: center;}
+.login .login_div {width: 540px; height: auto; padding: 20px 0;}
+
+.login .login_div label{padding: 8px; margin: 0% 20%;}
+.login .login_div input[type=text]{width: 60%; margin: 0% 20%; padding: 8px;}
+.login .login_div input[type=email]{width: 60%; margin: 0% 20%; padding: 8px;}
+.login .login_div select{width: 60%; margin: 0% 20%; padding: 8px;}
+.login .login_div input[type=password]{width: 60%; margin: 0% 20%; padding: 8px;}
+.login .login_div button{width: 60%; margin: 0% 20%; }
+
+.link_resposta{margin-left: 520px;}
