@@ -11,23 +11,23 @@
 //Chamar a conexão
 include_once 'connection.php';
 
-$_SESSION['user'] = 'Jeferson Souza';
+$_SESSION['user'] = 'Julio Cesar';
 
 //Configurando o Timezone e a Data Hora do Nosso Servidor
 date_default_timezone_set("America/Sao_paulo");
 
 /*Configuações da Aplicação */
 $configBase = "http://localhost/smallcontrol/"; //Url da Aplicação;
-$titleSite = "Controle de Estoque"; //Título de sua Aplicação
+$titleSite = "SmallControl"; //Título de sua Aplicação
 $description = "Plataforma dedicada ao controle de estoque"; //Descrição da Aplicação
-$mailSite = "contato@mestresdophp.com.br"; //E-mail do Cliente ou Dono da Aplicação
+$mailSite = "jcesarc19@hotmail.com"; //E-mail do Cliente ou Dono da Aplicação
 $phoneSite = "(XX) xxxxx-xxxx"; //Telefone do Cliente ou Empresa Cliente
 $statusSite = 1; //0=>offline, 1=>online, 2=>maintenance  [Status da aplicação]
 $helloBar = 1;  //0=>offline, 1=>online [Status do HelloBar]
 
 /* Configurações do Autor */
-$nameAuthorSite = "Mestres do PHP Treinamentos"; //Nome do Autor
-$mainAuthorSite = "contato@interligsolucoes.com.br"; //E-mail do Autor
+$nameAuthorSite = "Julio Cesar, Victor Sakamoto, Thiago Nantes e Izabella Kristina"; //Nome do Autor
+$mainAuthorSite = "jcesarc19@hotmail.com"; //E-mail do Autor
 $phoneAuthorSite = "(XX) xxxxx-xxxx"; //Telefone do Autor
 
 /* Configurações de Servidor de E-mail */
