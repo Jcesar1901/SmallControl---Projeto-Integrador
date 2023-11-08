@@ -14,9 +14,11 @@
 				<h1 class="text-center font-text-min">Editar Dados do Cliente</h1>
 				
 				<form method="post" enctype="multipart/form-data" id="form_editclient">
+					<input type="hidden" id="client_id" name="client_id">
+
 					<div class="divisor2">
 						<label for="imagem">Foto do Cliente</label><br>
-						<input type="file" name="files" required accept="image/*" onchange="loadFile(event)">
+						<input type="file" name="file" id="file" required accept="image/*" onchange="loadFile(event)">
 					</div>
 						
 					<div class="divisor2">

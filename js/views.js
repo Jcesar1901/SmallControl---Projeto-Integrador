@@ -125,8 +125,11 @@ $(function(){
 	
 	
 	//Abre a modal do editar cliente
-	$(".editClient").click(function(){
+	$(document).on('click', '.editClient', (function(e){
+        e.preventDefault();
+        var value = $(this).attr('data-id');
 		$('.modal').css('display', 'flex');
+        $('#client_id').val(value);
 	});
 	
 	//Abre a modal do remover cliente
