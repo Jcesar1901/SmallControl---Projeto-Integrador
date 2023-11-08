@@ -116,11 +116,11 @@ $(document).ready(function(){
     });
 
     // Criar novo registro com anexos
-    ("#btn_newclient").on('submit', function (e) {
+    $("#form_clientNew").on('submit', function (e) {
         e.preventDefault();
 	
-		var form = $("#btn_newclient");
-		var url = page+"Ajax/Cliente/Create.php";
+		var form = $("#form_clientNew");
+		var url = page+"Ajax/Clientes/Create.php";
 		
         form.ajaxSubmit({
             url: url,

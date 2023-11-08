@@ -5,7 +5,8 @@ include_once '../../includes/config.php';
 
 $message = '';
 
-$Search = strip_tags(filter_input_array(INPUT_POST, FILTER_SANITIZE_STRIPPED));
+$Searching = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRIPPED);
+$Search = array_map('strip_tags', $Searching);
 
 // Checar o campo "cliente"
 if(empty($Search['client'])){
@@ -31,9 +32,6 @@ if(empty($Search['cnpj']) && $Search['doc'] == 2){
     echo json_encode($message);
     return; 
 }
-//Checa se a imagem é .zip ou .rar
-$path = pathinfo($_FILES['files']['name']);
-$ext = $path['extension'];
 
 //Verifica se há algum documento anexado
 if($_FILES['files']['name'] == ''){
@@ -59,8 +57,8 @@ $Read->execute();
 
 $Lines = $Read->rowCount();
 
-if($Lines == 0){
-    $message = ['status'=> 'info', 'message'=> 'Cliente já registrado!', 'redirect'=> '', 'lines' => 0];
+if($Lines >= 1){
+    $message = ['status'=> 'info', 'message'=> 'Este cliente já está registrado!', 'redirect'=> '', 'lines' => 0];
     echo json_encode($message);
     return; 
 }
@@ -100,6 +98,10 @@ if ($fileCount == 'no') {
             'o', 'o', 'o', 'o', 'u', 'u', 'u', 'y', 'y', '', 'y', '', '', '', '', '', '', '', '', '', '', '', '-', '', '', '', '', '', '', '', '', '', '', '', '', '-' . date('d-m-Y H-i-s') . '.docx', '-' . date('d-m-Y H-i-s') . '.pdf', '-' . date('d-m-Y H-i-s') . '.doc', '-' . date('d-m-Y H-i-s') . '.htm', '-' . date('d-m-Y H-i-s') . '.jfif', '-' . date('d-m-Y H-i-s') . '.jpg', '-' . date('d-m-Y H-i-s') . '.jpeg', '-' . date('d-m-Y H-i-s') . '.png', '-' . date('d-m-Y H-i-s') . '.msg', '-' . date('d-m-Y H-i-s') . '.txt', '-' . date('d-m-Y H-i-s') . '.xls', '-' . date('d-m-Y H-i-s') . '.xlsx', '-' . date('d-m-Y H-i-s') . '.tif', '-' . date('d-m-Y H-i-s') . '.tiff', '-' . date('d-m-Y H-i-s') . '.p7s', '-' . date('d-m-Y H-i-s') . '.html', '-' . date('d-m-Y H-i-s') . '.dat', '-' . date('d-m-Y H-i-s') . '.oft', '-' . date('d-m-Y H-i-s') . '.xlsm', '-' . date('d-m-Y H-i-s') . '.rar', '-' . date('d-m-Y H-i-s') . '.zip')
         , $FileName);
 
+    //Checa se a imagem é .zip ou .rar
+    $path = pathinfo($FileName);
+    $ext = $path['extension'];
+
     //Verificar as extensões
     if ($ext == 'js' || $ext == 'php' || $ext == 'html' || $ext == 'htm' || $ext == 'xhtml' || $ext == 'css' || $ext == 'ini' || $ext == 'py' || $ext == 'htaccess' || $ext == 'xml' || $ext == 'gz' || $ext == 'json' || $ext == 'go' || $ext == 'jsp' || $ext == 'cs' || $ext == 'asp' || $ext == 'aspx' || $ext == 'bat' || $ext == 'exe' || $ext == 'sql' || $ext == 'c' || $ext == '*' || $ext == 'rb' || $ext == 'erb' || $ext == 'jbuilder' || $ext == 'zip' || $ext == 'rar') {
 
@@ -128,12 +130,13 @@ if ($fileCount == 'no') {
 
 
     $token = rand(100, 1000). '-' . $Search['client'];
-    $Create = $pdo->prepare("INSERT INTO" . DB_CLIENTS . "('cliente_imagem', 'cliente_nome', 'cliente_email', 'cliente_endereco', 'cliente_cep', 'cliente_cidade', 'cliente_estado', 'cliente_documento', 'cliente_telefone', 'cliente_token', 'cliente_status', 'cliente_sessao') 
-    VALUES(:cliente_imagem, :cliente_nome, :cliente_email, :cliente_endere:co, :cliente_:cep, :cliente_:cidade, :cliente_estado, :cliente_do:cumento, :cliente_telefone, :cliente_token, :cliente_status, :cliente_sessao)");
-    $Create->bindValue(':cliente_imagem', $Search['files']);
+    $Create = $pdo->prepare("INSERT INTO " . DB_CLIENTS . "(cliente_imagem, cliente_nome, cliente_email, cliente_endereco, cliente_cep, cliente_cidade, cliente_estado, cliente_documento, cliente_telefone, cliente_token, cliente_status, cliente_sessao)
+    VALUES(:cliente_imagem, :cliente_nome, :cliente_email, :cliente_endereco, :cliente_cep, :cliente_cidade, :cliente_estado, :cliente_documento, :cliente_telefone, :cliente_token, :cliente_status, :cliente_sessao)");
+
+    $Create->bindValue(':cliente_imagem', $CreateFileName);
     $Create->bindValue(':cliente_nome', $Search['client']);
     $Create->bindValue(':cliente_email', $Search['email']);
-    $Create->bindValue(':cliente_endereco', $Search['adress']);
+    $Create->bindValue(':cliente_endereco', $Search['address']);
     $Create->bindValue(':cliente_cep', $Search['zipcode']);
     $Create->bindValue(':cliente_cidade', $Search['city']);
     $Create->bindValue(':cliente_estado', $Search['state']);
@@ -144,7 +147,7 @@ if ($fileCount == 'no') {
     $Create->bindValue(':cliente_sessao', 0);
     $Create->execute();
 
-    $message = ['status'=> 'success', 'message'=> 'Cliente cadastrado com sucesso!', 'redirect'=> 'clients'];
+    $message = ['status' => 'success', 'message' => 'Cliente cadastrado com sucesso!', 'redirect'=> 'clients'];
     echo json_encode($message);
     return; 
 }
