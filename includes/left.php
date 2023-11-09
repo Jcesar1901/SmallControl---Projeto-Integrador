@@ -1,14 +1,14 @@
-<div class="profile bgcolor-green noPrint">
+<div class="profile bgcolor noPrint">
 	<div class="profile-img">
 		<img src="Images/Users/Autor.jpg" alt="Imagem do Usuário" title="Imagem do Usuário">
 	</div>	
 </div>
 
-<div class="users bgcolor-green noPrint">
+<div class="users bgcolor noPrint">
 	<p class="font-text-sub text-center color-white">Julio Cesar</p>
 </div>
 
-<div class="navigator bgcolor-green-light noPrint">
+<div class="navigator bgcolor noPrint">
 	<ul class="nav">
 		<li> <a href="dashboard" title="Retornar ao dashboard"><i class="fa fa-home"></i> Dashboard</a> </li>
 		<li> <a href="search" title="Realizar uma pesquisa no sistema"><i class="fa fa-search"></i> Pesquisar</a> </li>

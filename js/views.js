@@ -122,14 +122,46 @@ $(function(){
 	$(".newUser").click(function(){
 		$('.new').css('display', 'flex');
 	});
-	
-	
+		
 	//Abre a modal do editar cliente
 	$(document).on('click', '.editClient', (function(e){
         e.preventDefault();
         var value = $(this).attr('data-id');
 		$('.modal').css('display', 'flex');
         $('#client_id').val(value);
+
+        //Trazer os dados para o formulário de modal de edição de dados
+
+        var url = page+"Ajax/Clientes/Search.php?val="+value;
+		
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: value,
+            dataType: 'JSON',
+
+            success: function (data, textStatus, jqXHR) {
+
+                // Alimenta o formulário na modal "editar clientes"
+                $('#client').val(data['client']);
+                $('#email').val(data['email']); 
+                $('#phone').val(data['phone']); 
+                $('#zipcode').val(data['zipcode']); 
+                $('#address').val(data['address']); 
+                $('#number').val(data['number ']);
+                $('#neighborhood').val(data['neighborhood ']);                  
+                $('#city').val(data['city ']);                             
+                $('#state').val(data['state ']);    
+                 
+                // Trabalhar com o doc
+                if(data['doc'] == 1){
+                    $('#cpf').val(data['document']);
+                }else{
+                    $('#cnpj').val(data['document']); 
+                }
+                
+            }
+        });
 	});
 	
 	//Abre a modal do remover cliente

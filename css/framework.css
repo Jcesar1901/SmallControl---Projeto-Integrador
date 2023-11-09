@@ -119,8 +119,8 @@ table td{ padding: 10px 20px }
     background-color: var(--color-blue-dark);
 }
 
-.bgcolor-green{
-    background-color: var(--color-green);
+.bgcolor{
+    background-color: #13123b;
 }
 
 .bgcolor-green-light{
