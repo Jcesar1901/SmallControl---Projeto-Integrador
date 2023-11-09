@@ -1,7 +1,6 @@
 $(document).ready(function(){
     // Captura o url pelo meta base
     var page = $('meta[name=base]').attr('content');
-    console.log(page);
 
     /* 
     * Cliente

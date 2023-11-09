@@ -1,4 +1,6 @@
 $(function(){
+    // Captura o url pelo meta base
+    var page = $('meta[name=base]').attr('content');
 
     //ABRIR MODAL
     $(".open_modal").click(function(){
@@ -124,45 +126,49 @@ $(function(){
 	});
 		
 	//Abre a modal do editar cliente
-	$(document).on('click', '.editClient', (function(e){
+	$(document).on('click', '.editClient', function(e){
         e.preventDefault();
         var value = $(this).attr('data-id');
-		$('.modal').css('display', 'flex');
+        $('.modal').css('display', 'flex');
         $('#client_id').val(value);
-
-        //Trazer os dados para o formulário de modal de edição de dados
-
-        var url = page+"Ajax/Clientes/Search.php?val="+value;
-		
+    
+        // Trazer os dados para o formulário de modal de edição de dados
+    
+        var url = page + "Ajax/Clientes/Search.php?val=" + value;
+    
         $.ajax({
             url: url,
             type: 'POST',
-            data: value,
+            data: { value: value },
             dataType: 'JSON',
-
             success: function (data, textStatus, jqXHR) {
-
                 // Alimenta o formulário na modal "editar clientes"
                 $('#client').val(data['client']);
                 $('#email').val(data['email']); 
                 $('#phone').val(data['phone']); 
                 $('#zipcode').val(data['zipcode']); 
                 $('#address').val(data['address']); 
-                $('#number').val(data['number ']);
-                $('#neighborhood').val(data['neighborhood ']);                  
-                $('#city').val(data['city ']);                             
-                $('#state').val(data['state ']);    
-                 
+                $('#number').val(data['number']);
+                $('#neighborhood').val(data['neighborhood']); 
+                $('#city').val(data['city']); 
+                $('#state').val(data['state']); 
+                console.log(data['document']);
                 // Trabalhar com o doc
                 if(data['doc'] == 1){
-                    $('#cpf').val(data['document']);
-                }else{
-                    $('#cnpj').val(data['document']); 
+                    $("#cpf").val(data['document']);
+                    $("#doc").html('<option	value="1" selected>CPF</option><option value="2">CNPJ</option>');
+                    $('.cpf').css('display', 'block');
+                    $('.cnpj').css('display', 'none');
+                } else {
+                    $("#cnpj").val(data['document']);
+                    $("#doc").html('<option	value="2" selected>CNPJ</option><option value="1">CPF</option>');
+                    $('.cpf').css('display', 'none');
+                    $('.cnpj').css('display', 'block');
                 }
-                
             }
         });
-	});
+    });
+    
 	
 	//Abre a modal do remover cliente
 	$(".deleteClient").click(function(){

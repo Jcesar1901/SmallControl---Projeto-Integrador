@@ -33,18 +33,6 @@ if(empty($Search['cnpj']) && $Search['doc'] == 2){
     return; 
 }
 
-//Verifica se há algum documento anexado
-if($_FILES['files']['name'] == ''){
-    $message = [
-            "message" => "Favor, anexe uma foto no cadastro do cliente",
-            "status" => "info",
-            "redirect" => ""
-            ];
-    echo json_encode($message);
-    return;
-    $fileCount = 'no';
-}
-
 // Verificar o tipo de documento
 if($Search['doc'] == 1){
     $doc = strip_tags($Search['cpf']);
