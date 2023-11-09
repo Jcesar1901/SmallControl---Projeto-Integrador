@@ -10,19 +10,19 @@ header{width: 100%; height: auto; margin: 0 }
 .content_left .users p{display: block; margin: 0; padding: 5px}
 
 .content_left .navigator{width: 100%; height: auto; padding: 20px 5px; margin: 0;}
-.content_left .navigator li{width: 100%; padding: 8px 16px; margin: 0; text-align: left; border-bottom: 1px solid #4A8581}
+.content_left .navigator li{width: 100%; padding: 8px 16px; margin: 0; text-align: left; border-bottom: 0.5px solid #4A8581}
 .content_left .navigator li a{color: #fff;}
 .content_left .navigator li:hover, .content_left .navigator li a:hover{background-color: #2d1c91;}
 
 /*Conteúdo da Direita - Principal*/
-.content_right{width: 82%; height: auto; margin: 0 1.5%; float: left;  }
+.content_right {width: 82%; height: auto; margin: 0; float: left;  }
 .content_right img{width:90%; height: auto; margin: 2% 5%;}
 .content_right h1{padding: 1% 0%;}
 .content_right h3{padding: 1% 5%;}
 .content_right p{padding: 1% 5%;}
 .content_right .info{padding: 0% 5%; font-weight: bold;}
 
-.content_right article img{width: 25%; height: 200px; margin: 0% 37.5%}
+.content_right article img{width: 25%; height: 180px; margin: 0% 37.5%}
 .content_right article h1{padding: 2% 2%;}
 .content_right article .cards{padding: 40px 10px;}
 .content_right article .cards .title{font-size: 3em !important;}

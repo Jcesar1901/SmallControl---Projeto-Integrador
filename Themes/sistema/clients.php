@@ -6,7 +6,7 @@
 	<main>
 		<!-- Modal Edição de Dados -->
 		<div class="modal" style="display:none">
-		
+
 			<div class="modal_container radius">
 				<p class="text-right">
 					<br><a href="#" title="Fechar a modal" class="btn_delete radius modal-close"><i class="fa fa-times-circle"></i></a>
@@ -19,22 +19,22 @@
 
 					<div class="divisor2">
 						<label for="imagem">Foto do Cliente</label><br>
-						<input type="file" name="file" id="file"  accept="image/*">
+						<input type="file" name="file" id="file" required accept="image/*">
 					</div>
 						
 					<div class="divisor2">
 						<label for="client">Nome do Cliente</label><br>
-					<input type="text" name="client" id="client"  value="">
+						<input type="text" name="client" id="client" required value="">
 					</div>
 						
 					<div class="divisor2">
 						<label for="email">E-mail</label><br>
-						<input type="email" name="email" id="email"  value="">
+						<input type="email" name="email" id="email" required value="">
 					</div>
 						
 					<div class="divisor2">	
 						<label for="phone">Telefone</label><br>
-						<input type="text" name="phone" maxlength="14" class="phone" id="phone" value="">
+						<input type="text" name="phone" maxlength="14" class="phone" id="phone" required value="">
 					</div>
 						
 					<div class="divisor2">	
@@ -63,27 +63,27 @@
 						
 					<div class="divisor2">	
 						<label for="address">Endereço Completo</label><br>
-						<input type="text" name="address" id="address"  class="address"  value="">
+						<input type="text" name="address" id="address"  class="address" required value="">
 					</div>
 						
 					<div class="divisor2">	
 						<label for="number">Número do Endereço</label><br>
-						<input type="text" name="number" id="number" value="">
+						<input type="text" name="number" id="number" required value="">
 					</div>
 						
 					<div class="divisor2">	
 						<label for="neighborhood">Bairro</label><br>
-						<input type="text" name="neighborhood" id="neighborhood" class="neighborhood">
+						<input type="text" name="neighborhood" id="neighborhood" class="neighborhood" required>
 					</div>
 						
 					<div class="divisor2">	
 						<label for="city">Cidade</label><br>
-						<input type="text" name="city" id="city" class="city" value="">
+						<input type="text" name="city" id="city" class="city" required value="">
 					</div>
 						
 					<div class="divisor2">	
 						<label for="state">Estado</label><br>
-						<input type="text" name="state" id="state" class="state" value="">
+						<input type="text" name="state" id="state" class="state" required value="">
 						
 					</div>
 					

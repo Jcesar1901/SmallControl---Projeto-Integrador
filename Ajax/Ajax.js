@@ -14,7 +14,7 @@ $(document).ready(function(){
         var form_data = form.serialize();
 
         var url = page+"Ajax/Clientes/Read.php";
-		
+
         $.ajax({
             url: url,
             type: 'POST',
@@ -52,13 +52,17 @@ $(document).ready(function(){
                 }
                 // Trabalhar com os dados do php
                 var register = data['cliente_cadastro'];
-                var stat = data['cliente_status'];  
+                var stat = data['cliente_status'];
 
-                var mount = '<tr></tr><td><p class="font-text-sub"><b>Cliente:</b></p><p>'+data['cliente_nome']+'</p></td> \n' +
-                '<td><p class="font-text-sub"><b>Cadastrado:</b></p><p>'+register+'</p></td> \n' +
-                '<td><p class="font-text-sub"><b>E-mail:</b></p><p>'+data['cliente_email']+'</p></td> \n' +
-                '<td><p class="font-text-sub"><b>Status:</b></p><p class="font-text-sub">'+stat+'</p></td>\n' +
-                '<td><p class="text-center"><a href="#" title="Visualizar e editar informações" class="radius btn_edit editClient" data-id="'+data['cliente_id']+'"><i class="fa fa-pen"></i></a>&nbsp;&nbsp;<a href="#" title="Remover este registro" class="radius btn_delete deleteClient" data-id="'+data['cliente_id']+'"><i class="fa fa-trash-alt"></i></a></p></td></tr>';
+                var mount = '<tr></tr><td><p class="font-text-sub"><b>Cliente:</b></p><p>' + data['cliente_nome'] + '</p></td>\n' +
+                    '<td><p class="font-text-sub"><b>Cadastrado:</b></p><p>' + register + '</p></td>\n' +
+                    '<td><p class="font-text-sub"><b>E-mail:</b></p><p>' + data['cliente_email'] + '</p></td>\n' +
+                    '<td><p class="font-text-sub"><b>Status:</b></p><p class="font-text-sub">' + stat + '</p></td>\n';
+
+
+                    mount+='<td><p class="text-center"><a href="#" title="Visualizar e editar informações" class="radius btn_edit editClient" data-id="' + data['cliente_id'] + '"><i class="fa fa-pen"></i></a>&nbsp;&nbsp;<a href="#" title="Remover este registro" class="radius btn_delete deleteClient" data-id="' + data['cliente_id'] + '"><i class="fa fa-trash-alt"></i></a></p></td></tr>'
+
+
                 $('.row').html(mount);
                 
             }

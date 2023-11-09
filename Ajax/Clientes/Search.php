@@ -13,7 +13,9 @@ if(empty($Search)){
     return; 
 }
 
-$Read = $pdo->prepare("SELECT cliente_nome, cliente_email, cliente_telefone, cliente_endereco, cliente_numero, cliente_bairro, cliente_cep, cliente_cidade, cliente_estado, cliente_documento FROM ".DB_CLIENTS." WHERE cliente_id = :cliente_id");
+$Read = $pdo->prepare("SELECT cliente_nome, cliente_email, cliente_telefone, cliente_endereco, cliente_numero, cliente_bairro, 
+       cliente_cep, cliente_cidade, cliente_estado, cliente_documento, cliente_telefone FROM " . DB_CLIENTS . " 
+                                WHERE cliente_id = :cliente_id");
 $Read->bindValue(':cliente_id', $Search);
 $Read->execute();
 
@@ -38,14 +40,13 @@ foreach($Read as $Show){
         'doc'=> strip_tags($Document),
         'document'=> strip_tags($Show['cliente_documento']),
         'email'=> strip_tags($Show['cliente_email']),
-        'phone'=> strip_tags($Show['cliente_telefone']),
+        'phone'=> strip_tags($Show['cliente_phone']),
         'zipcode'=> strip_tags($Show['cliente_cep']),
         'address'=> strip_tags($Show['cliente_endereco']),        
         'number'=> strip_tags($Show['cliente_numero']),
         'neighborhood'=> strip_tags($Show['cliente_bairro']),
         'city'=> strip_tags($Show['cliente_cidade']),
-        'state'=> strip_tags($Show['cliente_estado'])
-    ];
+        'state'=> strip_tags($Show['cliente_estado'])];
     echo json_encode($message);
     return;
 }

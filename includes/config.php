@@ -26,7 +26,7 @@ $statusSite = 1; //0=>offline, 1=>online, 2=>maintenance  [Status da aplicação
 $helloBar = 1;  //0=>offline, 1=>online [Status do HelloBar]
 
 /* Configurações do Autor */
-$nameAuthorSite = "Julio Cesar, Victor Sakamoto, Thiago Nantes e Izabella Kristina"; //Nome do Autor
+$nameAuthorSite = "Julio Cesar, Victor Sakamoto, Thiago Nantes e Izabella Kristina."; //Nome do Autor
 $mainAuthorSite = "jcesarc19@hotmail.com"; //E-mail do Autor
 $phoneAuthorSite = "(XX) xxxxx-xxxx"; //Telefone do Autor
 
