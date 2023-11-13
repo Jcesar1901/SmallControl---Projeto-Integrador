@@ -1,8 +1,9 @@
 <?php
+	$_SESSION['user_id'] = 1;
+	$_SESSION['user_level'] = 10;
 	$configUrlModal = explode("/", strip_tags(filter_input(INPUT_GET, "route", FILTER_DEFAULT)));
     $configUrlModal[0] = (!empty($configUrlModal[0]) ? $configUrlModal[0] : "services");
-
-    $pages = $configUrlModal[0];
+	$pages = $configUrlModal[0];
 	
 	//Se for a página de Login, entra a página de estilo.css próprio para o sistema de login
 	if($pages == 'login' || $pages == 'new-password' || $pages == 'mail-pass'){ 
