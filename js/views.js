@@ -129,6 +129,7 @@ $(function(){
 	$(document).on('click', '.editClient', function(e){
         e.preventDefault();
         var value = $(this).attr('data-id');
+        console.log(value);
         $('.modal').css('display', 'flex');
         $('#client_id').val(value);
     

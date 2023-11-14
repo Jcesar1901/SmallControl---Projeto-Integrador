@@ -9,6 +9,7 @@ $Searching = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRIPPED);
 $Search = array_map('strip_tags', $Searching);
 
 // Checar o campo "cliente"
+var_dump($Search['client']);
 if(empty($Search['client'])){
     $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o campo cliente !', 'Redirect'=> '', 'lines' => 0];
     echo json_encode($message);
@@ -34,7 +35,7 @@ if(empty($Search['cnpj']) && $Search['doc'] == 2){
 }
 
 //Verifica se há algum documento anexado
-if($_FILES['files']['name'] == ''){
+if($_FILES['file']['name'] == ''){
     $message = [
             "message" => "Favor, anexe uma foto no cadastro do cliente",
             "status" => "info",
@@ -77,20 +78,24 @@ if ($fileCount == 'no') {
     
 } else {
     // Excluir imagem anterior
-    if($_FILES['file']['name'] == ''){}else{
-        unlink('../../Images/Clients' . $Img)
-        
+    if($_FILES['file']['name'] == ''){
+        $CreateFileName = '';
+    }else{
+
+        if($Img != ''){
+            unlink('../../Images/Clients' . $Img);
+        }
         //Captura o nome do arquivo
-        $FileName = strip_tags(mb_strtolower($_FILES['files']['name']));
+        $FileName = strip_tags(mb_strtolower($_FILES['file']['name']));
 
         //Recupera a extensão do arquivo
-        $FileExtension = strip_tags($_FILES['files']['type']);
+        $FileExtension = strip_tags($_FILES['file']['type']);
 
         //Pega o diretório temporário onde o arquivo está
-        $FilePath = strip_tags($_FILES['files']['tmp_name']);
+        $FilePath = strip_tags($_FILES['file']['tmp_name']);
 
         //Pega o tamanho do arquivo
-        $FileSize = strip_tags($_FILES['files']['size']);
+        $FileSize = strip_tags($_FILES['file']['size']);
 
         //Definimos a pasta para o download do arquivo
         $_UP['pasta'] = '../../Images/Clients/';
@@ -125,33 +130,36 @@ if ($fileCount == 'no') {
             die;
 
         }
+    
+        $guid = rand(1000, 10000);  
+            
+        //Cria novo nome para o arquivo (criptografado)
+        $CreateFileName = $guid . '-' . hash('sha256', $cover) . rand(10, 200) . '.' . $ext;
+
+        //Definimos a pasta de destino + o nome do arquivo.
+        $destiny = $_UP['pasta'] . '' . $CreateFileName;
+
+        //Realizamos o upload
+        move_uploaded_file($FilePath, $destiny);
     }
-    $guid = rand(1000, 10000);  
-    //Cria novo nome para o arquivo (criptografado)
-    $CreateFileName = $guid . '-' . hash('sha256', $cover) . rand(10, 200) . '.' . $ext;
 
-    //Definimos a pasta de destino + o nome do arquivo.
-    $destiny = $_UP['pasta'] . '' . $CreateFileName;
-
-    //Realizamos o upload
-    move_uploaded_file($FilePath, $destiny);
-
-
-    $token = rand(100, 1000). '-' . $Search['client'];
-    $Update = $pdo->prepare("UPDATE " . DB_CLIENTS . " SET (cliente_imagem = :cliente_imagem, cliente_nome = :cliente_nome, cliente_email = :cliente_email, cliente_endereco = :cliente_endereco, cliente_cep = :cliente_cep, cliente_cidade = :cliente_cidade, cliente_estado = :cliente_estado, cliente_documento = :cliente_documento, cliente_telefone = :cliente_telefone WHERE cliente_id = :cliente_id");
+    var_dump($Search);
+    $Update = $pdo->prepare("UPDATE " . DB_CLIENTS . " SET (cliente_imagem = :cliente_imagem, cliente_nome = :cliente_nome, cliente_email = :cliente_email, cliente_endereco = :cliente_endereco, cliente_numero = :cliente_numero, cliente_bairro = :cliente_bairro, cliente_cep = :cliente_cep, cliente_cidade = :cliente_cidade, cliente_estado = :cliente_estado, cliente_documento = :cliente_documento, cliente_telefone = :cliente_telefone WHERE cliente_id = :cliente_id");
     $Update->bindValue(':cliente_imagem', $CreateFileName);
     $Update->bindValue(':cliente_nome', $Search['client']);
     $Update->bindValue(':cliente_email', $Search['email']);
     $Update->bindValue(':cliente_endereco', $Search['address']);
+    $Update->bindValue(':cliente_numero', $Search['number']);
+    $Update->bindValue(':cliente_bairro', $Search['neighborhood']);
     $Update->bindValue(':cliente_cep', $Search['zipcode']);
     $Update->bindValue(':cliente_cidade', $Search['city']);
     $Update->bindValue(':cliente_estado', $Search['state']);
     $Update->bindValue(':cliente_documento', $doc);
     $Update->bindValue(':cliente_telefone', $Search['phone']);
-    $Update->bindValue(':cliente_id', $Search['client_id']);
+    $Update->bindValue(':cliente_id', $Search['cliente_id']);
     $Update->execute();
 
-    $message = ['status' => 'success', 'message' => 'Cliente cadastrado com sucesso!', 'redirect'=> 'clients'];
+    $message = ['status' => 'success', 'message' => 'Cliente atualizado com sucesso!', 'redirect'=> 'clients'];
     echo json_encode($message);
-    return; 
+    return;
 }

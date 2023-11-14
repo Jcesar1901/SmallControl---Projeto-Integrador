@@ -130,13 +130,15 @@ if ($fileCount == 'no') {
 
 
     $token = rand(100, 1000). '-' . $Search['client'];
-    $Create = $pdo->prepare("INSERT INTO " . DB_CLIENTS . "(cliente_imagem, cliente_nome, cliente_email, cliente_endereco, cliente_cep, cliente_cidade, cliente_estado, cliente_documento, cliente_telefone, cliente_token, cliente_status, cliente_sessao)
-    VALUES(:cliente_imagem, :cliente_nome, :cliente_email, :cliente_endereco, :cliente_cep, :cliente_cidade, :cliente_estado, :cliente_documento, :cliente_telefone, :cliente_token, :cliente_status, :cliente_sessao)");
+    $Create = $pdo->prepare("INSERT INTO " . DB_CLIENTS . "(cliente_imagem, cliente_nome, cliente_email, cliente_endereco, cliente_numero, cliente_bairro, cliente_cep, cliente_cidade, cliente_estado, cliente_documento, cliente_telefone, cliente_token, cliente_status, cliente_sessao)
+    VALUES(:cliente_imagem, :cliente_nome, :cliente_email, :cliente_endereco, :cliente_numero, :cliente_bairro, :cliente_cep, :cliente_cidade, :cliente_estado, :cliente_documento, :cliente_telefone, :cliente_token, :cliente_status, :cliente_sessao)");
 
     $Create->bindValue(':cliente_imagem', $CreateFileName);
     $Create->bindValue(':cliente_nome', $Search['client']);
     $Create->bindValue(':cliente_email', $Search['email']);
     $Create->bindValue(':cliente_endereco', $Search['address']);
+    $Create->bindValue(':cliente_numero', $Search['number']);
+    $Create->bindValue(':cliente_bairro', $Search['neighborhood']);
     $Create->bindValue(':cliente_cep', $Search['zipcode']);
     $Create->bindValue(':cliente_cidade', $Search['city']);
     $Create->bindValue(':cliente_estado', $Search['state']);

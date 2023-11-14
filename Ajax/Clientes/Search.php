@@ -40,7 +40,7 @@ foreach($Read as $Show){
         'doc'=> strip_tags($Document),
         'document'=> strip_tags($Show['cliente_documento']),
         'email'=> strip_tags($Show['cliente_email']),
-        'phone'=> strip_tags($Show['cliente_phone']),
+        'phone'=> strip_tags($Show['cliente_telefone']),
         'zipcode'=> strip_tags($Show['cliente_cep']),
         'address'=> strip_tags($Show['cliente_endereco']),        
         'number'=> strip_tags($Show['cliente_numero']),

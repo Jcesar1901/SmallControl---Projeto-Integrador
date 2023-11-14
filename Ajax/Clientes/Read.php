@@ -38,7 +38,6 @@ foreach($Read as $Show){
         'cliente_email'=> strip_tags($Show['cliente_email']) ,
         'cliente_status'=> strip_tags($status) ,
         'cliente_cadastro'=> strip_tags($register),
-        'session' =>  strip_tags($_SESSION['user_level']),
         'cliente_id'=> strip_tags($Show['cliente_id'])
     ];
     echo json_encode($message);
