@@ -19,22 +19,22 @@
 
 					<div class="divisor2">
 						<label for="imagem">Foto do Cliente</label><br>
-						<input type="file" name="file" id="file" required accept="image/*">
+						<input type="file" name="file" id="file" accept="image/*">
 					</div>
 						
 					<div class="divisor2">
 						<label for="client">Nome do Cliente</label><br>
-						<input type="text" name="client" id="client" required value="">
+						<input type="text" name="client" id="client" value="">
 					</div>
 						
 					<div class="divisor2">
 						<label for="email">E-mail</label><br>
-						<input type="email" name="email" id="email" required value="">
+						<input type="email" name="email" id="email" value="">
 					</div>
 						
 					<div class="divisor2">	
 						<label for="phone">Telefone</label><br>
-						<input type="text" name="phone" maxlength="14" class="phone" id="phone" required value="">
+						<input type="text" name="phone" maxlength="14" class="phone" id="phone" value="">
 					</div>
 						
 					<div class="divisor2">	
@@ -110,22 +110,22 @@
 				<form method="post" enctype="multipart/form-data" id="form_clientNew">
 					<div class="divisor2">
 						<label for="imagem">Foto do Cliente</label><br>
-						<input type="file" name="files" required accept="image/*" onchange="loadFile(event)">
+						<input type="file" name="files"  accept="image/*" onchange="loadFile(event)">
 					</div>
 						
 					<div class="divisor2">
 						<label for="client">Nome do Cliente</label><br>
-						<input type="text" name="client" id="client" required>
+						<input type="text" name="client" id="client" >
 					</div>
 						
 					<div class="divisor2">
 						<label for="email">E-mail</label><br>
-						<input type="email" name="email" id="email" required>
+						<input type="email" name="email" id="email" >
 					</div>
 						
 					<div class="divisor2">	
 						<label for="phone">Telefone</label><br>
-						<input type="text" name="phone" maxlength="14" class="phone" id="phone" required>
+						<input type="text" name="phone" maxlength="14" class="phone" id="phone" >
 					</div>
 						
 					<div class="divisor2">	
@@ -154,27 +154,27 @@
 						
 					<div class="divisor2">	
 						<label for="address">Endereço Completo</label><br>
-						<input type="text" name="address" id="address"  class="address" required>
+						<input type="text" name="address" id="address"  class="address">
 					</div>
 						
 					<div class="divisor2">	
 						<label for="number">Número do Endereço</label><br>
-						<input type="text" name="number" id="number" required>
+						<input type="text" name="number" id="number">
 					</div>
 						
 					<div class="divisor2">	
 						<label for="neighborhood">Bairro</label><br>
-						<input type="text" name="neighborhood" id="neighborhood" class="neighborhood" required>
+						<input type="text" name="neighborhood" id="neighborhood" class="neighborhood">
 					</div>
 						
 					<div class="divisor2">	
 						<label for="city">Cidade</label><br>
-						<input type="text" name="city" id="city" class="city" required>
+						<input type="text" name="city" id="city" class="city">
 					</div>
 						
 					<div class="divisor2">	
 						<label for="state">Estado</label><br>
-						<input type="text" name="state" id="state" class="state" required>
+						<input type="text" name="state" id="state" class="state">
 						
 					</div>
 					
@@ -195,7 +195,7 @@
 				<div class="espaco-medium"></div>
 				<h1 class="text-center font-text-min">Você Deseja Remover Este Cliente?</h1>
 				<p class="text-center"><br>
-					<a href="#" title="Remover este cliente" class="btn_edit radius removeClient"><i class="fa fa-check"></i> SIM </a>&nbsp;&nbsp;
+					<a href="#" title="Remover este cliente" class="btn_edit radius removeClient" data-id=""><i class="fa fa-check"></i> SIM </a>&nbsp;&nbsp;
 					<a href="#" title="Fechar a modal" class="btn_delete radius modal-close"><i class="fa fa-times-circle"></i> NÃO</a>
 				</p>
 				

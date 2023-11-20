@@ -129,7 +129,6 @@ $(function(){
 	$(document).on('click', '.editClient', function(e){
         e.preventDefault();
         var value = $(this).attr('data-id');
-        console.log(value);
         $('.modal').css('display', 'flex');
         $('#client_id').val(value);
     
@@ -170,10 +169,12 @@ $(function(){
         });
     });
     
-	
 	//Abre a modal do remover cliente
-	$(".deleteClient").click(function(){
+	$(document).on('click', '.deleteClient', function(e){
+        e.preventDefault();
 		$('.delete').css('display', 'flex');
+        var value = $('.deleteClient').attr('data-id');
+        $('.removeClient').attr('data-id', value);
 	});
 	
 	//Abre a modal do novo cliente

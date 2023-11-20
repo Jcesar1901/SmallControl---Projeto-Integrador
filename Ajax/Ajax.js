@@ -74,7 +74,7 @@ $(document).ready(function(){
     // Atualizar dados do cliente
 
     // Remover cliente
-    $(document).on('click', ".deleteClient", function(e){
+    $(document).on('click', ".removeClient", function(e){
         e.preventDefault();
 
         var value = $(this).attr('data-id');
@@ -121,7 +121,7 @@ $(document).ready(function(){
     $("#form_editclient").on('submit', function (e) {
         e.preventDefault();
 	
-		var form = $("#form_clientNew");
+		var form = $("#form_editclient");
 		var url = page+"Ajax/Clientes/Update.php";
 		
         form.ajaxSubmit({

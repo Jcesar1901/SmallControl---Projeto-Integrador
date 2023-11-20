@@ -26,8 +26,10 @@ if($Lines == 0){
     echo json_encode($message);
     return; 
 }
+
 foreach($Read as $Show){
     $Doc = strlen($Show['cliente_documento']);
+
     // Verificar se é CPF ou CNPJ
     if($Doc == 14){
         $Document = 1;
