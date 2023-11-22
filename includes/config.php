@@ -52,7 +52,7 @@ define("LEVEL_ADMIN", 9); //Nível de Acesso Para Administradores [Administrador
 define("LEVEL_SUPER", 10); //Nível de Acesso Para Profissional Web [Você]
 
 /* Configurações de Tabelas do Database */
-define("DB_USER", "si_usuarios"); //Definição da Constante Para Tabela USERS
+define("DB_USERS", "si_usuarios"); //Definição da Constante Para Tabela USERS
 define("DB_CLIENTS", "si_clientes"); //Definição da Constante Para Tabela CLIENTS
 define("DB_ORDERS", "si_pedidos"); //Definição da Constante Para Tabela ORDERS
 define("DB_PRODUCT", "si_produtos"); //Definição da Constante Para Tabela PRODUCT

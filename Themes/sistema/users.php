@@ -143,7 +143,7 @@
 
                     <br>
 					<div class="divisor2" style="display: flex; justify-content: center; align-items: center;">
-						<button name="btn_search" id="btn_search" class="btn_edit radius" style="float: left"><i class="fa fa-search"></i> Pesquisar</button>
+						<button name="btn_search" id="btn_user" class="btn_edit radius" style="float: left"><i class="fa fa-search"></i> Pesquisar</button>
 						
 						<a href="#" class="btn_new radius font-text-sub newUser"><i class="fa fa-plus-circle"></i> NOVO</a>
 					</div>
@@ -152,39 +152,8 @@
 					<div class="espaco-min"></div>
 				</form>
 				
-				<table>
-					<tr>
-						<td>
-							<p class="font-text-sub"><b>Usuário:</b></p>
-							<p>José da Silva</p>
-						</td>
-						
-						<td>
-							<p class="font-text-sub"><b>Perfil:</b></p>
-							<p>Administrativo</p>
-						</td>
-						
-						<td>
-							<p class="font-text-sub"><b>E-mail:</b></p>
-							<p>jose@gmail.com</p>
-						</td>
-						
-						<td>
-							<p class="font-text-sub"><b>Status:</b></p>
-							<p class="font-text-sub">
-								<span class="active radius"> ATIVO </span>
-							</p>
-						</td>
-						
-						<td>
-							<p class="text-center">
-								<a href="#" title="Visualizar e editar informações" class="radius btn_edit editUser"><i class="fa fa-pen"></i></a>
-								<a href="#" title="Remover este registro" class="radius btn_delete deleteUser"><i class="fa fa-trash-alt"></i></a>
-							</p>
-						</td>
-					</tr>
-				</table>
-				
+				<table class="row"></table>
+								
 			</div>
 			<div class="espaco-min"></div>
 		</article>
