@@ -208,12 +208,12 @@ $(function(){
         });
     });
     
-	//Abre a modal do remover cliente
-	$(document).on('click', '.deleteClient', function(e){
+	//Abre a modal do remover usuario
+	$(document).on('click', '.deleteUser', function(e){
         e.preventDefault();
 		$('.delete').css('display', 'flex');
-        var value = $('.deleteClient').attr('data-id');
-        $('.removeClient').attr('data-id', value);
+        var value = $('.deleteUser').attr('data-id');
+        $('.removeUser').attr('data-id', value);
 	});
 	
 	//Abre a modal do novo cliente

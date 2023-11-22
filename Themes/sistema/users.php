@@ -67,7 +67,7 @@
 			<form method="post" enctype="multipart/form-data" id="form_newUser">
 				<div class="divisor2">
 					<label for="file">Foto</label>
-					<input type="file" name="file" id="file">
+					<input type="file" name="files" id="files">
 				</div>
 				
 				<div class="divisor2">
@@ -88,8 +88,8 @@
 				<div class="divisor2">
 					<label for="userlevel">Nível de Acesso*</label><br>
 					<select name="userlevel" id="userlevel" required>
-						<option value="1">Usuário Administrativo</option>
-						<option value="2">Usuário Estoquista</option>
+						<option value="1">Operador</option>
+						<option value="2">Estoquista</option>
 						<option value="9">Administrador</option>
 						<option value="10">Super Administrador</option>
 					</select>
@@ -112,7 +112,7 @@
 			<div class="espaco-medium"></div>
 			<h1 class="text-center font-text-min">Você Deseja Remover Este Usuário?</h1>
 			<p class="text-center"><br>
-				<a href="#" title="Remover este usuário" class="btn_edit radius removeUser"><i class="fa fa-check"></i> SIM </a>&nbsp;&nbsp;
+				<a href="#" title="Remover este usuário" class="btn_edit radius removeUser" data-id=""><i class="fa fa-check"></i> SIM </a>&nbsp;&nbsp;
 				<a href="#" title="Fechar a modal" class="btn_delete radius modal-close"><i class="fa fa-times-circle"></i> NÃO</a>
 			</p>
 			

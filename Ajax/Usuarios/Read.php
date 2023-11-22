@@ -34,13 +34,17 @@ foreach($Read as $Show){
         $usuarios_nivel = $Show['usuarios_nivel'];
         switch ($usuarios_nivel) {
             case 10:
-                $Level = 'Administrador';
+                $Level = 'Super Administrador';
                 break;
             case 9:
-                $Level = 'Coordenador';
+                $Level = 'Administrador';
+                break;
+            case 2:
+                $Level = 'Estoquista';
                 break;
             default:
                 $Level = 'Operador';
+                break;
         }
         $message = [
         'status'=> 'success', 
