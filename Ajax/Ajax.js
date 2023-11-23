@@ -361,8 +361,8 @@ $(document).ready(function(){
     $("#form_editUser").on('submit', function (e) {
         e.preventDefault();
     
-        var form = $("#form_editclient");
-        var url = page+"Ajax/Clientes/Update.php";
+        var form = $("#form_editUser");
+        var url = page+"Ajax/Usuarios/Update.php";
         
         form.ajaxSubmit({
             url: url,

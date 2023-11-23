@@ -23,17 +23,17 @@
 				
 				<div class="divisor2">
 					<label for="username">Nome Completo*</label>
-					<input type="text" name="username" id="username" required>
+					<input type="text" name="username" id="username">
 				</div>
 				
 				<div class="divisor2">
 					<label for="useremail">E-mail*</label>
-					<input type="email" name="useremail" id="useremail" required>
+					<input type="email" name="useremail" id="useremail">
 				</div>
 				
 				<div class="divisor2">
 					<label for="userlevel">Nível de Acesso*</label><br>
-					<select name="userlevel" id="userlevel" required>
+					<select name="userlevel" id="userlevel">
 						<option value="1">Operador</option>
 						<option value="2">Estoquista</option>
 						<option value="9">Administrador</option>
@@ -42,7 +42,7 @@
 				</div>
 				
 				<div class="divisor2">
-					<br><button name="btn_user" id="btn_user" class="btn_edit radius"><i class="fa fa-pen"></i> Atualizar Dados</button>
+					<br><button name="btn_editUser" id="btn_editUser" class="btn_edit radius"><i class="fa fa-pen"></i> Atualizar Dados</button>
 				</div>
 				
 			</form>
