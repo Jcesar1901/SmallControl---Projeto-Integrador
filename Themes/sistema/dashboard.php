@@ -60,7 +60,7 @@
 				</div>
 
 				<?php
-					$Read = $pdo->prepare("SELECT usuarios_id, usuarios_status FROM ".DB_USER." WHERE usuarios_status = :usuarios_status");
+					$Read = $pdo->prepare("SELECT usuarios_id, usuarios_status FROM ".DB_USERS." WHERE usuarios_status = :usuarios_status");
 					$Read->bindValue(':usuarios_status', 1);
 					$Read->execute();
 					

@@ -18,13 +18,13 @@ foreach($Read as $Show){
 $Img = strip_tags($Show ['usuarios_imagem']);
 
 if($Img != '' && file_exists('../../Images/Users/' . $Img)){
-    unlink('../../Images/Clients/' . $Img);
+    unlink('../../Images/Users/' . $Img);
 }
 $Delete = $pdo->prepare("DELETE FROM ".DB_USERS." WHERE usuarios_id = :usuarios_id");
 $Delete->bindValue(':usuarios_id', $Search);
 $Delete->execute();
 
-$message = ['status'=> 'success', 'message' => 'Cliente Deletado!' ,'redirect' => 'clients'];
+$message = ['status'=> 'success', 'message' => 'Usuário Deletado!' ,'redirect' => 'users'];
 
 echo json_encode($message);
 return;

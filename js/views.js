@@ -151,9 +151,9 @@ $(function(){
                     $('.cnpj').css('display', 'block');
                 }
             }
-        });
+        }); 
     });
-	
+
 	//Abre a modal do remover usuário
 	$(".deleteUser").click(function(){
 		$('.delete').css('display', 'flex');
@@ -215,7 +215,14 @@ $(function(){
         var value = $('.deleteUser').attr('data-id');
         $('.removeUser').attr('data-id', value);
 	});
-	
+    //Abre a modal do remover cliente
+    $(document).on('click', '.deleteClient', function(e){
+        e.preventDefault();
+
+        $('.delete').css('display', 'flex');
+        var value = $('.deleteClient').attr('data-id');
+        $('.removeClient').attr('data-id', value);
+    });
 	//Abre a modal do novo cliente
 	$(".newClient").click(function(){
 		$('.new').css('display', 'flex');

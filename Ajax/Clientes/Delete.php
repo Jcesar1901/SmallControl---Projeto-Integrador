@@ -15,7 +15,7 @@ $Lines = $Read->rowCount();
 foreach($Read as $Show){
 
 }
-$Img = strip_tags($Show ['cliente_imagem']);
+$Img = strip_tags($Show['cliente_imagem']);
 
 if($Img != '' && file_exists('../../Images/Clients/' . $Img)){
     unlink('../../Images/Clients/' . $Img);

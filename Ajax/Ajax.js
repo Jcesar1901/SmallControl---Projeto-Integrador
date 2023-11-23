@@ -313,7 +313,7 @@ $(document).ready(function(){
         return false;
     });
     // Remover Usuario
-    $(document).on('click', ".removeClient", function(e){
+    $(document).on('click', ".removeUser", function(e){
         e.preventDefault();
 
         var value = $(this).attr('data-id');
