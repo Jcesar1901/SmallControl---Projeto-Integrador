@@ -109,9 +109,8 @@ $(function(){
 		}
 		
 	});
-	
-	//Abre a modal do editar usuário
-	$(document).on('click', '.editClient', function(e){
+    //Abre a modal do editar cliente
+    $(document).on('click', '.editClient', function(e){
         e.preventDefault();
         var value = $(this).attr('data-id');
         $('.modal').css('display', 'flex');
@@ -119,7 +118,7 @@ $(function(){
     
         // Trazer os dados para o formulário de modal de edição de dados
     
-        var url = page + "Ajax/Clientes/Search.php?val=" + value;
+        var url = page + "Ajax/Usuarios/Search.php?val=" + value;
     
         $.ajax({
             url: url,
@@ -136,8 +135,7 @@ $(function(){
                 $('#number').val(data['number']);
                 $('#neighborhood').val(data['neighborhood']); 
                 $('#city').val(data['city']); 
-                $('#state').val(data['state']); 
-                console.log(data['document']);
+                $('#state').val(data['state']);
                 // Trabalhar com o doc
                 if(data['doc'] == 1){
                     $("#cpf").val(data['document']);
@@ -150,6 +148,46 @@ $(function(){
                     $('.cpf').css('display', 'none');
                     $('.cnpj').css('display', 'block');
                 }
+            }
+        }); 
+    });
+	//Abre a modal do editar Usuario
+	$(document).on('click', '.editUser', function(e){
+        e.preventDefault();
+        var value = $(this).attr('data-id');
+        $('.modal').css('display', 'flex');
+        $('#user_id').val(value);
+    
+        // Trazer os dados para o formulário de modal de edição de dados
+    
+        var url = page + "Ajax/Usuarios/Search.php?val=" + value;
+    
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: value,
+            dataType: 'JSON',
+
+            success: function (data, textStatus, jqXHR) {
+                // Alimenta o formulário na modal "editar clientes"
+                $('#username').val(data['user']);
+                $('#useremail').val(data['email']);
+                // Trabalhar com o level
+                $usuarios_level = parseInt(data.level, 10);
+                switch($usuarios_level){
+                    case 10:
+                    $("#userlevel").html('<option	value="1">Operador</option><option value="2">Estoquista</option><option	value="9">Administrador</option><option value="10" selected>Super Administrador</option>');
+                    break;
+                    case 9:
+                    $("#userlevel").html('<option   value="1">Operador</option><option value="2">Estoquista</option><option	value="9" selected>Administrador</option><option value="10">Super Administrador</option>');
+                    break;
+                    case 2:
+                    $("#userlevel").html('<option	value="1">Operador</option><option value="2" selected>Estoquista</option><option	value="9">Administrador</option><option value="10">Super Administrador</option>');
+                    break;
+                    default:
+                    $("#userlevel").html('<option	value="1" selected>Operador</option><option value="2">Estoquista</option><option	value="9">Administrador</option><option value="10">Super Administrador</option>');
+                    break;
+                }
             }
         }); 
     });

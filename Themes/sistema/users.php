@@ -14,6 +14,8 @@
 			<h1 class="text-center font-text-min">Editar Dados do Usuário</h1>
 			
 			<form method="post" enctype="multipart/form-data" id="form_editUser">
+				<input type="hidden" name="user_id" id="user_id" value="">
+
 				<div class="divisor2">
 					<label for="file">Foto</label>
 					<input type="file" name="file" id="file">
@@ -30,15 +32,10 @@
 				</div>
 				
 				<div class="divisor2">
-					<label for="userpass">Senha*</label>
-					<input type="password" name="userpass" id="userpass" required>
-				</div>
-				
-				<div class="divisor2">
 					<label for="userlevel">Nível de Acesso*</label><br>
 					<select name="userlevel" id="userlevel" required>
-						<option value="1">Usuário Administrativo</option>
-						<option value="2">Usuário Estoquista</option>
+						<option value="1">Operador</option>
+						<option value="2">Estoquista</option>
 						<option value="9">Administrador</option>
 						<option value="10">Super Administrador</option>
 					</select>
