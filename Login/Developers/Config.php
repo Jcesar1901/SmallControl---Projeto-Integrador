@@ -37,7 +37,7 @@ define("MAIL_SECURE", "SSL"); //Definição Configuração de Segurança [TLS/SS
 define('BLOCKED', 1); //Bloqueio o Usuário Após 6 Tentativas de Senha Errado
 define('TIMESBLOCKED', 6); //Quantas Tentativas Usuário Pode Fazer Antes de Bloquear
 define('REMEMBER', 1); //Lembrar Senha
-define('TITLE_LOGIN', 'Login Auth 2.0'); //Nome da Aplicação
+define('TITLE_LOGIN', 'Smallcontrol'); //Nome da Aplicação
 define('LOGINACTIVE', 1); //Login Ativo - Módulo Possibilita Acesso Direto, Se Houver Cookies. Para Funcionar Precisa do Remember Ativo.
 define('LOGCREATE', 1); //Cria Log com .txt de Login (NOT APPLICATED)
 define('LOGINHISTORY', 1); //Cria Histórico de Login - Salve no Banco de Dados. (NOT APPLICATED)

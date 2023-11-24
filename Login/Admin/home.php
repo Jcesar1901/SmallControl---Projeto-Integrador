@@ -1,5 +1,6 @@
 <?php
-
+    ob_start();
+    require '../Developers/Config.php';
 ?>
 <!doctype html>
 <html lang="pt-br">
