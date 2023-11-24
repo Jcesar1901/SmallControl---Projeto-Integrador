@@ -21,6 +21,14 @@ if(empty($Search['useremail'])){
     echo json_encode($message);
     return; 
 }
+
+//Checa se o e-mail é válido  do usuário
+if(!filter_var($Search['useremail'], FILTER_VALIDATE_EMAIL)){      
+    $message = ['status'=> 'info', 'message'=> 'Favor, digite um e-mail válido', 'redirect' => '', 'lines' => 0];     
+    echo json_encode($message);     
+    return; 
+}
+ 
 // Checar o campo "Level"
 if(empty($Search[userlevel])){
     $message = ['status'=> 'info', 'message'=> 'Escolha uma opção de nivel de acesso !', 'Redirect'=> '', 'lines' => 0];
@@ -48,10 +56,13 @@ if($Lines == 0){
 // Excluir imagem anterior
 if($_FILES['file']['name'] == ''){
     $CreateFileName = '';
+    if($Img != ''){
+        unlink('../../Images/Users/' . $Img);
+    }
 }else{
 
     if($Img != '' && file_exists('../../Images/Users/' . $Img)){
-        unlink('../../Images/Clients/' . $Img);
+        unlink('../../Images/Users/' . $Img);
     }
     //Captura o nome do arquivo
     $FileName = strip_tags(mb_strtolower($_FILES['file']['name']));

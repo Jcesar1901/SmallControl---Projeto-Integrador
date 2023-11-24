@@ -164,7 +164,7 @@ $(function(){
     
         $.ajax({
             url: url,
-            type: 'POST',
+            type: 'POST',   
             data: value,
             dataType: 'JSON',
 

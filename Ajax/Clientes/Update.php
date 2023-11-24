@@ -21,6 +21,14 @@ if(empty($Search['email'])){
     echo json_encode($message);
     return; 
 }
+
+//Checa se o e-mail é válido  do cliente
+if(!filter_var($Search['email'], FILTER_VALIDATE_EMAIL)){      
+    $message = ['status'=> 'info', 'message'=> 'Favor, digite um e-mail válido', 'redirect' => '', 'lines' => 0];     
+    echo json_encode($message);     
+    return; 
+}
+ 
 // Checar o campo "CPF"
 if(empty($Search['cpf']) && $Search['doc'] == 1){
     $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o campo CPF !', 'Redirect'=> '', 'lines' => 0];
@@ -62,6 +70,10 @@ if($Lines == 0){
 // Excluir imagem anterior
 if($_FILES['file']['name'] == ''){
     $CreateFileName = '';
+
+    if($Img != ''){
+        unlink('../../Images/Clients/' . $Img);
+    }
 }else{
 
     if($Img != '' && file_exists('../../Images/Clients/' . $Img)){

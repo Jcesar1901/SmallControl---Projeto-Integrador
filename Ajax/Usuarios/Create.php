@@ -20,6 +20,12 @@ if(empty($Search['useremail'])){
     echo json_encode($message);
     return; 
 }
+//Checa se o e-mail é válido  do usuário
+if(!filter_var($Search['useremail'], FILTER_VALIDATE_EMAIL)){      
+    $message = ['status'=> 'info', 'message'=> 'Favor, digite um e-mail válido', 'redirect' => '', 'lines' => 0];     
+    echo json_encode($message);     
+    return; 
+}
 // Checar o campo "senha"
 if(empty($Search['userpass'])){
     $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o campo senha !', 'Redirect'=> '', 'lines' => 0];
