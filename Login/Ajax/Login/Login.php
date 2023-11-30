@@ -5,18 +5,22 @@
     
     $message = null;
     
-    $counter = 0;
-    
+    $counter = ($_SESSION['counter'] == '' ? 0 : $_SESSION['counter']);
+    //$counter = 0;
+    //unset($_SESSION['blocked']);    
+    //var_dump($PostFilters);
     //Responsavel por calulcar o numero de tentativas de login
-    if($counter == TIMESBLOCKED){
-        $_SESSION['counter'] = $counter + 1;
+    if($counter == TIMESBLOCKED && $_SESSION['blocked'] == 0) {
+        $_SESSION['counter'] = TIMESBLOCKED + 1;
         $message = ['status' => 'warning', 'message'=>'Você só possui mais uma tentativa', 'redirect'=>''];
         echo json_encode($message);
         return;
+    }else{
+        $_SESSION['counter'] = $counter + 1;
     }
 
     //Bloqueio de acesso
-    if ((defined('BLOCKED') && BLOCKED == 1 && $counter == TIMESBLOCKED) || (isset($_SESSION['blocked']) && $_SESSION['blocked'] == 1)) {
+    if ((defined('BLOCKED') && BLOCKED == 1 && $counter > TIMESBLOCKED) || (isset($_SESSION['blocked']) && $_SESSION['blocked'] == 1)) {
         unset($_SESSION['user_name']);
         unset($_SESSION['user_level']);
         unset($_SESSION['user_email']);
@@ -45,7 +49,7 @@
     $Read->execute();
 
     $Lines = $Read->rowCount();
-
+    
     if($Lines == 0 ){
         $_SESSION['counter'] = $counter + 1;
         
@@ -77,6 +81,7 @@
             setcookie("LE", $Email, $time + 3600, '/');
             setcookie("LP", $pass, $time + 3600, '/');
         }
+
         // Cria as sessões de acesso
         $_SESSION['user_id'] = $Show['user_id'];
         $_SESSION['user_name'] = $Show['user_firstname']. ' ' . $Show['user_lastname'];
@@ -88,6 +93,10 @@
         unset($_SESSION['counter']);
         
         $message = ['status' => 'success', 'message'=>'Login realizado com sucesso!', 'redirect'=>'Admin/home.php'];
+        echo json_encode($message);
+        return;
+    } else{
+        $message = ['status' => 'info', 'message'=>'Email ou senha incorretos!', 'redirect'=>''];
         echo json_encode($message);
         return;
     }
