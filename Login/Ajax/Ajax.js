@@ -64,26 +64,22 @@ $(document).ready(function() {
 				switch (data['status']) {
 					case 'success':
 						$(".result").text('');
-						$(".result").prepend('<div class="status-top-right text-center" id="status-container"><div class="status status-' + data['status'] + '"><div class="status-message"><span class="fa fa-check-circle"></span>' + data['message'] + '</span></div></div></div>');
-						$("#form_login")[0].reset(); 
+						$(".result").prepend('<div class="status-top-right text-center" id="status-container"><div class="status status-' + data['status'] + '"><div class="status-message"><span class="fa fa-check-circle"></span>' + data['message'] + '</span></div></div></div>');	
 						break;
 				
 					case 'info':
 						$(".result").text('');
-						$(".result").prepend('<div class="status-top-right text-center" id="status-container"><div class="status status-' + data['status'] + '"><div class="status-message"><span class="fa fa-info-circle"></span>' + data['message'] + '</span></div></div></div>');
-						$("#form_login")[0].reset(); 
+						$(".result").prepend('<div class="status-top-right text-center" id="status-container"><div class="status status-' + data['status'] + '"><div class="status-message"><span class="fa fa-info-circle"></span>' + data['message'] + '</span></div></div></div>');	
 						break;
 				
 					case 'warning':
 						$(".result").text('');
-						$(".result").prepend('<div class="status-top-right text-center" id="status-container"><div class="status status-' + data['status'] + '"><div class="status-message"><span class="fa fa-info-circle"></span>' + data['message'] + '</span></div></div></div>');
-						$("#form_login")[0].reset(); 
+						$(".result").prepend('<div class="status-top-right text-center" id="status-container"><div class="status status-' + data['status'] + '"><div class="status-message"><span class="fa fa-info-circle"></span>' + data['message'] + '</span></div></div></div>');	
 						break;
 				
 					default:
 						$(".result").text('');
-						$(".result").prepend('<div class="status-top-right text-center" id="status-container"><div class="status status-' + data['status'] + '"><div class="status-message"><span class="fa fa-times-circle"></span>' + data['message'] + '</span></div></div></div>');
-						$("#form_login")[0].reset(); 
+						$(".result").prepend('<div class="status-top-right text-center" id="status-container"><div class="status status-' + data['status'] + '"><div class="status-message"><span class="fa fa-times-circle"></span>' + data['message'] + '</span></div></div></div>');	
 				}
 				setTimeout(function(){
 					$("#status-container").hide();

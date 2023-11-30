@@ -5,7 +5,7 @@
     
     $message = null;
     
-    $counter = ($_SESSION['counter'] == '' ? 0 : $_SESSION['counter']);
+    $counter = (isset($_SESSION['counter']) ? $_SESSION['counter'] : 0);
     //$counter = 0;
     //unset($_SESSION['blocked']);    
     //var_dump($PostFilters);
