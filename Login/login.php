@@ -7,6 +7,10 @@
         $_SESSION['blocked'] = 1;
         $_SESSION['counter'] = TIMESBLOCKED;
     }
+
+    if(!empty($_COOKIE['LE']) && !empty($_COOKIE['LP'])) {
+        header('location: Active.php');
+    }
 ?>
 
 <!doctype html>
@@ -26,7 +30,7 @@
 
     <div class="result"></div>
 
-    <main <?= ($_COOKIE['LE'] == '' || $_COOKIE['LE'] == null ? '' : 'id="body_register"') ?>>
+    <main <?= (isset($_COOKIE['LE']) && ($_COOKIE['LE'] == '' || $_COOKIE['LE'] == null) ? '' : 'id="body_register"') ?>>
         <article class="container_login">
             <h1 class="log_title">Sistema de acesso ao <?= TITLE_LOGIN ?></h1>
             <form method="post" id="form_login">

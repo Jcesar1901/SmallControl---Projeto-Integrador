@@ -1,8 +1,8 @@
 <?php
     require '../../Developers/Config.php';
-    $Get = filter_input_array(INPUT_GET, 'action', FILTER_SANITIZE_STRIPPED);
-    $GetFilters = array_map('strip_tags', $Get);
-    
+    $Get = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRIPPED);
+    $GetFilters = strip_tags($Get);
+
     $message = null;
 
     if(!$Get || $Get = '' || $Get = null){

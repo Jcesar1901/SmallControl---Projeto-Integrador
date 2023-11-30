@@ -16,7 +16,7 @@
     }
 
     //Bloqueio de acesso
-    if(BLOCKED == 1 %% $counter == TIMESBLOCKED || $_SESSION['blocked'] == 1) {
+    if ((defined('BLOCKED') && BLOCKED == 1 && $counter == TIMESBLOCKED) || (isset($_SESSION['blocked']) && $_SESSION['blocked'] == 1)) {
         unset($_SESSION['user_name']);
         unset($_SESSION['user_level']);
         unset($_SESSION['user_email']);
@@ -32,7 +32,7 @@
     }
     //Verifica se o email é valido
     $Email = $PostFilters['login_email'];
-    if(!$Email || empty($Email) || $Email == null || filter_var($Email, FILTER_VALIDATE_EMAIL)){
+    if(!$Email || empty($Email) || $Email == null || !filter_var($Email, FILTER_VALIDATE_EMAIL)){
 
         $message = ['status' => 'info', 'message'=>'Email invalido !', 'redirect'=>''];
         echo json_encode($message);
@@ -40,7 +40,7 @@
     }
 
     //Consulta para verificar se o email já existe
-    $Read = $pdo->prepare("SELECT user_id, user_email, user_password, user_firstname, user_lastname, user_token FROM users WHERE user_email = :user_email");
+    $Read = $pdo->prepare("SELECT user_id, user_email, user_password, user_firstname, user_lastname, user_level, user_token FROM users WHERE user_email = :user_email");
     $Read->bindValue(':user_email', $Email);
     $Read->execute();
 

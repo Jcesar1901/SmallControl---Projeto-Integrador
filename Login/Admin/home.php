@@ -1,9 +1,9 @@
 <?php
     ob_start();
     require '../Developers/Config.php';
-
+    $_SESSION['blocked'] = 0;
     //Verifica a existencia de login via sessões
-    if(!$_SESSION['user_name'] || !$_SESSION['user_level'] || !$_SESSION['user_email'] || !$_SESSION['user_token'] || !$_SESSION['user_id'] ||!$_SESSION['logged'] && !$_SESSION['user_level'] <= 8 || $_SESSION['blocked'] == 1) {
+    if(!$_SESSION['user_name'] || !$_SESSION['user_level'] || !$_SESSION['user_email'] || !$_SESSION['user_token'] || !$_SESSION['user_id'] ||!$_SESSION['logged'] && !$_SESSION['user_level'] <= 8 ||  $_SESSION['blocked'] == 1) {
         session_destroy();
         unset($_SESSION['user_name']);
         unset($_SESSION['user_level']);
@@ -11,9 +11,9 @@
         unset($_SESSION['user_id']);
         unset($_SESSION['user_token']);
         unset($_SESSION['logged']);
-        header('location: .. /login.php'):
+        header('location: .. /login.php');
     }
-
+    //var_dump($_SESSION['user_name'], $_SESSION['user_level'], $_SESSION['user_email'], $_SESSION['user_token'], $_SESSION['user_id'], $_SESSION['logged'], $_SESSION['user_level'], $_SESSION['blocked']);
 ?>
 <!doctype html>
 <html lang="pt-br">
@@ -31,6 +31,7 @@
 </head>
 
 <body>
+    <div class="result"></div>
 		<main>
             <?php
                 $action = strip_tags(filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRIPPED));
@@ -43,7 +44,7 @@
                     unset($_SESSION['user_id']);
                     unset($_SESSION['user_token']);
                     unset($_SESSION['logged']);
-                    header('location: .. /login.php'):
+                    header('location: ../login.php');
                 }
             ?>
 			<article class="container_login bgcolor-white-dark">
