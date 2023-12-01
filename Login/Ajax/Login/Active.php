@@ -1,77 +1,28 @@
 <?php
-    require 'Developers/Config.php';
+    require '../../Developers/Config.php';
 
     $message = null;
-    
-    $counter = 0;
-    
-    //Responsavel por calulcar o numero de tentativas de login
-    if($counter == TIMESBLOCKED){
-        $_SESSION['counter'] = $counter + 1;
-        unset($_SESSION['user_name']);
-        unset($_SESSION['user_level']);
-        unset($_SESSION['user_email']);
-        unset($_SESSION['user_id']);
-        unset($_SESSION['user_token']);
-        unset($_SESSION['logged']);
-        header('location: login.php');
-    }
 
-    //Bloqueio de acesso
-    if(BLOCKED == 1 && $counter == TIMESBLOCKED || $_SESSION['blocked'] == 1) {
-        unset($_SESSION['user_name']);
-        unset($_SESSION['user_level']);
-        unset($_SESSION['user_email']);
-        unset($_SESSION['user_id']);
-        unset($_SESSION['user_token']);
-        unset($_SESSION['logged']);
-
-        $_SESSION['blocked'] = 1;
-        setcookie("LBlocked", 1, 86400, '/');
-        header('location: login.php');
-    }
     //Verifica se o email é valido
     $Email = $_COOKIE['LE'];
+
     if(!$Email || empty($Email) || $Email == null || filter_var($Email, FILTER_VALIDATE_EMAIL)){
-        unset($_SESSION['user_name']);
-        unset($_SESSION['user_level']);
-        unset($_SESSION['user_email']);
-        unset($_SESSION['user_id']);
-        unset($_SESSION['user_token']);
-        unset($_SESSION['logged']);
-        session_destroy();
-        header('location: login.php');
+        $message = ['status' => 'error', 'message'=>'Seu email é invalido!', 'redirect'=>''];
+        echo json_encode($message);
+        return;
     }
 
     //Consulta para verificar se o email já existe
-    $Read = $pdo->prepare("SELECT user_id, user_email, user_password, user_firstname, user_lastname, user_token FROM users WHERE user_email = :user_email");
+    $Read = $pdo->prepare("SELECT user_id, user_level, user_email, user_password, user_firstname, user_lastname, user_token FROM users WHERE user_email = :user_email");
     $Read->bindValue(':user_email', $Email);
     $Read->execute();
 
     $Lines = $Read->rowCount();
 
     if($Lines == 0 ){
-        $_SESSION['counter'] = $counter + 1;
-        
-        if($counter == TIMESBLOCKED){
-            unset($_SESSION['user_name']);
-            unset($_SESSION['user_level']);
-            unset($_SESSION['user_email']);
-            unset($_SESSION['user_id']);
-            unset($_SESSION['user_token']);
-            unset($_SESSION['logged']);
-            session_destroy();
-            header('location: login.php');
-        }else{
-            unset($_SESSION['user_name']);
-            unset($_SESSION['user_level']);
-            unset($_SESSION['user_email']);
-            unset($_SESSION['user_id']);
-            unset($_SESSION['user_token']);
-            unset($_SESSION['logged']);
-            session_destroy();
-            header('location: login.php');
-        }
+        $message = ['status' => 'info', 'message'=>'Seu email é invalido!', 'redirect'=>''];
+        echo json_encode($message);
+        return;       
     }
 
     //Recuperando os dados
@@ -90,18 +41,13 @@
         $_SESSION['user_level'] = $Show['user_level'];
         $_SESSION['user_token'] = $Show['user_token'];
         $_SESSION['logged'] = 1;
-
+        
         unset($_SESSION['counter']);
-        header('location: Admin/home.php');
+        header('location: ../../Admin/home.php');
 
     }else{
-        unset($_SESSION['user_name']);
-        unset($_SESSION['user_level']);
-        unset($_SESSION['user_email']);
-        unset($_SESSION['user_id']);
-        unset($_SESSION['user_token']);
-        unset($_SESSION['logged']);
-        session_destroy();
-        header('location: login.php');
+        $message = ['status' => 'error', 'message'=>'Ocorreu um erro! Email ou senha incorretos!', 'redirect'=>'Admin/home.php'];
+        echo json_encode($message);
+        return;
     }
 ?>

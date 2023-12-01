@@ -10,14 +10,14 @@
         echo json_encode($message);
         return;
     }else{
-        session_destroy();
         unset($_SESSION['user_name']);
         unset($_SESSION['user_level']);
         unset($_SESSION['user_email']);
         unset($_SESSION['user_id']);
         unset($_SESSION['user_token']);
         unset($_SESSION['logged']);
-    
+        
+        $_SESSION['logout'] = 1;
 
         $message = ['status' => 'success', 'message'=>'Logout realizado com sucesso!', 'redirect'=>'../login.php'];
         echo json_encode($message);

@@ -74,7 +74,7 @@
     if($VerifyPass){
         if(!empty($PostFilters['login_remember'])){
             //Cookie valido por 30 dias
-            $time = 3600*24*30;
+            $time = time() + (3600*24*30);
             $Email = $PostFilters['login_email'];
             $pass = $PostFilters['login_password'];
             

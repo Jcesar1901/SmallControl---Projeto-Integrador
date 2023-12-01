@@ -7,9 +7,11 @@
         $_SESSION['blocked'] = 1;
         $_SESSION['counter'] = TIMESBLOCKED;
     }
-
-    if(!empty($_COOKIE['LE']) && !empty($_COOKIE['LP'])) {
-        header('location: Active.php');
+    //unset($_SESSION['logout']);
+    $_SESSION['logout'] = '';
+    $_SESSION['blocked'] = '';
+    if(!empty($_COOKIE['LE']) && !empty($_COOKIE['LP']) && $_SESSION['logout'] == 0 && $_SESSION['blocked'] == 0) {
+       //header('location: Ajax/Login/Active.php');
     }
 ?>
 

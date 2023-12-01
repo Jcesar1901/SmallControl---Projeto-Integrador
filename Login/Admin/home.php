@@ -13,7 +13,7 @@
         unset($_SESSION['logged']);
         header('location: .. /login.php');
     }
-    //var_dump($_SESSION['user_name'], $_SESSION['user_level'], $_SESSION['user_email'], $_SESSION['user_token'], $_SESSION['user_id'], $_SESSION['logged'], $_SESSION['user_level'], $_SESSION['blocked']);
+    //var_dump($_SESSION['user_name'], $_SESSION['user_level'], $_SESSION['user_email'], $_SESSION['user_token'], $_SESSION['user_id'], $_SESSION['logged'], $_SESSION['blocked']);
 ?>
 <!doctype html>
 <html lang="pt-br">
