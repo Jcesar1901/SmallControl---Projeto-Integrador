@@ -42,7 +42,7 @@
                 <label for="login_password">Senha de Acesso: <a id="showPass"><span class="fa fa-eye"></span></a></label>
                 <input type="password" name="login_password" id="login_password" required value="<?= (isset($_COOKIE['LP']) ? $_COOKIE['LP'] : ''); ?>" placeholder="Digite sua senha">
 
-                <div><input type="checkbox" name="login_remember" id="remember" <?= (isset($_COOKIE['LE']) && !empty($_COOKIE['LE']) ? 'checked' : ''); ?>> Lembrar Senha</div>
+                <!-- <div><input type="checkbox" name="login_remember" id="remember" <?= (isset($_COOKIE['LE']) && !empty($_COOKIE['LE']) ? 'checked' : ''); ?>> Lembrar Senha</div> -->
 
                 <button name="btn_login" id="btn_login"><span class="fa fa-paper-plane"></span> Entrar</button>
                 <a href="recovery.php"><u>Nova Senha!</u></a>
