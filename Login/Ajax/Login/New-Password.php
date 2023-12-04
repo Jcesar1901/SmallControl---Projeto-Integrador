@@ -5,14 +5,12 @@
     
     $message = null;
     
-    $counter = 0;
-    
     //Verifica se o email é valido
     $Email = $PostFilters['login_email'];
     $Password = $PostFilters['login_password'];
     $Retype = $PostFilters['login_retype'];
 
-    if(!$Email || empty($Email) || $Email == null || filter_var($Email, FILTER_VALIDATE_EMAIL)){
+    if(!$Email || empty($Email) || $Email == null){
 
         $message = ['status' => 'info', 'message'=>'Email invalido !', 'redirect'=>''];
         echo json_encode($message);

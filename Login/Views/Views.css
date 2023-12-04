@@ -192,3 +192,6 @@ button.status-close-button{padding:0;cursor:pointer;background:0 0;border:0;-web
 .status-warning{
     background-color: #cc4b0c;
 }
+#voltar-login{
+    padding: 5px;
+}

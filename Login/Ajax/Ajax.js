@@ -110,25 +110,21 @@ $(document).ready(function() {
 					case 'success':
 						$(".result").text('');
 						$(".result").prepend('<div class="status-top-right text-center" id="status-container"><div class="status status-' + data['status'] + '"><div class="status-message"><span class="fa fa-check-circle"></span>' + data['message'] + '</span></div></div></div>');
-						$("#form_login")[0].reset(); 
 						break;
 				
 					case 'info':
 						$(".result").text('');
 						$(".result").prepend('<div class="status-top-right text-center" id="status-container"><div class="status status-' + data['status'] + '"><div class="status-message"><span class="fa fa-info-circle"></span>' + data['message'] + '</span></div></div></div>');
-						$("#form_login")[0].reset(); 
 						break;
 				
 					case 'warning':
 						$(".result").text('');
 						$(".result").prepend('<div class="status-top-right text-center" id="status-container"><div class="status status-' + data['status'] + '"><div class="status-message"><span class="fa fa-info-circle"></span>' + data['message'] + '</span></div></div></div>');
-						$("#form_login")[0].reset(); 
 						break;
 				
 					default:
 						$(".result").text('');
 						$(".result").prepend('<div class="status-top-right text-center" id="status-container"><div class="status status-' + data['status'] + '"><div class="status-message"><span class="fa fa-times-circle"></span>' + data['message'] + '</span></div></div></div>');
-						$("#form_login")[0].reset(); 
 				}
 				setTimeout(function(){
 					$("#status-container").hide();
@@ -158,25 +154,21 @@ $(document).ready(function() {
 					case 'success':
 						$(".result").text('');
 						$(".result").prepend('<div class="status-top-right text-center" id="status-container"><div class="status status-' + data['status'] + '"><div class="status-message"><span class="fa fa-check-circle"></span>' + data['message'] + '</span></div></div></div>');
-						$("#form_login")[0].reset(); 
 						break;
 				
 					case 'info':
 						$(".result").text('');
 						$(".result").prepend('<div class="status-top-right text-center" id="status-container"><div class="status status-' + data['status'] + '"><div class="status-message"><span class="fa fa-info-circle"></span>' + data['message'] + '</span></div></div></div>');
-						$("#form_login")[0].reset(); 
 						break;
 				
 					case 'warning':
 						$(".result").text('');
 						$(".result").prepend('<div class="status-top-right text-center" id="status-container"><div class="status status-' + data['status'] + '"><div class="status-message"><span class="fa fa-info-circle"></span>' + data['message'] + '</span></div></div></div>');
-						$("#form_login")[0].reset(); 
 						break;
 				
 					default:
 						$(".result").text('');
 						$(".result").prepend('<div class="status-top-right text-center" id="status-container"><div class="status status-' + data['status'] + '"><div class="status-message"><span class="fa fa-times-circle"></span>' + data['message'] + '</span></div></div></div>');
-						$("#form_login")[0].reset(); 
 				}
 				setTimeout(function(){
 					$("#status-container").hide();

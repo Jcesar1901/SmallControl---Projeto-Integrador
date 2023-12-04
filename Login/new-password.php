@@ -1,5 +1,8 @@
 <?php
-
+	ob_start();
+	require 'Developers/Config.php';
+	
+	$Get = filter_input(INPUT_GET, 'email', FILTER_SANITIZE_STRIPPED);
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -23,7 +26,7 @@
 				<h1 class="font-text-medium-extra"><span class="fa fa-mug-hot"></span> Cadastro - Nova Senha</h1>
 				<form method="post" id="form_new_password">
 					<label for="login_email">Seu E-mail: <label>
-					<input type="email" name="login_email" id="login_email" required class="radius" readonly value="">
+					<input type="email" name="login_email" id="login_email" required class="radius" readonly value="<?= $Get ?>">
 					
 					<label for="login_password">Sua Nova Senha: <label>
 					<input type="password" name="login_password" id="login_password" required class="radius">

@@ -29,7 +29,7 @@
 					<input type="text" name="login_token" id="login_token" required class="radius">
 					
 					<button name="btn_password" class="btn_new color-white radius" id="btn_password"><span class="fa fa-paper-plane"></span> Recuperar!</button>
-					<a href="login.php" class="color-dark font-text-sub"><u>Voltar Login!</u></a>
+					<a id="voltar-login" href="login.php" class="color-dark font-text-sub"><u>Voltar Login!</u></a>
 				</form>
 			</article>
 		</main>
