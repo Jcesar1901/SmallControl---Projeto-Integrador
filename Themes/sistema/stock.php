@@ -160,38 +160,9 @@
 						<div class="espaco-min"></div>
 					</form>
 					
-					<table>
-						<tr>
-							<td>
-								<p class="font-text-sub"><b>Nº Pedido:</b></p>
-								<p>123542</p>
-							</td>
-							
-							<td>
-								<p class="font-text-sub"><b>Nota Fiscal:</b></p>
-								<p>2.939-302</p>
-							</td>
-							
-							<td>
-								<p class="font-text-sub"><b>Operação:</b></p>
-								<p>Estoque de Entrada</p>
-							</td>
-							
-							<td>
-								<p class="font-text-sub"><b>Status:</b></p>
-								<p class="font-text-sub">
-									<span class="active radius"> LIBERADO </span>
-								</p>
-							</td>
-							
-							<td>
-								<p class="text-center">
-									<a href="#" title="Visualizar e editar informações" class="radius btn_edit editStock"><i class="fa fa-pen"></i></a>
-									<a href="#" title="Remover este registro" class="radius btn_delete deleteStock"><i class="fa fa-trash-alt"></i></a>
-								</p>
-							</td>
-						</tr>
-					</table>
+					<div class="tabless">
+						<table class="row"></table>
+					</div>
 					
 				</div>
 				<div class="espaco-min"></div>

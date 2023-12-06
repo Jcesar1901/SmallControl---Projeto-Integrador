@@ -165,7 +165,9 @@
 					<div class="espaco-min"></div>
 				</form>
 				
-				<table class="row"></table>
+				<div class="tabless">
+					<table class="row"></table>
+				</div>
 								
 			</div>
 			<div class="espaco-min"></div>

@@ -10,16 +10,16 @@
 
 <div class="navigator bgcolor noPrint">
 	<ul class="nav">
-		<li> <a href="dashboard" title="Retornar ao dashboard"><i class="fa fa-home"></i> Dashboard</a> </li>
-		<li> <a href="search" title="Realizar uma pesquisa no sistema"><i class="fa fa-search"></i> Pesquisar</a> </li>
-		<li> <a href="clients" title="Gestão de clientes"><i class="fa fa-users"></i> Clientes</a> </li>
-		<li> <a href="providers" title="Gestão de fornecedores"><i class="fa fa-warehouse"></i> Fornecedores</a> </li>
-		<li> <a href="products" title="Gestão de produtos"><i class="fa fa-box-open"></i> Produtos</a> </li>
-		<li> <a href="stock" title="Gestão de estoque"><i class="fa fa-dolly"></i> Estoque</a> </li>
-		<li> <a href="orders" title="Gestão de pedidos"><i class="fa fa-gift"></i> Pedidos</a> </li>
-		<li> <a href="services" title="Gestão de ordem de serviços"><i class="fa fa-check-circle"></i> Ord. de Serviço</a> </li>
-		<li> <a href="reports" title="Consultar relatórios"><i class="fa fa-print"></i> Relatórios</a> </li>
-		<li> <a href="users" title="Gestão de usuários"><i class="fa fa-user"></i> Usuários</a> </li>
-		<li> <a href="?action=logout" title="Sair do sistema"><i class="fa fa-times-circle"></i> Sair</a> </li>
+		<li> <a href="dashboard" title="Retornar ao dashboard"><i class="fa fa-home"></i> <span>Dashboard</span></a> </li>
+		<li> <a href="search" title="Realizar uma pesquisa no sistema"><i class="fa fa-search"></i> <span>Pesquisar</span></a> </li>
+		<li> <a href="clients" title="Gestão de clientes"><i class="fa fa-users"></i> <span>Clientes</span></a> </li>
+		<li> <a href="providers" title="Gestão de fornecedores"><i class="fa fa-warehouse"></i> <span>Fornecedores</span></a> </li>
+		<li> <a href="products" title="Gestão de produtos"><i class="fa fa-box-open"></i> <span>Produtos</span></a> </li>
+		<li> <a href="stock" title="Gestão de estoque"><i class="fa fa-dolly"></i> <span>Estoque</span></a> </li>
+		<li> <a href="orders" title="Gestão de pedidos"><i class="fa fa-gift"></i> <span>Pedidos</span></a> </li>
+		<li> <a href="services" title="Gestão de ordem de serviços"><i class="fa fa-check-circle"></i> <span>Ord. de Serviço</span></a> </li>
+		<li> <a href="reports" title="Consultar relatórios"><i class="fa fa-print"></i> <span>Relatórios</span></a> </li>
+		<li> <a href="users" title="Gestão de usuários"><i class="fa fa-user"></i> <span>Usuários</span></a> </li>
+		<li> <a href="?action=logout" title="Sair do sistema"><i class="fa fa-times-circle"></i> <span>Sair</span></a> </li>
 	</ul>
 </div>

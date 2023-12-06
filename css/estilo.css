@@ -80,29 +80,53 @@ footer section{width: 80%; height: auto; padding: 2% 10%;}
 /*Medias Queries - Design Responsivo*/
 @media(max-width: 1700px){
 	.nav_menu ul{margin-top: 18px;}
+	.tableless td{min-width: 120px !important;}
+	.content_left .navigator li{font-size: 0.8em !important;}
+}
+
+@media(max-width: 1500px){
+	.content_left .navigator li{font-size: 0.7em !important;}
 }
 
 @media(max-width: 1100px){
 	.nav_menu ul{margin-top: 18px;}
-}
+	.content_left .navigator li{font-size: 1em !important; text-align: center !important;}
+	.content_left .navigator span{display: none !important;}
 
-@media(max-width: 950px){
 	.content_right article img{width: 35%; height: auto; margin: 0% 32%}
 	.content_right .extends{height: 500px;}
+	.content_right .btn_new i,
+	.content_right .btn_new span,{display: none;}
+
+	.content_right .btn_new{padding: 8px 16px !important; margin-right: 5px !important;}
+
+	.content_right #btn_search{display: none !important;}
+	form label{
+		margin-left: 1% !important;
+	}
+	.modal_container select{width: 80% !important; margin-left: 10% !important; margin-right: 10% !important;} 
+	.divisor3 .btn_edit span,{display: none;}
+	.content_left .profile .profile-img img{width: 40px; height: 40px; margin: 10px 0;	
 }
 
 @media(max-width: 860px){
-.content_right article h1{font-size: 1em;}
-.nav_menu li a{margin: 0% 0%; padding:0.8% 1.2%; font-size: 1em;}
+	.content_right article h1{font-size: 1em;}
+	.nav_menu li a{margin: 0% 0%; padding:0.8% 1.2%; font-size: 1em;}
+	.tableless{width: 100%; overflow: auto;}
+	.modal_container label{padding: 1% 2% !important; margin: 1% 1% !important;}
+	.modal_container select{width: 94% !important; margin-left: 3% !important; margin-right: 3% !important;}
+	footer{text-align: center !important; font-size: 0.7em !important; font-weight: normal !important; margin-left: 0 !important; margin-right: 0 !important;}
 }
 
 @media(max-width: 780px){
 	.nav_logo img{width: 45%; height: auto;  margin:0% 25%;}
-	main .content_right{clear:both; width: 100%; margin:0%;}
 	.content_right article h1{font-size: 1.2em;}
-	.content_right input[type=text]{width:70%; padding: 3% 5%; margin: 1% 10%;}
+	.content_right input[type=text]{width:80%; padding: 3% 5%; margin: 1% 10%;}
 	.content_right button{width: 80%; padding: 3% 0%; margin: 1% 10%;}
 	.nav_menu ul{margin-top: 18px;}
+	form label{
+		margin-left: 8% !important;
+	}
 }
 
 @media(max-width: 710px){
@@ -118,14 +142,13 @@ footer section{width: 80%; height: auto; padding: 2% 10%;}
 	.content_right article h3{font-size: 0.9em;}
 	.content_right article img{width: 40%; height: auto; margin: 0% 30%}
 	.content_right .extends{height: 450px;}
+	form select{width: 80% !important; padding: 3% 5%; margin: 1% 10% !important;}
 }
 
 @media(max-width: 500px){
 	.content_right article h3{font-size: 0.8em;}
 	.content_right article p{font-size: 0.8em;}
 	.content_right article h1{font-size: 0.9em;}
-	footer section h3{font-size: 1em !important;}
-	footer section p{font-size: 0.8em !important;}
 	.content_right article img{width: 45%; height: 50%; margin: 0% 27.5%}
 }
 
