@@ -1,5 +1,6 @@
 <?php
-    require '../../Developers/Config.php';
+    session_start();
+	include_once '../../includes/config.php';
     $Post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRIPPED);
     $PostFilters = array_map('strip_tags', $Post);
     
@@ -21,7 +22,7 @@
 
     //Bloqueio de acesso
     if ((defined('BLOCKED') && BLOCKED == 1 && $counter > TIMESBLOCKED) || (isset($_SESSION['blocked']) && $_SESSION['blocked'] == 1)) {
-        unset($_SESSION['user_name']);
+        unset($_SESSION['user_firstname']);
         unset($_SESSION['user_level']);
         unset($_SESSION['user_email']);
         unset($_SESSION['user_id']);
@@ -44,7 +45,7 @@
     }
 
     //Consulta para verificar se o email já existe
-    $Read = $pdo->prepare("SELECT user_id, user_email, user_password, user_firstname, user_lastname, user_level, user_token FROM users WHERE user_email = :user_email");
+    $Read = $pdo->prepare("SELECT user_id, user_email, user_password, user_firstname, user_level, user_token FROM ".DB_LOGIN."  WHERE user_email = :user_email");
     $Read->bindValue(':user_email', $Email);
     $Read->execute();
 
@@ -63,10 +64,10 @@
             return;
         }
     }
-
+    
     //Recuperando os dados
     foreach($Read as $Show){}
-
+    
     //Verificar e checar a senha
     $VerifyPass = password_verify($PostFilters['login_password'], $Show['user_password']);
 
@@ -81,18 +82,18 @@
             setcookie("LE", $Email, $time + 3600, '/');
             setcookie("LP", $pass, $time + 3600, '/');
         }
-
+        
         // Cria as sessões de acesso
         $_SESSION['user_id'] = $Show['user_id'];
-        $_SESSION['user_name'] = $Show['user_firstname']. ' ' . $Show['user_lastname'];
+        $_SESSION['user_firstname'] = $Show['user_firstname'];
         $_SESSION['user_email'] = $Show['user_email'];
         $_SESSION['user_level'] = $Show['user_level'];
         $_SESSION['user_token'] = $Show['user_token'];
         $_SESSION['logged'] = 1;
-
+        //var_dump($_SESSION['logged']);
         unset($_SESSION['counter']);
         
-        $message = ['status' => 'success', 'message'=>'Login realizado com sucesso!', 'redirect'=>'Admin/home.php'];
+        $message = ['status' => 'success', 'message'=>'Login realizado com sucesso!', 'redirect'=>'../dashboard'];
         echo json_encode($message);
         return;
     } else{

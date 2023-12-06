@@ -1,22 +1,76 @@
-<?php 
+<?php
+
+    ob_start();
 	include_once 'includes/config.php';
-	$pages = 'login';
+
+    //Verifica se o cookie de bloqueio existe.
+    if(!empty($_COOKIE['Lblocked'])){
+        $_SESSION['blocked'] = 1;
+        $_SESSION['counter'] = TIMESBLOCKED;
+    }
+    //unset($_SESSION['logout']);
+    $_SESSION['logout'] = '';
+    $_SESSION['blocked'] = '';
+    if(!empty($_COOKIE['LE']) && !empty($_COOKIE['LP']) && $_SESSION['logout'] == 0 && $_SESSION['blocked'] == 0) {
+       //header('location: Ajax/Login/Active.php');
+    }
 ?>
 
-<section class="login">
-	<div class="bgcolor-white login_div">
+<!doctype html>
+<html lang="pt-br">
+	<head>
+		<meta charset="utf-8">
+		<title>Login Smallcontrol</title>
+        <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
+        <meta name="robots" content="noindex, nofollow"/>
+        <link href="../Views/Views.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@300;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+
+	</head>
 	
-		<form method="post" id="form_login">
-			<h1 class="font-text-medium text-center color-dark">Sistema de Login de Acesso:</h1><br>
-			<label for="email" class="font-text-min text-left color-dark ">Digite o Seu E-mail:</label><br>
-			<input type="email" name="email" id="email" required class="font-text-min text-left color-dark bgcolor-white-dark "><br><br>
-			
-			<label for="password" class="font-text-min text-left color-dark ">Digite a sua Senha:</label><br>
-			<input type="password" name="password" id="password" required class="font-text-light-min text-left color-dark bgcolor-white-dark "><br><br>
-			
-			<button name="btn-login" id="btn-login" class="btn_edit radius"> Logar</button>
-			<p class="text-center font-text-sub text-margin"><br><a href="mail-pass" class="color-dark font-weight-max">Esqueceu a Senha?</a></p>
-		</form>
-	
-	</div>
-<section>
+	<body>
+
+    <div class="result"></div>
+
+    <main <?= (isset($_COOKIE['LE']) && ($_COOKIE['LE'] == '' || $_COOKIE['LE'] == null) ? '' : 'id="body_register"') ?>>
+    <?php
+		$action = strip_tags(filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRIPPED));
+
+		if($action == 'logout'){
+			session_destroy();
+			unset($_SESSION['user_name']);
+			unset($_SESSION['user_level']);
+			unset($_SESSION['user_email']);
+			unset($_SESSION['user_id']);
+			unset($_SESSION['user_token']);
+			unset($_SESSION['logged']);
+			header('location: ../login.php');
+		}
+	?>
+        <article class="container_login">
+            <h1 class="log_title">Sistema de acesso ao <?= TITLE_LOGIN ?></h1>
+            <form method="post" id="form_login">
+                <label for="login_email">E-mail de Acesso: </label>
+                <input type="email" name="login_email" id="login_email" required value="<?= (isset($_COOKIE['LE']) ? $_COOKIE['LE'] : ''); ?>" placeholder="Digite seu email">
+
+                <label for="login_password">Senha de Acesso: <a id="showPass"><span class="fa fa-eye"></span></a></label>
+                <input type="password" name="login_password" id="login_password" required value="<?= (isset($_COOKIE['LP']) ? $_COOKIE['LP'] : ''); ?>" placeholder="Digite sua senha">
+
+                <!-- <div><input type="checkbox" name="login_remember" id="remember" <?= (isset($_COOKIE['LE']) && !empty($_COOKIE['LE']) ? 'checked' : ''); ?>> Lembrar Senha</div> -->
+
+                <button name="btn_login" id="btn_login"><span class="fa fa-paper-plane"></span> Entrar</button>
+                <a href="../recovery"><u>Nova Senha!</u></a>
+				
+				<p class="demo">Exemplo: Email: admin@admin.com - Password: admin</p>
+            </form>
+        </article>
+    </main>
+    <script src="../../Views/jquery.js"></script>
+    <script src="../../Views/Views.js"></script>
+    <script src="../../Ajax/Ajax.js"></script>
+	</body>
+</html>
+<?php
+    ob_end_flush();
+?>

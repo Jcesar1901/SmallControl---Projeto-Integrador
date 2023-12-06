@@ -1,6 +1,21 @@
-<?php 
+<?php
+    ob_start();
+	session_start();
 	include_once 'includes/config.php';
 	$pages = 'dashboard';
+  	$_SESSION['blocked'] = 0;
+    //Verifica a existencia de login via sessões
+    if(!$_SESSION['user_firstname'] || !$_SESSION['user_level'] || !$_SESSION['user_email'] || !$_SESSION['user_token'] || !$_SESSION['user_id'] ||!$_SESSION['logged'] && $_SESSION['user_level'] <= 8 ||  $_SESSION['blocked'] == 1) {
+        session_destroy();
+        unset($_SESSION['user_firstname']);
+        unset($_SESSION['user_level']);
+        unset($_SESSION['user_email']);
+        unset($_SESSION['user_id']);
+        unset($_SESSION['user_token']);
+        unset($_SESSION['logged']);
+        header('location:../login.php');
+    }
+	//var_dump($_SESSION['user_firstname'], $_SESSION['user_level'], $_SESSION['user_email'], $_SESSION['user_token'], $_SESSION['user_id'], $_SESSION['logged'], $_SESSION['blocked']); 
 ?>
 		<section class="content_left">
 			<!-- Chama o menu da página-->

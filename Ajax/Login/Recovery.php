@@ -1,5 +1,6 @@
 <?php
-    require '../../Developers/Config.php';
+    session_start();
+    include_once '../../includes/config.php';
     $Post = filter_input_array(INPUT_POST,  FILTER_SANITIZE_STRIPPED);
     $PostFilters = array_map('strip_tags', $Post);
     

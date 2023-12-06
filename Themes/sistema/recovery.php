@@ -34,8 +34,8 @@
 			</article>
 		</main>
 		
-		<script src="Views/jquery.js"></script>
-		<script src="Views/Views.js"></script>
-		<script src="Ajax/Ajax.js"></script>
+		<script src="../../Views/jquery.js"></script>
+		<script src="../../Views/Views.js"></script>
+		<script src="../../Ajax/Ajax.js"></script>
 	</body>
 </html>

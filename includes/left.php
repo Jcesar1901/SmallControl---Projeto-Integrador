@@ -20,6 +20,6 @@
 		<li> <a href="services" title="Gestão de ordem de serviços"><i class="fa fa-check-circle"></i> Ord. de Serviço</a> </li>
 		<li> <a href="reports" title="Consultar relatórios"><i class="fa fa-print"></i> Relatórios</a> </li>
 		<li> <a href="users" title="Gestão de usuários"><i class="fa fa-user"></i> Usuários</a> </li>
-		<li> <a href="logout" title="Sair do sistema"><i class="fa fa-times-circle"></i> Sair</a> </li>
+		<li> <a href="?action=logout" title="Sair do sistema"><i class="fa fa-times-circle"></i> Sair</a> </li>
 	</ul>
 </div>

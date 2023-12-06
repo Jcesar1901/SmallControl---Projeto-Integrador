@@ -1,4 +1,20 @@
 <?php 
+    ob_start();
+	session_start();
+	include_once 'includes/config.php';
+	$pages = 'providers';
+  	$_SESSION['blocked'] = 0;
+    //Verifica a existencia de login via sessões
+    if(!$_SESSION['user_firstname'] || !$_SESSION['user_level'] || !$_SESSION['user_email'] || !$_SESSION['user_token'] || !$_SESSION['user_id'] ||!$_SESSION['logged'] && $_SESSION['user_level'] <= 8 ||  $_SESSION['blocked'] == 1) {
+        session_destroy();
+        unset($_SESSION['user_firstname']);
+        unset($_SESSION['user_level']);
+        unset($_SESSION['user_email']);
+        unset($_SESSION['user_id']);
+        unset($_SESSION['user_token']);
+        unset($_SESSION['logged']);
+        header('location:../login.php');
+    }
 	include_once 'includes/config.php';
 	$pages = 'providers';
 ?>
@@ -185,7 +201,7 @@
 			<article class="bgcolor-white">
 				
 				<div class="searching">
-					<form method="post" id="form_search">
+					<form method="post" id="form_search_providers">
 						<div class="espaco-min"></div>
 						<h2 class="text-margin text-center">Digite o termo abaixo e selecione uma opção para sua consulta.</h2>
 						<div class="divisor2">
@@ -195,7 +211,7 @@
 
                         <br>
 						<div class="divisor2" style="display: flex; justify-content: center; align-items: center;">
-							<button name="btn_search" id="btn_search" class="btn_edit radius" style="float: left"><i class="fa fa-search"></i> Pesquisar</button>
+							<button name="btn_search_providers" id="btn_search_providers" class="btn_edit radius" style="float: left"><i class="fa fa-search"></i> Pesquisar</button>
 							
 							<a href="#" class="btn_new radius font-text-sub newProvider"><i class="fa fa-plus-circle"></i> NOVO</a>
 						</div>
@@ -204,38 +220,7 @@
 						<div class="espaco-min"></div>
 					</form>
 					
-					<table>
-						<tr>
-							<td>
-								<p class="font-text-sub"><b>Fornecedor:</b></p>
-								<p>Empresa 1</p>
-							</td>
-							
-							<td>
-								<p class="font-text-sub"><b>Cadastrado:</b></p>
-								<p>11/02/2022</p>
-							</td>
-							
-							<td>
-								<p class="font-text-sub"><b>E-mail:</b></p>
-								<p>empresa@empresa.com.br</p>
-							</td>
-							
-							<td>
-								<p class="font-text-sub"><b>Status:</b></p>
-								<p class="font-text-sub">
-									<span class="active radius"> ATIVO </span>
-								</p>
-							</td>
-							
-							<td>
-								<p class="text-center">
-									<a href="#" title="Visualizar e editar informações" class="radius btn_edit editProvider"><i class="fa fa-pen"></i></a>
-									<a href="#" title="Remover este registro" class="radius btn_delete deleteProvider"><i class="fa fa-trash-alt"></i></a>
-								</p>
-							</td>
-						</tr>
-					</table>
+					<table class="row"></table>
 					
 				</div>
 				<div class="espaco-min"></div>
