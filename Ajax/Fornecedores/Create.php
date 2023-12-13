@@ -8,57 +8,81 @@ $message = '';
 $Searching = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRIPPED);
 $Search = array_map('strip_tags', $Searching);
 
-// Checar o campo "Usuario"
-if(empty($Search['username'])){
-    $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o nome do Usuario !', 'Redirect'=> '', 'lines' => 0];
+// Checar o campo "Fornecedor"
+if(empty($Search['company'])){
+    $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o nome do Fornecedor !', 'Redirect'=> '', 'lines' => 0];
     echo json_encode($message);
     return; 
 }
 // Checar o campo "Email"
-if(empty($Search['useremail'])){
+if(empty($Search['email'])){
     $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o campo E-mail !', 'Redirect'=> '', 'lines' => 0];
     echo json_encode($message);
     return; 
 }
-//Checa se o e-mail é válido  do usuário
-if(!filter_var($Search['useremail'], FILTER_VALIDATE_EMAIL)){      
-    $message = ['status'=> 'info', 'message'=> 'Favor, digite um e-mail válido', 'redirect' => '', 'lines' => 0];     
-    echo json_encode($message);     
-    return; 
-}
-// Checar o campo "senha"
-if(empty($Search['userpass'])){
-    $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o campo senha !', 'Redirect'=> '', 'lines' => 0];
+// Checar o campo "Telefone"
+if(empty($Search['phone'])){
+    $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o campo Telefone !', 'Redirect'=> '', 'lines' => 0];
     echo json_encode($message);
     return; 
 }
-// Checar o campo "senha"
-if(empty($Search['userpass'])){
-    $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o campo senha !', 'Redirect'=> '', 'lines' => 0];
+// Checar o campo "CNPJ"
+if(empty($Search['cnpj'])){
+    $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o campo CNPJ !', 'Redirect'=> '', 'lines' => 0];
     echo json_encode($message);
     return; 
 }
-// Checar o campo "Nivel de acesso"
-if(empty($Search['userlevel'])){
-    $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o campo de nivel de acesso !', 'Redirect'=> '', 'lines' => 0];
+// Checar o campo "CEP"
+if(empty($Search['zipcode'])){
+    $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o campo CEP !', 'Redirect'=> '', 'lines' => 0];
+    echo json_encode($message);
+    return; 
+}
+// Checar o campo "ENDEREÇO"
+if(empty($Search['address'])){
+    $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o campo Endereço !', 'Redirect'=> '', 'lines' => 0];
+    echo json_encode($message);
+    return; 
+}
+// Checar o campo "Numero"
+if(empty($Search['number'])){
+    $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o campo Numero !', 'Redirect'=> '', 'lines' => 0];
+    echo json_encode($message);
+    return; 
+}
+// Checar o campo "Bairro"
+if(empty($Search['neighborhood'])){
+    $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o campo Bairro !', 'Redirect'=> '', 'lines' => 0];
+    echo json_encode($message);
+    return; 
+}
+// Checar o campo "Cidade"
+if(empty($Search['city'])){
+    $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o campo Cidade !', 'Redirect'=> '', 'lines' => 0];
+    echo json_encode($message);
+    return; 
+}
+// Checar o campo "Estado"
+if(empty($Search['state'])){
+    $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o campo Estado !', 'Redirect'=> '', 'lines' => 0];
     echo json_encode($message);
     return; 
 }
 
-$Read = $pdo->prepare("SELECT usuarios_email, usuarios_nome FROM ".DB_USERS." WHERE usuarios_email = :usuarios_email AND usuarios_nome = :usuarios_nome");
-$Read->bindValue(':usuarios_email', $Search['useremail']);
-$Read->bindValue(':usuarios_nome', $Search['username']);
+$Read = $pdo->prepare("SELECT fornecedor_email, fornecedor_nome FROM ".DB_PROVIDERS." WHERE fornecedor_email = :fornecedor_email AND fornecedor_nome = :fornecedor_nome");
+$Read->bindValue(':fornecedor_email', $Search['email']);
+$Read->bindValue(':fornecedor_nome', $Search['company']);
 $Read->execute();
 
 $Lines = $Read->rowCount();
 
 if($Lines >= 1){
-    $message = ['status'=> 'info', 'message'=> 'Este usuário já está registrado!', 'redirect'=> '', 'lines' => 0];
+    $message = ['status'=> 'info', 'message'=> 'Este fornecedor já está registrado!', 'redirect'=> '', 'lines' => 0];
     echo json_encode($message);
     return; 
 }
 // Excluir imagem anterior
-if($_FILES['file']['name'] == ''){
+if($_FILES['files']['name'] == ''){
     $CreateFileName = '';
 }else{
 
@@ -75,7 +99,7 @@ if($_FILES['file']['name'] == ''){
     $FileSize = strip_tags($_FILES['files']['size']);
 
     //Definimos a pasta para o download do arquivo
-    $_UP['pasta'] = '../../Images/Users/';
+    $_UP['pasta'] = '../../Images/Providers/';
 
     //Limpa possíveis caracteres, acentuação e extensões.
     $cover = str_replace(
@@ -118,20 +142,23 @@ if($_FILES['file']['name'] == ''){
     //Realizamos o upload
     move_uploaded_file($FilePath, $destiny);
 }
-
-$Token = rand(10, 100). rand(1000, 10000);
-$Password = password_hash($Search['userpass'], PASSWORD_DEFAULT);
-$Create = $pdo->prepare("INSERT INTO " . DB_USERS . "(usuarios_imagem, usuarios_nome, usuarios_email, usuarios_senha, usuarios_status, usuarios_nivel, token)
-VALUES(:usuarios_imagem, :usuarios_nome, :usuarios_email, :usuarios_senha, :usuarios_status, :usuarios_nivel, :token)");
-$Create->bindValue(':usuarios_imagem', $CreateFileName);
-$Create->bindValue(':usuarios_nome', $Search['username']);
-$Create->bindValue(':usuarios_email', $Search['useremail']);
-$Create->bindValue(':usuarios_senha', $Password);
-$Create->bindValue(':usuarios_status', 1);
-$Create->bindValue(':usuarios_nivel', $Search['userlevel']);
-$Create->bindValue(':token', $Token);
+$Create = $pdo->prepare("INSERT INTO " . DB_PROVIDERS . "(fornecedor_img, fornecedor_nome, fornecedor_email, fornecedor_endereco, fornecedor_number, fornecedor_neighborhood, fornecedor_cep, fornecedor_cidade, fornecedor_estado, fornecedor_documento, fornecedor_telefone, fornecedor_status, fornecedor_sessao)
+VALUES(:fornecedor_img, :fornecedor_nome, :fornecedor_email, :fornecedor_endereco, :fornecedor_number, :fornecedor_neighborhood, :fornecedor_cep, :fornecedor_cidade, :fornecedor_estado, :fornecedor_documento, :fornecedor_telefone, :fornecedor_status, :fornecedor_sessao)");
+$Create->bindValue(':fornecedor_img', $CreateFileName);
+$Create->bindValue(':fornecedor_nome', $Search['company']);
+$Create->bindValue(':fornecedor_email', $Search['email']);
+$Create->bindValue(':fornecedor_endereco', $Search['address']);
+$Create->bindValue(':fornecedor_number', $Search['number']);
+$Create->bindValue(':fornecedor_neighborhood', $Search['neighborhood']);
+$Create->bindValue(':fornecedor_cep', $Search['zipcode']);
+$Create->bindValue(':fornecedor_cidade', $Search['city']);
+$Create->bindValue(':fornecedor_estado', $Search['state']);
+$Create->bindValue(':fornecedor_documento', $Search['cnpj']);
+$Create->bindValue(':fornecedor_telefone', $Search['phone']);
+$Create->bindValue(':fornecedor_status', 1);
+$Create->bindValue(':fornecedor_sessao', $_SESSION['user_id']);
 $Create->execute();
 
-$message = ['status' => 'success', 'message' => 'Usuário cadastrado com sucesso!', 'redirect'=> 'users'];
+$message = ['status' => 'success', 'message' => 'Fornecedor cadastrado com sucesso!', 'redirect'=> 'providers'];
 echo json_encode($message);
 return; 

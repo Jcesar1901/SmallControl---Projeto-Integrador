@@ -467,11 +467,11 @@ $(document).ready(function(){
         });
     }); 
     // Criar novo registro com Anexos
-    $("#form_newUser").on('submit', function (e) {
+    $("#form_providerNew").on('submit', function (e) {
         e.preventDefault();
 	
-		var form = $("#form_newUser");
-		var url = page+"Ajax/Usuarios/Create.php";
+		var form = $("#form_providerNew");
+		var url = page+"Ajax/Fornecedores/Create.php";
 		
         form.ajaxSubmit({
             url: url,

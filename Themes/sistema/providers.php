@@ -109,7 +109,7 @@
 				<form method="post" enctype="multipart/form-data" id="form_providerNew">
 					<div class="divisor2">
 						<label for="imagem">Foto do Fornecedor</label><br>
-						<input type="file" name="files" required accept="image/*" onchange="loadFile(event)">
+						<input type="file" name="files" id="files" required accept="image/*" onchange="loadFile(event)">
 					</div>
 						
 					<div class="divisor2">
@@ -134,7 +134,7 @@
 						
 					<div class="divisor2">	
 						<label for="zipcode">CEP</label><br>
-						<input type="text" name="zipcode" maxlength="9" id="zipcode" class="zipcode">
+						<input type="text" name="zipcode" maxlength="9" id="zipcode" class="zipcode" required>
 					</div>
 						
 					<div class="divisor2">	

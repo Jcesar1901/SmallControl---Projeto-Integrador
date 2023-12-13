@@ -140,7 +140,7 @@ $Create->bindValue(':cliente_documento', $doc);
 $Create->bindValue(':cliente_telefone', $Search['phone']);
 $Create->bindValue(':cliente_token', $token);
 $Create->bindValue(':cliente_status', 1);
-$Create->bindValue(':cliente_sessao', 0);
+$Create->bindValue(':cliente_sessao', $_SESSION['user_id']);
 $Create->execute();
 
 $message = ['status' => 'success', 'message' => 'Cliente cadastrado com sucesso!', 'redirect'=> 'clients'];
