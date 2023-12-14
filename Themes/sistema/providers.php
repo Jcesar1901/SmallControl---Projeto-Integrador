@@ -15,13 +15,14 @@
         unset($_SESSION['logged']);
         header('location:../login.php');
     }
-	include_once 'includes/config.php';
-	$pages = 'providers';
+ 
+
 ?>
 
 	<main>
 		<!-- Modal Edição de Dados -->
 		<div class="modal" style="display:none">
+
 			<div class="modal_container radius">
 				<p class="text-right">
 					<br><a href="#" title="Fechar a modal" class="btn_delete radius modal-close"><i class="fa fa-times-circle"></i></a>
@@ -227,6 +228,7 @@
 				</div>
 				<div class="espaco-min"></div>
 			</article>
+			
 			<div class="espaco-min"></div>
 		</section>
 	<div class="clear"></div>

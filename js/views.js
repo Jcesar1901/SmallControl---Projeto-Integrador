@@ -273,8 +273,11 @@ $(function(){
 	});
 	
 	//Abre a modal do remover fornecedor
-	$(".deleteProvider").click(function(){
+	$(document).on('click', '.deleteProvider', function(e){
+        e.preventDefault();
 		$('.delete').css('display', 'flex');
+        var value = $('.deleteProvider').attr('data-id');
+        $('.removeProvider').attr('data-id', value);
 	});
 	
 	//Abre a modal do novo fornecedor

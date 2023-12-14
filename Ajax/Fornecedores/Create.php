@@ -69,8 +69,8 @@ if(empty($Search['state'])){
     return; 
 }
 
-$Read = $pdo->prepare("SELECT fornecedor_email, fornecedor_nome FROM ".DB_PROVIDERS." WHERE fornecedor_email = :fornecedor_email AND fornecedor_nome = :fornecedor_nome");
-$Read->bindValue(':fornecedor_email', $Search['email']);
+$Read = $pdo->prepare("SELECT fornecedor_documento, fornecedor_nome FROM ".DB_PROVIDERS." WHERE fornecedor_documento = :fornecedor_documento AND fornecedor_nome = :fornecedor_nome");
+$Read->bindValue(':fornecedor_documento', $Search['cnpj']);
 $Read->bindValue(':fornecedor_nome', $Search['company']);
 $Read->execute();
 

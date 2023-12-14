@@ -457,7 +457,7 @@ $(document).ready(function(){
                     '<td><p class="font-text-sub"><b>Status:</b></p><p class="font-text-sub"><span class="btn_edit radius" style=padding:3px 4px !important;">' + data['fornecedor_status'] + '</span></p></td>\n';
 
 
-                    mount+='<td><p class="text-center"><a href="#" title="Visualizar e editar informações" class="radius btn_edit editUser" data-id="' + data['fornecedor_id'] + '"><i class="fa fa-pen"></i></a>&nbsp;&nbsp;<a href="#" title="Remover este registro" class="radius btn_delete deleteUser" data-id="' + data['fornecedor_id'] + '"><i class="fa fa-trash-alt"></i></a></p></td></tr>'
+                    mount+='<td><p class="text-center"><a href="#" title="Visualizar e editar informações" class="radius btn_edit editProvider" data-id="' + data['fornecedor_id'] + '"><i class="fa fa-pen"></i></a>&nbsp;&nbsp;<a href="#" title="Remover este registro" class="radius btn_delete deleteProvider" data-id="' + data['fornecedor_id'] + '"><i class="fa fa-trash-alt"></i></a></p></td></tr>'
 
 
                 $('.row').html(mount);
@@ -510,12 +510,12 @@ $(document).ready(function(){
         });
         return false;
     });
-    // Remover Usuario
-    $(document).on('click', ".removeUser", function(e){
+    // Remover Fornecedor
+    $(document).on('click', ".removeProvider", function(e){
         e.preventDefault();
 
         var value = $(this).attr('data-id');
-        var url = page+"Ajax/Usuarios/Delete.php?val="+value;
+        var url = page+"Ajax/Fornecedores/Delete.php?val="+value;
         
         $.ajax({
             url: url,
