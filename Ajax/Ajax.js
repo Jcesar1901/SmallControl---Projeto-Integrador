@@ -554,12 +554,12 @@ $(document).ready(function(){
             }
         });
     });
-    // Editar Usuario
-    $("#form_editUser").on('submit', function (e) {
+    // Editar Fornecedor
+    $("#form_editprovider").on('submit', function (e) {
         e.preventDefault();
     
-        var form = $("#form_editUser");
-        var url = page+"Ajax/Usuarios/Update.php";
+        var form = $("#form_editprovider");
+        var url = page+"Ajax/Fornecedores/Update.php";
         
         form.ajaxSubmit({
             url: url,

@@ -229,7 +229,6 @@ $(function(){
                 $('#neighborhood').val(data['neighborhood']); 
                 $('#city').val(data['city']); 
                 $('#state').val(data['state']); 
-                console.log(data['document']);
                 // Trabalhar com o doc
                 if(data['doc'] == 1){
                     $("#cpf").val(data['document']);
@@ -268,9 +267,37 @@ $(function(){
 	
 	
 	//Abre a modal do editar fornecedor
-	$(".editProvider").click(function(){
-		$('.modal').css('display', 'flex');
-	});
+    $(document).on('click', '.editProvider', function(e){
+        e.preventDefault();
+        var value = $(this).attr('data-id');
+        $('.modal').css('display', 'flex');
+        $('#provider_id').val(value);
+    
+        // Trazer os dados para o formulário de modal de edição de dados
+    
+        var url = page + "Ajax/Fornecedores/Search.php?val=" + value;
+    
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: { value: value },
+            dataType: 'JSON',
+            success: function (data, textStatus, jqXHR) {
+                // Alimenta o formulário na modal "editar fornecedores"
+                $('#provider_id').val(data['provider_id']);
+                $('#company').val(data['nome']);
+                $('#email').val(data['email']); 
+                $('#phone').val(data['phone']); 
+                $('#zipcode').val(data['zipcode']); 
+                $('#address').val(data['address']); 
+                $('#number').val(data['number']);
+                $('#neighborhood').val(data['neighborhood']); 
+                $('#city').val(data['city']); 
+                $('#state').val(data['state']); 
+                $("#cnpj").val(data['document']);                    
+            }
+        });
+    });
 	
 	//Abre a modal do remover fornecedor
 	$(document).on('click', '.deleteProvider', function(e){

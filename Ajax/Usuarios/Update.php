@@ -55,8 +55,9 @@ if($Lines == 0){
 
 // Excluir imagem anterior
 if($_FILES['file']['name'] == ''){
-    $CreateFileName = '';
-    if($Img != ''){
+    $CreateFileName = $Img;
+    //Verificar se a imagem foi cadastrada no registro anterior
+    if($_FILES['files']['name'] != ''){
         unlink('../../Images/Users/' . $Img);
     }
 }else{

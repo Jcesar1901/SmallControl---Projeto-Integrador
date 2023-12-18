@@ -31,9 +31,10 @@
 				<h1 class="text-center font-text-min">Editar Dados do Fornecedor</h1>
 				
 				<form method="post" enctype="multipart/form-data" id="form_editprovider">
+					<input type="hidden" name="provider_id" id="provider_id" required>
 					<div class="divisor2">
 						<label for="imagem">Foto do Fornecedor</label><br>
-						<input type="file" name="files" required accept="image/*" onchange="loadFile(event)">
+						<input type="file" name="files" id="files" accept="image/*" onchange="loadFile(event)">
 					</div>
 						
 					<div class="divisor2">

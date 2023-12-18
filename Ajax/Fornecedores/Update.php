@@ -8,76 +8,110 @@ $message = '';
 $Searching = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRIPPED);
 $Search = array_map('strip_tags', $Searching);
 
-// Checar o campo do "Nome"
-
-if(empty($Search['username'])){
-    $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o campo nome do usuario !', 'Redirect'=> '', 'lines' => 0];
+// Checar o campo "Fornecedor"
+if(empty($Search['company'])){
+    $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o nome do Fornecedor !', 'Redirect'=> '', 'lines' => 0];
     echo json_encode($message);
     return; 
 }
 // Checar o campo "Email"
-if(empty($Search['useremail'])){
+if(empty($Search['email'])){
     $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o campo E-mail !', 'Redirect'=> '', 'lines' => 0];
     echo json_encode($message);
     return; 
 }
-
-//Checa se o e-mail é válido  do usuário
-if(!filter_var($Search['useremail'], FILTER_VALIDATE_EMAIL)){      
-    $message = ['status'=> 'info', 'message'=> 'Favor, digite um e-mail válido', 'redirect' => '', 'lines' => 0];     
-    echo json_encode($message);     
+// Checar o campo "Telefone"
+if(empty($Search['phone'])){
+    $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o campo Telefone !', 'Redirect'=> '', 'lines' => 0];
+    echo json_encode($message);
     return; 
 }
- 
-// Checar o campo "Level"
-if(empty($Search[userlevel])){
-    $message = ['status'=> 'info', 'message'=> 'Escolha uma opção de nivel de acesso !', 'Redirect'=> '', 'lines' => 0];
+// Checar o campo "CNPJ"
+if(empty($Search['cnpj'])){
+    $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o campo CNPJ !', 'Redirect'=> '', 'lines' => 0];
+    echo json_encode($message);
+    return; 
+}
+// Checar o campo "CEP"
+if(empty($Search['zipcode'])){
+    $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o campo CEP !', 'Redirect'=> '', 'lines' => 0];
+    echo json_encode($message);
+    return; 
+}
+// Checar o campo "ENDEREÇO"
+if(empty($Search['address'])){
+    $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o campo Endereço !', 'Redirect'=> '', 'lines' => 0];
+    echo json_encode($message);
+    return; 
+}
+// Checar o campo "Numero"
+if(empty($Search['number'])){
+    $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o campo Numero !', 'Redirect'=> '', 'lines' => 0];
+    echo json_encode($message);
+    return; 
+}
+// Checar o campo "Bairro"
+if(empty($Search['neighborhood'])){
+    $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o campo Bairro !', 'Redirect'=> '', 'lines' => 0];
+    echo json_encode($message);
+    return; 
+}
+// Checar o campo "Cidade"
+if(empty($Search['city'])){
+    $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o campo Cidade !', 'Redirect'=> '', 'lines' => 0];
+    echo json_encode($message);
+    return; 
+}
+// Checar o campo "Estado"
+if(empty($Search['state'])){
+    $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o campo Estado !', 'Redirect'=> '', 'lines' => 0];
     echo json_encode($message);
     return; 
 }
 
-$Read = $pdo->prepare("SELECT usuarios_id, usuarios_imagem FROM ".DB_USERS." WHERE usuarios_id = :usuarios_id");
-$Read->bindValue(':usuarios_id', $Search['user_id']);
+$Read = $pdo->prepare("SELECT fornecedor_id, fornecedor_img FROM ".DB_PROVIDERS ." WHERE fornecedor_id = :fornecedor_id");
+$Read->bindValue(':fornecedor_id', $Search['provider_id']);
 $Read->execute();
 
 $Lines = $Read->rowCount();
 foreach($Read as $Show){
 
 }
-$Img = strip_tags($Show ['usuarios_imagem']);
+$Img = strip_tags($Show ['fornecedor_img']);
 
 if($Lines == 0){
-    $message = ['status'=> 'info', 'message'=> 'Este usuario não está registrado!', 'redirect'=> '', 'lines' => 0];
+    $message = ['status'=> 'info', 'message'=> 'Este fornecedor não está registrado!', 'redirect'=> '', 'lines' => 0];
     echo json_encode($message);
     return; 
 }
 
 
 // Excluir imagem anterior
-if($_FILES['file']['name'] == ''){
-    $CreateFileName = '';
-    if($Img != ''){
-        unlink('../../Images/Users/' . $Img);
+if($_FILES['files']['name'] == ''){
+    $CreateFileName = $Img;
+    //Verificar se a imagem foi cadastrada no registro anterior
+    if($_FILES['files']['name'] != ''){
+        unlink('../../Images/Providers/' . $Img);
     }
 }else{
 
-    if($Img != '' && file_exists('../../Images/Users/' . $Img)){
-        unlink('../../Images/Users/' . $Img);
+    if($Img != '' && file_exists('../../Images/Providers/' . $Img)){
+        unlink('../../Images/Providers/' . $Img);
     }
     //Captura o nome do arquivo
-    $FileName = strip_tags(mb_strtolower($_FILES['file']['name']));
+    $FileName = strip_tags(mb_strtolower($_FILES['files']['name']));
 
     //Recupera a extensão do arquivo
-    $FileExtension = strip_tags($_FILES['file']['type']);
+    $FileExtension = strip_tags($_FILES['files']['type']);
 
     //Pega o diretório temporário onde o arquivo está
-    $FilePath = strip_tags($_FILES['file']['tmp_name']);
+    $FilePath = strip_tags($_FILES['files']['tmp_name']);
 
     //Pega o tamanho do arquivo
-    $FileSize = strip_tags($_FILES['file']['size']);
+    $FileSize = strip_tags($_FILES['files']['size']);
 
     //Definimos a pasta para o download do arquivo
-    $_UP['pasta'] = '../../Images/Users/';
+    $_UP['pasta'] = '../../Images/Providers/';
 
     //Limpa possíveis caracteres, acentuação e extensões.
     $cover = str_replace(
@@ -122,15 +156,23 @@ if($_FILES['file']['name'] == ''){
         move_uploaded_file($FilePath, $destiny);
 }
 
-    $Update = $pdo->prepare("UPDATE " . DB_USERS . " SET usuarios_imagem = :usuarios_imagem, usuarios_nome = :usuarios_nome, usuarios_email = :usuarios_email, usuarios_nivel = :usuarios_nivel WHERE usuarios_id = :usuarios_id");
-    $Update->bindValue(':usuarios_imagem', $CreateFileName);
-    $Update->bindValue(':usuarios_nome', $Search['username']);
-    $Update->bindValue(':usuarios_email', $Search['useremail']);
-    $Update->bindValue(':usuarios_nivel', $Search['userlevel']);
-    $Update->bindValue(':usuarios_id', $Search['user_id']);
+    $Update = $pdo->prepare("UPDATE " . DB_PROVIDERS . " SET fornecedor_img = :fornecedor_img, fornecedor_nome = :fornecedor_nome, fornecedor_email = :fornecedor_email, fornecedor_endereco = :fornecedor_endereco, fornecedor_number = :fornecedor_number, fornecedor_neighborhood = :fornecedor_neighborhood, fornecedor_cep = :fornecedor_cep, fornecedor_cidade  = :fornecedor_cidade, 	fornecedor_estado = :fornecedor_estado, fornecedor_documento = :fornecedor_documento, fornecedor_telefone = :fornecedor_telefone, fornecedor_sessao = :fornecedor_sessao WHERE fornecedor_id = :fornecedor_id");
+    $Update->bindValue(':fornecedor_img', $CreateFileName);
+    $Update->bindValue(':fornecedor_nome', $Search['company']);
+    $Update->bindValue(':fornecedor_email', $Search['email']);
+    $Update->bindValue(':fornecedor_endereco', $Search['address']);
+    $Update->bindValue(':fornecedor_number', $Search['number']);
+    $Update->bindValue(':fornecedor_neighborhood', $Search['neighborhood']);
+    $Update->bindValue(':fornecedor_cep', $Search['zipcode']);
+    $Update->bindValue(':fornecedor_cidade', $Search['city']);
+    $Update->bindValue(':fornecedor_estado', $Search['state']);
+    $Update->bindValue(':fornecedor_documento', $Search['cnpj']);
+    $Update->bindValue(':fornecedor_telefone', $Search['phone']);
+    $Update->bindValue(':fornecedor_sessao', $_SESSION['user_id']);
+    $Update->bindValue(':fornecedor_id', $Search['provider_id']);
     $Update->execute();
 
-    $message = ['status' => 'success', 'message' => 'Usuario atualizado com sucesso!', 'redirect'=> 'users'];
+    $message = ['status' => 'success', 'message' => 'Usuario atualizado com sucesso!', 'redirect'=> 'providers'];
     echo json_encode($message);
     return;
 
