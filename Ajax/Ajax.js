@@ -598,7 +598,207 @@ $(document).ready(function(){
         });
         return false;
     });
+
+    /*  
+    * Produtos
+    */
+
+    // Consultar Produto
+    $('body').on('click', "#btn_product", function(e){
+        e.preventDefault();
+
+        var form = $("#form_product");
+        var form_data = form.serialize();
+
+        var url = page+"Ajax/Produtos/Read.php";
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: form_data,
+            dataType: 'JSON',
+
+            success: function (data, textStatus, jqXHR) {
+
+                if (data['status'] == 'success') {
+                    $(".result").text('');
+                    $(".result").prepend('<div id="status-container" class="status-top-right text-center"><div class="status status-' + data['status'] + '"><div class="status-message"><i class="fa fa-user"></i> '+data['message']+'</div></div></div>');
+
+                } else if (data['status'] == 'info') {
+                    $(".result").text('');
+                    $(".result").prepend('<div id="status-container" class="status-top-right text-center"><div class="status status-' + data['status'] + '"><div class="status-message"><i class="fa fa-info-circle"></i>  '+data['message']+'</div></div></div>');
+
+                } else if (data['status'] == 'warning') {
+                    $(".result").text('');
+                    $(".result").prepend('<div id="status-container" class="status-top-right text-center"><div class="status status-' + data['status'] + '"><div class="status-message"><i class="fa fa-triangle-exclamation"></i>  '+data['message']+'</div></div></div>');
+
+                } else {
+                    $(".result").text('');
+                    $(".result").prepend('<div id="status-container" class="status-top-right text-center"><div class="status status-' + data['status'] + '"><div class="status-message"><i class="fa fa-times-circle"></i>  '+data['message']+'</div></div></div>');
+                }
+
+                setTimeout(function () {
+                    $('#status-container').hide();
+                    $('.loading').css('display', 'none');
+                }, 3000);
+
+                // nao montar a tabela se o banco ou campo de pesquisa estiver vazio
+                if(data['lines'] == 0){
+                    $('.row').html('');
+                    return false;
+                }
+                // Trabalhar com os dados do php    
+                var mount = '<tr></tr><td><p class="font-text-sub"><b>Produto:</b></p><p>' + data['produto_nome'] + '</p></td>\n' +
+                    '<td><p class="font-text-sub"><b>Categoria:</b></p><p>' + data['categoria_nome'] + '</p></td>\n' +
+                    '<td><p class="font-text-sub"><b>Preço:</b></p><p>' + data['produto_preco'] + '</p></td>\n' +
+                    '<td><p class="font-text-sub"><b>Status:</b></p><p class="font-text-sub"><span class="btn_edit radius" style=padding:3px 4px !important;">' + data['produto_status'] + '</span></p></td>\n';
+
+
+                    mount+='<td><p class="text-center"><a href="#" title="Visualizar e editar informações" class="radius btn_edit editProduct" data-id="' + data['produto_id'] + '"><i class="fa fa-pen"></i></a>&nbsp;&nbsp;<a href="#" title="Remover este registro" class="radius btn_delete deleteProduct" data-id="' + data['produto_id'] + '"><i class="fa fa-trash-alt"></i></a></p></td></tr>'
+
+
+                $('.row').html(mount);
+                
+            }
+
+        });
+    }); 
+    // Criar novo registro com Anexos
+    $("#form_newUser").on('submit', function (e) {
+        e.preventDefault();
+	
+		var form = $("#form_newUser");
+		var url = page+"Ajax/Usuarios/Create.php";
+		
+        form.ajaxSubmit({
+            url: url,
+            data: form,
+            dataType: 'json',
+			contentType: false,
+            processData: false,
+         
+            success: function (data) {
+               if(data['status'] == 'success'){
+                    $(".result").text('');
+                    $(".result").prepend('<div id="status-container" class="status-top-right text-center"><div class="status status-'+data['status']+'"><div class="status-message"> <span class="fa fa-check-circle"></span>  '+data['message']+'</div></div></div>');
+
+                }else if(data['status'] == 'info'){
+                    $(".result").text('');
+                    $(".result").prepend('<div id="status-container" class="status-top-right text-center"><div class="status status-'+data['status']+'"><div class="status-message"> <span class="fa fa-info-circle"></span>  '+data['message']+'</div></div></div>');
+
+                }else if(data['status'] == 'warning'){
+                    $(".result").text('');
+                    $(".result").prepend('<div id="status-container" class="status-top-right text-center"><div class="status status-'+data['status']+'"><div class="status-message"> <span class="fa fa-triangle-exclamation"></span>  '+data['message']+'</div></div></div>');
+
+                } else {
+                    $(".result").text('');
+                    $(".result").prepend('<div id="status-container" class="status-top-right text-center"><div class="status status-'+data['status']+'"><div class="status-message"> <span class="fa fa-times-circle"></span>  '+data['message']+'</div></div></div>');
+                }
+
+                setTimeout(function () {
+                    $('#status-container').hide();
+                    $('.loading').hide();
+					
+                    if(data['redirect'] != ''){
+                        window.location.href= data['redirect'];
+                    }
+                }, 3000); 
+            }
+        });
+        return false;
+    });
+    // Remover Usuario
+    $(document).on('click', ".removeUser", function(e){
+        e.preventDefault();
+
+        var value = $(this).attr('data-id');
+        var url = page+"Ajax/Usuarios/Delete.php?val="+value;
+        
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: value,
+            dataType: 'JSON',
+
+            success: function (data, textStatus, jqXHR) {
+
+                if (data['status'] == 'success') {
+                    $(".result").text('');
+                    $(".result").prepend('<div id="status-container" class="status-top-right text-center"><div class="status status-' + data['status'] + '"><div class="status-message"><i class="fa fa-user"></i> '+data['message']+'</div></div></div>');
+
+                } else if (data['status'] == 'info') {
+                    $(".result").text('');
+                    $(".result").prepend('<div id="status-container" class="status-top-right text-center"><div class="status status-' + data['status'] + '"><div class="status-message"><i class="fa fa-info-circle"></i>  '+data['message']+'</div></div></div>');
+
+                } else if (data['status'] == 'warning') {
+                    $(".result").text('');
+                    $(".result").prepend('<div id="status-container" class="status-top-right text-center"><div class="status status-' + data['status'] + '"><div class="status-message"><i class="fa fa-triangle-exclamation"></i>  '+data['message']+'</div></div></div>');
+
+                } else {
+                    $(".result").text('');
+                    $(".result").prepend('<div id="status-container" class="status-top-right text-center"><div class="status status-' + data['status'] + '"><div class="status-message"><i class="fa fa-times-circle"></i>  '+data['message']+'</div></div></div>');
+                }
+
+                setTimeout(function () {
+                    $('#status-container').hide();
+                    $('.loading').css('display', 'none');
+                    
+                    if(data['redirect'] != ''){
+                        window.location.href = data['redirect'];
+                    }
+                }, 3000);              
+                    
+            }
+        });
+    });
+    // Editar Usuario
+    $("#form_editUser").on('submit', function (e) {
+        e.preventDefault();
     
+        var form = $("#form_editUser");
+        var url = page+"Ajax/Usuarios/Update.php";
+        
+        form.ajaxSubmit({
+            url: url,
+            data: form,
+            dataType: 'json',
+            contentType: false,
+            processData: false,
+            
+            success: function (data) {
+                if(data['status'] == 'success'){
+                    $(".result").text('');
+                    $(".result").prepend('<div id="status-container" class="status-top-right text-center"><div class="status status-'+data['status']+'"><div class="status-message"> <span class="fa fa-check-circle"></span>  '+data['message']+'</div></div></div>');
+
+                }else if(data['status'] == 'info'){
+                    $(".result").text('');
+                    $(".result").prepend('<div id="status-container" class="status-top-right text-center"><div class="status status-'+data['status']+'"><div class="status-message"> <span class="fa fa-info-circle"></span>  '+data['message']+'</div></div></div>');
+
+                }else if(data['status'] == 'warning'){
+                    $(".result").text('');
+                    $(".result").prepend('<div id="status-container" class="status-top-right text-center"><div class="status status-'+data['status']+'"><div class="status-message"> <span class="fa fa-triangle-exclamation"></span>  '+data['message']+'</div></div></div>');
+
+                } else {
+                    $(".result").text('');
+                    $(".result").prepend('<div id="status-container" class="status-top-right text-center"><div class="status status-'+data['status']+'"><div class="status-message"> <span class="fa fa-times-circle"></span>  '+data['message']+'</div></div></div>');
+                }
+
+                setTimeout(function () {
+                    $('#status-container').hide();
+                    $('.loading').hide();
+                    
+                    if(data['redirect'] != ''){
+                        window.location.href= data['redirect'];
+                    }
+                }, 3000); 
+            }
+        });
+        return false;
+    });
+
+    /* 
+    LOGIN
+    */
     //Login
     $('body').on('click', "#btn_login", function(e){
         e.preventDefault();

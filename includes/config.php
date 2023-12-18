@@ -57,6 +57,7 @@ define("DB_CLIENTS", "si_clientes"); //Definição da Constante Para Tabela CLIE
 define("DB_ORDERS", "si_pedidos"); //Definição da Constante Para Tabela ORDERS
 define("DB_PRODUCT", "si_produtos"); //Definição da Constante Para Tabela PRODUCT
 define("DB_PROVIDERS", "si_fornecedores"); //Definição da Constante Para Tabela PROVIDERS
+define("DB_CATEGORY", "si_categorias"); //Definição da Constante Para Tabela CATEGORY
 define("DB_LOGIN", "users"); // Definição para a tabela Users referente ao login
 
 define('BLOCKED', 1); //Bloqueio o Usuário Após 6 Tentativas de Senha Errado

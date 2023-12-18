@@ -149,7 +149,7 @@
 		<article class="bgcolor-white">
 			
 			<div class="searching">
-				<form method="post" id="form_search">
+				<form method="post" id="form_product">
 					<div class="espaco-min"></div>
 					<h2 class="text-margin text-center">Digite o termo abaixo e selecione uma opção para sua consulta.</h2>
 					<div class="divisor2">
@@ -159,7 +159,7 @@
 
                     <br>
 					<div class="divisor2" style="display: flex; justify-content: center; align-items: center;">
-						<button name="btn_search" id="btn_search" class="btn_edit radius" style="float: left"><i class="fa fa-search"></i> Pesquisar</button>
+						<button name="btn_product" id="btn_product" class="btn_edit radius" style="float: left"><i class="fa fa-search"></i> Pesquisar</button>
 						
 						<a href="#" class="btn_new radius font-text-sub newProduct"><i class="fa fa-plus-circle"></i> NOVO</a>
 					</div>
@@ -168,38 +168,7 @@
 					<div class="espaco-min"></div>
 				</form>
 				
-				<table>
-					<tr>
-						<td>
-							<p class="font-text-sub"><b>Produto:</b></p>
-							<p>Açucar Refinado Branco - 1Kg</p>
-						</td>
-						
-						<td>
-							<p class="font-text-sub"><b>Categoria:</b></p>
-							<p>Alimento</p>
-						</td>
-						
-						<td>
-							<p class="font-text-sub"><b>Preço:</b></p>
-							<p>R$ 5,00 </p>
-						</td>
-						
-						<td>
-							<p class="font-text-sub"><b>Status:</b></p>
-							<p class="font-text-sub">
-								<span class="active radius"> ATIVO </span>
-							</p>
-						</td>
-						
-						<td>
-							<p class="text-center">
-								<a href="#" title="Visualizar e editar informações" class="radius btn_edit editProduct"><i class="fa fa-pen"></i></a>
-								<a href="#" title="Remover este registro" class="radius btn_delete deleteProduct"><i class="fa fa-trash-alt"></i></a>
-							</p>
-						</td>
-					</tr>
-				</table>
+				<table class="row"></table>
 				
 			</div>
 			<div class="espaco-min"></div>
