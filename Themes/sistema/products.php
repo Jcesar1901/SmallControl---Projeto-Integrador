@@ -50,7 +50,7 @@
 		</div>
 	</div>
 	
-	<!-- Modal Novo Usuário -->
+	<!-- Modal Novo Produto -->
 	<div class="new" style="display:none;">
 		<div class="modal_container radius">
 			<p class="text-right">
@@ -61,7 +61,7 @@
 			
 			<form method="post" enctype="multipart/form-data" id="form_newProduct">
 				<div class="divisor1">
-					<input type="file" name="files" required accept="image/*" onchange="loadFile(event)" style="height: 42px !important; width: 94% !important; margin: 10px 3%!important;">
+					<input type="file" name="files" id="files" required accept="image/*" onchange="loadFile(event)" style="height: 42px !important; width: 94% !important; margin: 10px 3%!important;">
 				</div>
 				
 				<div class="divisor2">
@@ -73,6 +73,14 @@
 					<label for="category">Categoria Produto <a href="#" class="radius btn_search newCategory" style="padding: 2px 4px !important">Nova Categoria</a></label>
 					<select name="category" id="category" required>
 						<option value="n">Selecione uma opção</option>
+						<?php
+							$Read = $pdo->prepare("SELECT categoria_id, categoria_nome FROM " . DB_CATEGORY . "");
+							$Read -> execute();
+
+							foreach($Read as $Show){
+						?>
+							<option value="<?= strip_tags($Show['categoria_id'])?>"><?= strip_tags($Show['categoria_nome'])?></option>
+						<?php } ?>
 					</select>
 				</div>
 				
@@ -83,7 +91,7 @@
 				
 				<div class="divisor2">
 					<label for="quantity">Quantidade do Produto</label><br>
-					<input type="text" name="quantity" required>
+					<input type="text" name="quantity" id="quantity" required>
 				</div>
 				
 				<div class="divisor2">

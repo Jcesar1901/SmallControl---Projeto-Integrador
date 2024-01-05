@@ -8,57 +8,46 @@ $message = '';
 $Searching = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRIPPED);
 $Search = array_map('strip_tags', $Searching);
 
-// Checar o campo "Usuario"
-if(empty($Search['username'])){
-    $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o nome do Usuario !', 'Redirect'=> '', 'lines' => 0];
+// Checar o campo "Produto"
+if(empty($Search['product'])){
+    $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o nome do Produto !', 'Redirect'=> '', 'lines' => 0];
     echo json_encode($message);
     return; 
 }
-// Checar o campo "Email"
-if(empty($Search['useremail'])){
-    $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o campo E-mail !', 'Redirect'=> '', 'lines' => 0];
+// Checar o campo "Categoria"
+/*if(empty($Search['category'])){
+    $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o campo Categoria !', 'Redirect'=> '', 'lines' => 0];
+    echo json_encode($message);
+    return; 
+}*/
+
+// Checar o campo "Preço"
+if(empty($Search['price'])){
+    $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o campo Preço !', 'Redirect'=> '', 'lines' => 0];
     echo json_encode($message);
     return; 
 }
-//Checa se o e-mail é válido  do usuário
-if(!filter_var($Search['useremail'], FILTER_VALIDATE_EMAIL)){      
-    $message = ['status'=> 'info', 'message'=> 'Favor, digite um e-mail válido', 'redirect' => '', 'lines' => 0];     
-    echo json_encode($message);     
-    return; 
-}
-// Checar o campo "senha"
-if(empty($Search['userpass'])){
-    $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o campo senha !', 'Redirect'=> '', 'lines' => 0];
-    echo json_encode($message);
-    return; 
-}
-// Checar o campo "senha"
-if(empty($Search['userpass'])){
-    $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o campo senha !', 'Redirect'=> '', 'lines' => 0];
-    echo json_encode($message);
-    return; 
-}
-// Checar o campo "Nivel de acesso"
-if(empty($Search['userlevel'])){
-    $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o campo de nivel de acesso !', 'Redirect'=> '', 'lines' => 0];
+// Checar o campo "Quantidade de produto"
+if(empty($Search['quantity'])){
+    $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o campo quantidade !', 'Redirect'=> '', 'lines' => 0];
     echo json_encode($message);
     return; 
 }
 
-$Read = $pdo->prepare("SELECT usuarios_email, usuarios_nome FROM ".DB_USERS." WHERE usuarios_email = :usuarios_email AND usuarios_nome = :usuarios_nome");
-$Read->bindValue(':usuarios_email', $Search['useremail']);
-$Read->bindValue(':usuarios_nome', $Search['username']);
+$Read = $pdo->prepare("SELECT produto_categoria, produto_nome FROM " . DB_PRODUCT . " WHERE produto_categoria = :produto_categoria AND produto_nome = :produto_nome");
+$Read->bindValue(':produto_categoria', $Search['category']);
+$Read->bindValue(':produto_nome', $Search['product']);
 $Read->execute();
 
 $Lines = $Read->rowCount();
 
 if($Lines >= 1){
-    $message = ['status'=> 'info', 'message'=> 'Este usuário já está registrado!', 'redirect'=> '', 'lines' => 0];
+    $message = ['status'=> 'info', 'message'=> 'Este produto já está registrado!', 'redirect'=> '', 'lines' => 0];
     echo json_encode($message);
     return; 
 }
 // Excluir imagem anterior
-if($_FILES['file']['name'] == ''){
+if($_FILES['files']['name'] == ''){
     $CreateFileName = '';
 }else{
 
@@ -75,7 +64,7 @@ if($_FILES['file']['name'] == ''){
     $FileSize = strip_tags($_FILES['files']['size']);
 
     //Definimos a pasta para o download do arquivo
-    $_UP['pasta'] = '../../Images/Users/';
+    $_UP['pasta'] = '../../Images/Products/';
 
     //Limpa possíveis caracteres, acentuação e extensões.
     $cover = str_replace(
@@ -120,18 +109,18 @@ if($_FILES['file']['name'] == ''){
 }
 
 $Token = rand(10, 100). rand(1000, 10000);
-$Password = password_hash($Search['userpass'], PASSWORD_DEFAULT);
-$Create = $pdo->prepare("INSERT INTO " . DB_USERS . "(usuarios_imagem, usuarios_nome, usuarios_email, usuarios_senha, usuarios_status, usuarios_nivel, token)
-VALUES(:usuarios_imagem, :usuarios_nome, :usuarios_email, :usuarios_senha, :usuarios_status, :usuarios_nivel, :token)");
-$Create->bindValue(':usuarios_imagem', $CreateFileName);
-$Create->bindValue(':usuarios_nome', $Search['username']);
-$Create->bindValue(':usuarios_email', $Search['useremail']);
-$Create->bindValue(':usuarios_senha', $Password);
-$Create->bindValue(':usuarios_status', 1);
-$Create->bindValue(':usuarios_nivel', $Search['userlevel']);
-$Create->bindValue(':token', $Token);
+$Price = str_replace(',', '.', $Search['price']);
+$Create = $pdo->prepare("INSERT INTO " . DB_PRODUCT . "(produto_nome, produto_preco, produto_quantidade, produto_categoria, produto_capa, produto_status, produto_sessao)
+VALUES( :produto_nome, :produto_preco, :produto_quantidade, :produto_categoria, :produto_capa, :produto_status, :produto_sessao)");
+$Create->bindValue(':produto_nome', $Search['product']);
+$Create->bindValue(':produto_preco', $Price);
+$Create->bindValue(':produto_quantidade', $Search['quantity']);
+$Create->bindValue(':produto_categoria', $Search['category']);
+$Create->bindValue(':produto_capa', $CreateFileName);
+$Create->bindValue(':produto_status', 1);
+$Create->bindValue(':produto_sessao', $Token);
 $Create->execute();
 
-$message = ['status' => 'success', 'message' => 'Usuário cadastrado com sucesso!', 'redirect'=> 'users'];
+$message = ['status' => 'success', 'message' => 'Produto cadastrado com sucesso!', 'redirect'=> 'products'];
 echo json_encode($message);
 return; 

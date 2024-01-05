@@ -664,11 +664,11 @@ $(document).ready(function(){
         });
     }); 
     // Criar novo registro com Anexos
-    $("#form_newUser").on('submit', function (e) {
+    $("#form_newProduct").on('submit', function (e) {
         e.preventDefault();
 	
-		var form = $("#form_newUser");
-		var url = page+"Ajax/Usuarios/Create.php";
+		var form = $("#form_newProduct");
+		var url = page+"Ajax/Produtos/Create.php";
 		
         form.ajaxSubmit({
             url: url,
@@ -707,6 +707,52 @@ $(document).ready(function(){
         });
         return false;
     });
+
+    // Criar nova Categoria
+    $("#form_newCategory").on('submit', function (e) {
+        e.preventDefault();
+    
+        var form = $("#form_newCategory");
+        var url = page+"Ajax/Produtos/CreateCategory.php";
+        
+        form.ajaxSubmit({
+            url: url,
+            data: form,
+            dataType: 'json',
+            contentType: false,
+            processData: false,
+            
+            success: function (data) {
+                if(data['status'] == 'success'){
+                    $(".result").text('');
+                    $(".result").prepend('<div id="status-container" class="status-top-right text-center"><div class="status status-'+data['status']+'"><div class="status-message"> <span class="fa fa-check-circle"></span>  '+data['message']+'</div></div></div>');
+
+                }else if(data['status'] == 'info'){
+                    $(".result").text('');
+                    $(".result").prepend('<div id="status-container" class="status-top-right text-center"><div class="status status-'+data['status']+'"><div class="status-message"> <span class="fa fa-info-circle"></span>  '+data['message']+'</div></div></div>');
+
+                }else if(data['status'] == 'warning'){
+                    $(".result").text('');
+                    $(".result").prepend('<div id="status-container" class="status-top-right text-center"><div class="status status-'+data['status']+'"><div class="status-message"> <span class="fa fa-triangle-exclamation"></span>  '+data['message']+'</div></div></div>');
+
+                } else {
+                    $(".result").text('');
+                    $(".result").prepend('<div id="status-container" class="status-top-right text-center"><div class="status status-'+data['status']+'"><div class="status-message"> <span class="fa fa-times-circle"></span>  '+data['message']+'</div></div></div>');
+                }
+
+                setTimeout(function () {
+                    $('#status-container').hide();
+                    $('.loading').hide();
+                    
+                    if(data['redirect'] != ''){
+                        window.location.href= data['redirect'];
+                    }
+                }, 3000); 
+            }
+        });
+        return false;
+    });
+
     // Remover Usuario
     $(document).on('click', ".removeUser", function(e){
         e.preventDefault();
