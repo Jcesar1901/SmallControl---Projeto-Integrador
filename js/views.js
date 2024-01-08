@@ -319,14 +319,51 @@ $(function(){
 	});
 	
 	//Abre a modal do editar produto
-	$(".editProduct").click(function(){
-		$('.modal').css('display', 'flex');
-	});
+	$(document).on('click', '.editProduct', function(e){
+        e.preventDefault();
+        var value = $(this).attr('data-id');
+        $('.modal').css('display', 'flex');
+        $('#product_id').val(value);
+    
+        // Trazer os dados para o formulário de modal de edição de dados
+    
+        var url = page + "Ajax/Produtos/Search.php?val=" + value;
+    
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: { value: value },
+            dataType: 'JSON',
+            success: function (data, textStatus, jqXHR) {
+                // Alimenta o formulário na modal "editar fornecedores"
+                $('#product_id').val(data[0]['product_id']);
+                $('#productEdit').val(data[0]['product']);
+                $('#quantityEdit').val(data[0]['quantity']); 
+                $('#priceEdit').val(data[0]['price']);         
+                
+                //Para limpar o select
+                $('#categoryEdit').html('');
+                for(var i in data){
+                    if(data[i]['category_id'] == data[0]['product_category']){
+                        var options = "<option value='"+ data[i]['category_id'] + "'selected>" + data[i]['category'] + "</option>"; 
+                        $('#categoryEdit').prepend(options); 
+                    }else{
+                        var options = "<option value='"+ data[i]['category_id'] + "'>" + data[i]['category'] + "</option>"; 
+                        $('#categoryEdit').prepend(options); 
+                    }
+                }
+            }
+        });
+    });
 	
 	//Abre a modal do remover produto
-	$(".deleteProduct").click(function(){
-		$('.delete').css('display', 'flex');
-	});
+    $(document).on('click', '.deleteProduct', function(e){
+        e.preventDefault();
+
+        $('.delete').css('display', 'flex');
+        var value = $('.deleteProduct').attr('data-id');
+        $('.removeProduct').attr('data-id', value);
+    });
 	
 	//Abre a modal do novo produto
 	$(".newProduct").click(function(){

@@ -8,46 +8,44 @@ $message = '';
 $Searching = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRIPPED);
 $Search = array_map('strip_tags', $Searching);
 
-// Checar o campo do "Nome"
-
-if(empty($Search['username'])){
-    $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o campo nome do usuario !', 'Redirect'=> '', 'lines' => 0];
+// Checar o campo "Produto"
+if(empty($Search['productEdit'])){
+    $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o nome do Produto !', 'Redirect'=> '', 'lines' => 0];
     echo json_encode($message);
     return; 
 }
-// Checar o campo "Email"
-if(empty($Search['useremail'])){
-    $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o campo E-mail !', 'Redirect'=> '', 'lines' => 0];
-    echo json_encode($message);
-    return; 
-}
-
-//Checa se o e-mail é válido  do usuário
-if(!filter_var($Search['useremail'], FILTER_VALIDATE_EMAIL)){      
-    $message = ['status'=> 'info', 'message'=> 'Favor, digite um e-mail válido', 'redirect' => '', 'lines' => 0];     
-    echo json_encode($message);     
-    return; 
-}
- 
-// Checar o campo "Level"
-if(empty($Search[userlevel])){
-    $message = ['status'=> 'info', 'message'=> 'Escolha uma opção de nivel de acesso !', 'Redirect'=> '', 'lines' => 0];
+// Checar o campo "Categoria"
+if(empty($Search['categoryEdit'])){
+    $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o campo Categoria !', 'Redirect'=> '', 'lines' => 0];
     echo json_encode($message);
     return; 
 }
 
-$Read = $pdo->prepare("SELECT usuarios_id, usuarios_imagem FROM ".DB_USERS." WHERE usuarios_id = :usuarios_id");
-$Read->bindValue(':usuarios_id', $Search['user_id']);
+// Checar o campo "Preço"
+if(empty($Search['priceEdit'])){
+    $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o campo Preço !', 'Redirect'=> '', 'lines' => 0];
+    echo json_encode($message);
+    return; 
+}
+// Checar o campo "Quantidade de produto"
+if(empty($Search['quantityEdit'])){
+    $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o campo quantidade !', 'Redirect'=> '', 'lines' => 0];
+    echo json_encode($message);
+    return; 
+}
+
+$Read = $pdo->prepare("SELECT produto_id, produto_capa FROM ".DB_PRODUCT." WHERE produto_id = :produto_id");
+$Read->bindValue(':produto_id', $Search['product_id']);
 $Read->execute();
 
 $Lines = $Read->rowCount();
 foreach($Read as $Show){
 
 }
-$Img = strip_tags($Show ['usuarios_imagem']);
+$Img = strip_tags($Show ['produto_capa']);
 
 if($Lines == 0){
-    $message = ['status'=> 'info', 'message'=> 'Este usuario não está registrado!', 'redirect'=> '', 'lines' => 0];
+    $message = ['status'=> 'info', 'message'=> 'Este produto não está registrado!', 'redirect'=> '', 'lines' => 0];
     echo json_encode($message);
     return; 
 }
@@ -58,12 +56,12 @@ if($_FILES['file']['name'] == ''){
     $CreateFileName = $Img;
     //Verificar se a imagem foi cadastrada no registro anterior
     if($_FILES['files']['name'] != ''){
-        unlink('../../Images/Users/' . $Img);
+        unlink('../../Images/Products/' . $Img);
     }
 }else{
 
-    if($Img != '' && file_exists('../../Images/Users/' . $Img)){
-        unlink('../../Images/Users/' . $Img);
+    if($Img != '' && file_exists('../../Images/Products/' . $Img)){
+        unlink('../../Images/Products/' . $Img);
     }
     //Captura o nome do arquivo
     $FileName = strip_tags(mb_strtolower($_FILES['file']['name']));
@@ -78,7 +76,7 @@ if($_FILES['file']['name'] == ''){
     $FileSize = strip_tags($_FILES['file']['size']);
 
     //Definimos a pasta para o download do arquivo
-    $_UP['pasta'] = '../../Images/Users/';
+    $_UP['pasta'] = '../../Images/Products/';
 
     //Limpa possíveis caracteres, acentuação e extensões.
     $cover = str_replace(
@@ -122,16 +120,17 @@ if($_FILES['file']['name'] == ''){
         //Realizamos o upload
         move_uploaded_file($FilePath, $destiny);
 }
-
-    $Update = $pdo->prepare("UPDATE " . DB_USERS . " SET usuarios_imagem = :usuarios_imagem, usuarios_nome = :usuarios_nome, usuarios_email = :usuarios_email, usuarios_nivel = :usuarios_nivel WHERE usuarios_id = :usuarios_id");
-    $Update->bindValue(':usuarios_imagem', $CreateFileName);
-    $Update->bindValue(':usuarios_nome', $Search['username']);
-    $Update->bindValue(':usuarios_email', $Search['useremail']);
-    $Update->bindValue(':usuarios_nivel', $Search['userlevel']);
-    $Update->bindValue(':usuarios_id', $Search['user_id']);
+    $Price = str_replace(',' , '.', $Search['priceEdit']);
+    $Update = $pdo->prepare("UPDATE " . DB_PRODUCT . " SET produto_capa = :produto_capa, produto_nome = :produto_nome, produto_preco = :produto_preco, produto_quantidade = :produto_quantidade, produto_categoria = :produto_categoria WHERE produto_id = :produto_id");
+    $Update->bindValue(':produto_capa', $CreateFileName);
+    $Update->bindValue(':produto_nome', $Search['productEdit']);
+    $Update->bindValue(':produto_preco', $Price);
+    $Update->bindValue(':produto_quantidade', $Search['quantityEdit']);
+    $Update->bindValue(':produto_categoria', $Search['categoryEdit']);
+    $Update->bindValue(':produto_id', $Search['product_id']);
     $Update->execute();
 
-    $message = ['status' => 'success', 'message' => 'Usuario atualizado com sucesso!', 'redirect'=> 'users'];
+    $message = ['status' => 'success', 'message' => 'Produto atualizado com sucesso!', 'redirect'=> 'products'];
     echo json_encode($message);
     return;
 

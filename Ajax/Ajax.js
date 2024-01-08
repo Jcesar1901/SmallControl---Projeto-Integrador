@@ -43,7 +43,7 @@ $(document).ready(function(){
                 setTimeout(function () {
                     $('#status-container').hide();
                     $('.loading').css('display', 'none');
-                }, 3000);
+                }, 1500);
 
                 // nao montar a tabela se o banco ou campo de pesquisa estiver vazio
                 if(data['lines'] == 0){
@@ -112,7 +112,7 @@ $(document).ready(function(){
                     if(data['redirect'] != ''){
                         window.location.href = data['redirect'];
                     }
-                }, 3000);              
+                }, 1500);              
                  
             }
         });
@@ -156,7 +156,7 @@ $(document).ready(function(){
                     if(data['redirect'] != ''){
                         window.location.href= data['redirect'];
                     }
-                }, 3000); 
+                }, 1500); 
             }
         });
         return false;
@@ -200,7 +200,7 @@ $(document).ready(function(){
                     if(data['redirect'] != ''){
                         window.location.href= data['redirect'];
                     }
-                }, 3000); 
+                }, 1500); 
             }
         });
         return false;
@@ -246,7 +246,7 @@ $(document).ready(function(){
                 setTimeout(function () {
                     $('#status-container').hide();
                     $('.loading').css('display', 'none');
-                }, 3000);
+                }, 1500);
 
                 // nao montar a tabela se o banco ou campo de pesquisa estiver vazio
                 if(data['lines'] == 0){
@@ -308,7 +308,7 @@ $(document).ready(function(){
                     if(data['redirect'] != ''){
                         window.location.href= data['redirect'];
                     }
-                }, 3000); 
+                }, 1500); 
             }
         });
         return false;
@@ -352,7 +352,7 @@ $(document).ready(function(){
                     if(data['redirect'] != ''){
                         window.location.href = data['redirect'];
                     }
-                }, 3000);              
+                }, 1500);              
                     
             }
         });
@@ -396,7 +396,7 @@ $(document).ready(function(){
                     if(data['redirect'] != ''){
                         window.location.href= data['redirect'];
                     }
-                }, 3000); 
+                }, 1500); 
             }
         });
         return false;
@@ -443,7 +443,7 @@ $(document).ready(function(){
                 setTimeout(function () {
                     $('#status-container').hide();
                     $('.loading').css('display', 'none');
-                }, 3000);
+                }, 1500);
 
                 // nao montar a tabela se o banco ou campo de pesquisa estiver vazio
                 if(data['lines'] == 0){
@@ -505,7 +505,7 @@ $(document).ready(function(){
                     if(data['redirect'] != ''){
                         window.location.href= data['redirect'];
                     }
-                }, 3000); 
+                }, 1500); 
             }
         });
         return false;
@@ -549,7 +549,7 @@ $(document).ready(function(){
                     if(data['redirect'] != ''){
                         window.location.href = data['redirect'];
                     }
-                }, 3000);              
+                }, 1500);              
                     
             }
         });
@@ -593,7 +593,7 @@ $(document).ready(function(){
                     if(data['redirect'] != ''){
                         window.location.href= data['redirect'];
                     }
-                }, 3000); 
+                }, 1500); 
             }
         });
         return false;
@@ -640,7 +640,7 @@ $(document).ready(function(){
                 setTimeout(function () {
                     $('#status-container').hide();
                     $('.loading').css('display', 'none');
-                }, 3000);
+                }, 1500);
 
                 // nao montar a tabela se o banco ou campo de pesquisa estiver vazio
                 if(data['lines'] == 0){
@@ -702,7 +702,7 @@ $(document).ready(function(){
                     if(data['redirect'] != ''){
                         window.location.href= data['redirect'];
                     }
-                }, 3000); 
+                }, 1500); 
             }
         });
         return false;
@@ -747,18 +747,18 @@ $(document).ready(function(){
                     if(data['redirect'] != ''){
                         window.location.href= data['redirect'];
                     }
-                }, 3000); 
+                }, 1500); 
             }
         });
         return false;
     });
 
     // Remover Usuario
-    $(document).on('click', ".removeUser", function(e){
+    $(document).on('click', ".removeProduct", function(e){
         e.preventDefault();
 
         var value = $(this).attr('data-id');
-        var url = page+"Ajax/Usuarios/Delete.php?val="+value;
+        var url = page+"Ajax/Produtos/Delete.php?val="+value;
         
         $.ajax({
             url: url,
@@ -792,17 +792,17 @@ $(document).ready(function(){
                     if(data['redirect'] != ''){
                         window.location.href = data['redirect'];
                     }
-                }, 3000);              
+                }, 1500);              
                     
             }
         });
     });
-    // Editar Usuario
-    $("#form_editUser").on('submit', function (e) {
+    // Editar Produto
+    $("#form_editProduct").on('submit', function (e) {
         e.preventDefault();
     
-        var form = $("#form_editUser");
-        var url = page+"Ajax/Usuarios/Update.php";
+        var form = $("#form_editProduct");
+        var url = page+"Ajax/Produtos/Update.php";
         
         form.ajaxSubmit({
             url: url,
@@ -836,7 +836,7 @@ $(document).ready(function(){
                     if(data['redirect'] != ''){
                         window.location.href= data['redirect'];
                     }
-                }, 3000); 
+                }, 1500); 
             }
         });
         return false;

@@ -14,30 +14,32 @@
 			<h1 class="text-center font-text-min">Editar Dados do Produto</h1>
 			
 			<form method="post" enctype="multipart/form-data" id="form_editProduct">
+				<input type="hidden" name="product_id" id="product_id" required>
+
 				<div class="divisor1">
-					<input type="file" name="files" required accept="image/*" onchange="loadFile(event)" style="height: 42px !important; width: 94% !important; margin: 10px 3%!important;">
+					<input type="file" name="files" id="files" required accept="image/*" onchange="loadFile(event)" style="height: 42px !important; width: 94% !important; margin: 10px 3%!important;">
 				</div>
 				
 				<div class="divisor2">
 					<label for="product">Nome Produto</label>
-					<input type="text" name="product" id="product" required>
+					<input type="text" name="productEdit" id="productEdit" required>
 				</div>
 				
 				<div class="divisor2">
-					<label for="category">Categoria Produto <a href="#" class="radius btn_search newCategory" style="padding: 2px 4px !important">Nova Categoria</a></label>
-					<select name="category" id="category" required>
+					<label for="categoryEdit">Categoria Produto <a href="#" class="radius btn_search newCategory" style="padding: 2px 4px !important">Nova Categoria</a></label>
+					<select name="categoryEdit" id="categoryEdit" required>
 						<option value="n">Selecione uma opção</option>
 					</select>
 				</div>
 				
 				<div class="divisor2">
-					<label for="price">Preço do Produto em R$</label><br>
-					<input type="text" name="price" id="price" class="money" required>
+					<label for="priceEdit">Preço do Produto em R$</label><br>
+					<input type="text" name="priceEdit" id="priceEdit" class="money" required>
 				</div>
 				
 				<div class="divisor2">
-					<label for="quantity">Quantidade do Produto</label><br>
-					<input type="text" name="quantity" required>
+					<label for="quantityEdit">Quantidade do Produto</label><br>
+					<input type="text" name="quantityEdit" id="quantityEdit" required>
 				</div>
 				
 				<div class="divisor2">
@@ -110,7 +112,7 @@
 			<div class="espaco-medium"></div>
 			<h1 class="text-center font-text-min">Você Deseja Remover Este Produto?</h1>
 			<p class="text-center"><br>
-				<a href="#" title="Remover este Produto" class="btn_edit radius removeProvider"><i class="fa fa-check"></i> SIM </a>&nbsp;&nbsp;
+				<a href="#" title="Remover este Produto" class="btn_edit radius removeProduct"><i class="fa fa-check"></i> SIM </a>&nbsp;&nbsp;
 				<a href="#" title="Fechar a modal" class="btn_delete radius modal-close"><i class="fa fa-times-circle"></i> NÃO</a>
 			</p>
 			

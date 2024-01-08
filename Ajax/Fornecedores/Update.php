@@ -172,7 +172,7 @@ if($_FILES['files']['name'] == ''){
     $Update->bindValue(':fornecedor_id', $Search['provider_id']);
     $Update->execute();
 
-    $message = ['status' => 'success', 'message' => 'Usuario atualizado com sucesso!', 'redirect'=> 'providers'];
+    $message = ['status' => 'success', 'message' => 'Fornecedor atualizado com sucesso!', 'redirect'=> 'providers'];
     echo json_encode($message);
     return;
 

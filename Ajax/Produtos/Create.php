@@ -15,11 +15,11 @@ if(empty($Search['product'])){
     return; 
 }
 // Checar o campo "Categoria"
-/*if(empty($Search['category'])){
+if(empty($Search['category'])){
     $message = ['status'=> 'info', 'message'=> 'Por favor, preencha o campo Categoria !', 'Redirect'=> '', 'lines' => 0];
     echo json_encode($message);
     return; 
-}*/
+}
 
 // Checar o campo "Preço"
 if(empty($Search['price'])){

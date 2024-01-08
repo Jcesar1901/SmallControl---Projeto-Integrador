@@ -7,24 +7,24 @@ $message = '';
 
 $Search = strip_tags(filter_input(INPUT_GET, 'val', FILTER_SANITIZE_STRIPPED));
 
-$Read = $pdo->prepare("SELECT usuarios_id, usuarios_imagem FROM ".DB_USERS." WHERE usuarios_id = :usuarios_id");
-$Read->bindValue(':usuarios_id', $Search);
+$Read = $pdo->prepare("SELECT produto_id, produto_capa FROM ".DB_PRODUCT." WHERE produto_id = :produto_id");
+$Read->bindValue(':produto_id', $Search);
 $Read->execute();
 
 $Lines = $Read->rowCount();
-foreach($Read as $Show){
 
-}
-$Img = strip_tags($Show ['usuarios_imagem']);
+foreach($Read as $Show){}
 
-if($Img != '' && file_exists('../../Images/Users/' . $Img)){
-    unlink('../../Images/Users/' . $Img);
+$Img = strip_tags($Show['produto_capa']);
+
+if($Img != '' && file_exists('../../Images/Products/' . $Img)){
+    unlink('../../Images/Products/' . $Img);
 }
-$Delete = $pdo->prepare("DELETE FROM ".DB_USERS." WHERE usuarios_id = :usuarios_id");
-$Delete->bindValue(':usuarios_id', $Search);
+$Delete = $pdo->prepare("DELETE FROM ".DB_PRODUCT." WHERE produto_id = :produto_id");
+$Delete->bindValue(':produto_id', $Search);
 $Delete->execute();
 
-$message = ['status'=> 'success', 'message' => 'Usuário Deletado!' ,'redirect' => 'users'];
+$message = ['status'=> 'success', 'message' => 'Produto Deletado!' ,'redirect' => 'products'];
 
 echo json_encode($message);
 return;
