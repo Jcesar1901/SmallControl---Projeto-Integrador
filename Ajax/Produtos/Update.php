@@ -52,7 +52,7 @@ if($Lines == 0){
 
 
 // Excluir imagem anterior
-if($_FILES['file']['name'] == ''){
+if($_FILES['files']['name'] == ''){
     $CreateFileName = $Img;
     //Verificar se a imagem foi cadastrada no registro anterior
     if($_FILES['files']['name'] != ''){
