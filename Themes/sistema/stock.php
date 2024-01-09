@@ -61,23 +61,23 @@
 					<br><a href="#" title="Fechar a modal" class="btn_delete radius modal-close"><i class="fa fa-times-circle"></i></a>
 				</p>
 				
-				<h1 class="text-center font-text-min">Dados do Novo Pedido</h1>
+				<h1 class="text-center font-text-min">Dados do Novo Estoque</h1>
 				
-				<form method="post" enctype="multipart/form-data" id="form_editStock">
+				<form method="post" enctype="multipart/form-data" id="form_newStock">
 					
 					<div class="divisor2">
 						<label for="product">Produto*</label>
-						<input type="text" name="product" id="product" required>
+						<input type="text" name="productNew" id="productNew" required>
 					</div>
 					
 					<div class="divisor2">
 						<label for="quantity">Quantidade*</label>
-						<input type="text" name="quantity" id="quantity" required>
+						<input type="text" name="quantityNew" id="quantityNew" required>
 					</div>
 					
 					<div class="divisor2">
 						<label for="type">Tipo de Operação*</label>
-						<select name="type" id="type" required>
+						<select name="typeNew" id="typeNew" required>
 							<option value="n">Selecione uma opção</option>
 							<option value="1">Entrada</option>
 							<option value="2">Saída</option>

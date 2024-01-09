@@ -59,6 +59,9 @@ define("DB_PRODUCT", "si_produtos"); //Definição da Constante Para Tabela PROD
 define("DB_PROVIDERS", "si_fornecedores"); //Definição da Constante Para Tabela PROVIDERS
 define("DB_CATEGORY", "si_categorias"); //Definição da Constante Para Tabela CATEGORY
 define("DB_LOGIN", "users"); // Definição para a tabela Users referente ao login
+define("DB_STOCKIN", "si_entrada"); // Definição da constante para a tabela de estoque de ENTRADA
+define("DB_STOCKOUT", "si_saida"); // Definição da constante para a tabela de estoque de SAIDA
+define("DB_DEVOLUTION", "si_devolucao"); // Definição da constante para a tabela de estoque de DEVOLUCAO
 
 define('BLOCKED', 1); //Bloqueio o Usuário Após 6 Tentativas de Senha Errado
 define('TIMESBLOCKED', 6); //Quantas Tentativas Usuário Pode Fazer Antes de Bloquear
