@@ -65,17 +65,42 @@
 				
 				<form method="post" enctype="multipart/form-data" id="form_newStock">
 					
-					<div class="divisor2">
+					<div class="divisor3">
+						<label for="invoiceNew">Nota Fiscal*</label>
+						<input type="text" name="invoiceNew" id="invoiceNew" required>
+					</div>
+
+					<div class="divisor3">
+						<label for="invoiceValueNew">Valor da Nota Fiscal*</label>
+						<input type="text" name="invoiceValueNew" id="invoiceValueNew" required class="money">
+					</div>
+
+					<div class="divisor3">
 						<label for="product">Produto*</label>
 						<input type="text" name="productNew" id="productNew" required>
 					</div>
 					
-					<div class="divisor2">
+					<div class="divisor3">
 						<label for="quantity">Quantidade*</label>
 						<input type="text" name="quantityNew" id="quantityNew" required>
 					</div>
 					
-					<div class="divisor2">
+					<div class="divisor3">
+						<label for="unity">Medida*</label>
+						<input type="text" name="unity" id="unity" required>
+					</div>
+
+					<div class="divisor3">
+						<label for="vality">Validade*</label>
+						<input type="text" name="vality" id="vality" required>
+					</div>
+
+					<div class="divisor3">
+						<label for="provider">Fornecedor*</label>
+						<input type="text" name="provider" id="provider" required>
+					</div>
+
+					<div class="divisor3">
 						<label for="type">Tipo de Operação*</label>
 						<select name="typeNew" id="typeNew" required>
 							<option value="n">Selecione uma opção</option>
@@ -85,9 +110,9 @@
 						</select>
 					</div>
 					
-					<div class="divisor2">
-						<label for="status">Status*</label>
-						<select name="status" id="status" required>
+					<div class="divisor3">
+						<label for="statusNew">Status*</label>
+						<select name="statusNew" id="statusNew" required>
 							<option value="n">Selecione uma opção</option>
 							<option value="1">Aguardando</option>
 							<option value="2">Liberado</option>

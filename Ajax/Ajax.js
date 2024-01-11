@@ -842,50 +842,50 @@ $(document).ready(function(){
         return false;
     });
 
-        // Nova operação de estoque
-        $("body").on('click', '#btn_newstock', function (e) {
-            e.preventDefault();
+    // Nova operação de estoque
+    $("body").on('click', '#btn_newstock', function (e) {
+        e.preventDefault();
+    
+        var form = $("#form_newStock");
+        var formdata = form.serialize();
+        var url = page+"Ajax/Estoque/Create.php";
         
-            var form = $("#form_newStock");
-            var formdata = form.serialize();
-            var url = page+"Ajax/Estoque/Create.php";
+        $.ajax({
+            url: url,
+            data: formdata,
+            type: 'POST',
+            dataType: 'json',
             
-            $.ajax({
-                url: url,
-                data: formdata,
-                type: 'POST',
-                dataType: 'json',
-                
-                success: function (data) {
-                    if(data['status'] == 'success'){
-                        $(".result").text('');
-                        $(".result").prepend('<div id="status-container" class="status-top-right text-center"><div class="status status-'+data['status']+'"><div class="status-message"> <span class="fa fa-check-circle"></span>  '+data['message']+'</div></div></div>');
-    
-                    }else if(data['status'] == 'info'){
-                        $(".result").text('');
-                        $(".result").prepend('<div id="status-container" class="status-top-right text-center"><div class="status status-'+data['status']+'"><div class="status-message"> <span class="fa fa-info-circle"></span>  '+data['message']+'</div></div></div>');
-    
-                    }else if(data['status'] == 'warning'){
-                        $(".result").text('');
-                        $(".result").prepend('<div id="status-container" class="status-top-right text-center"><div class="status status-'+data['status']+'"><div class="status-message"> <span class="fa fa-triangle-exclamation"></span>  '+data['message']+'</div></div></div>');
-    
-                    } else {
-                        $(".result").text('');
-                        $(".result").prepend('<div id="status-container" class="status-top-right text-center"><div class="status status-'+data['status']+'"><div class="status-message"> <span class="fa fa-times-circle"></span>  '+data['message']+'</div></div></div>');
-                    }
-    
-                    setTimeout(function () {
-                        $('#status-container').hide();
-                        $('.loading').hide();
-                        
-                        if(data['redirect'] != ''){
-                            window.location.href= data['redirect'];
-                        }
-                    }, 1500); 
+            success: function (data) {
+                if(data['status'] == 'success'){
+                    $(".result").text('');
+                    $(".result").prepend('<div id="status-container" class="status-top-right text-center"><div class="status status-'+data['status']+'"><div class="status-message"> <span class="fa fa-check-circle"></span>  '+data['message']+'</div></div></div>');
+
+                }else if(data['status'] == 'info'){
+                    $(".result").text('');
+                    $(".result").prepend('<div id="status-container" class="status-top-right text-center"><div class="status status-'+data['status']+'"><div class="status-message"> <span class="fa fa-info-circle"></span>  '+data['message']+'</div></div></div>');
+
+                }else if(data['status'] == 'warning'){
+                    $(".result").text('');
+                    $(".result").prepend('<div id="status-container" class="status-top-right text-center"><div class="status status-'+data['status']+'"><div class="status-message"> <span class="fa fa-triangle-exclamation"></span>  '+data['message']+'</div></div></div>');
+
+                } else {
+                    $(".result").text('');
+                    $(".result").prepend('<div id="status-container" class="status-top-right text-center"><div class="status status-'+data['status']+'"><div class="status-message"> <span class="fa fa-times-circle"></span>  '+data['message']+'</div></div></div>');
                 }
-            });
-            return false;
+
+                setTimeout(function () {
+                    $('#status-container').hide();
+                    $('.loading').hide();
+                    
+                    if(data['redirect'] != ''){
+                        window.location.href= data['redirect'];
+                    }
+                }, 1500); 
+            }
         });
+        return false;
+    });
 
     /* 
     LOGIN
