@@ -75,9 +75,19 @@ unset($_SESSION['stock']);
 $_SESSION['stock'] = rand(100, 10000).time();
 $Session = $_SESSION['stock'];
 
-$Read = $pdo->prepare("SELECT entrada_sessao FROM " . DB_STOCKIN . " WHERE entrada_sessao = :entrada_sessao");
-$Read->bindValue(':entrada_sessao', $Session);
-$Read->execute();
+// ENTRADA
+if($Search['typeNew'] == 1){
+    $Read = $pdo->prepare("SELECT entrada_sessao FROM " . DB_STOCKIN . " WHERE entrada_sessao = :entrada_sessao");
+    $Read->bindValue(':entrada_sessao', $Session);
+    $Read->execute();
+}
+
+// SAIDA
+if($Search['typeNew'] == 2){
+    $Read = $pdo->prepare("SELECT saida_sessao FROM " . DB_STOCKOUT . " WHERE saida_sessao = :saida_sessao");
+    $Read->bindValue(':saida_sessao', $Session);
+    $Read->execute();
+}
 
 $Lines = $Read->rowCount();
 
@@ -107,25 +117,47 @@ $PriceInvoice = str_replace(['.', ','] , ['', '.'], $Search['invoiceValueNew']);
 
 $StockQuantity = strip_tags($Search['quantityNew']);
 $StockBack = strip_tags($Show['produto_quantidade']);
-$StockNow = $StockBack + $StockQuantity;
 
 $Token = rand(100000, 100000000);
-$Create = $pdo->prepare("INSERT INTO " . DB_STOCKIN . "(entrada_produto_nome, entrada_quantidade, entrada_quantidade_estoque_atual, entrada_quantidade_estoque, entrada_medidas, entrada_validade, entrada_nf, entrada_codigo, entrada_fornecedor, entrada_valor_nf, entrada_sessao, entrada_status)
-VALUES(:entrada_produto_nome, :entrada_quantidade, :entrada_quantidade_estoque_atual, :entrada_quantidade_estoque, :entrada_medidas, :entrada_validade, :entrada_nf, :entrada_codigo, :entrada_fornecedor, :entrada_valor_nf, :entrada_sessao, :entrada_status)");
-$Create->bindValue(':entrada_produto_nome', $Search['productNew']);
-$Create->bindValue(':entrada_quantidade', $StockQuantity);
-$Create->bindValue(':entrada_quantidade_estoque_atual', $StockBack);
-$Create->bindValue(':entrada_quantidade_estoque', $StockNow);
-$Create->bindValue(':entrada_medidas', $Search['unity']);
-$Create->bindValue(':entrada_validade', $Search['vality']);
-$Create->bindValue(':entrada_nf', $Search['invoiceNew']);
-$Create->bindValue(':entrada_codigo', $Token);
-$Create->bindValue(':entrada_fornecedor', $Search['provider']);
-$Create->bindValue(':entrada_valor_nf', $PriceInvoice);
-$Create->bindValue(':entrada_sessao', $Session);
-$Create->bindValue(':entrada_status', $Search['statusNew']);
-$Create->execute();
+// GRAVAR DADOS DE ENTRADA
+if($Search['typeNew'] == 1){
+    $StockNow = $StockBack + $StockQuantity;
+    $Create = $pdo->prepare("INSERT INTO " . DB_STOCKIN . "(entrada_produto_nome, entrada_quantidade, entrada_quantidade_estoque_atual, entrada_quantidade_estoque, entrada_medidas, entrada_validade, entrada_nf, entrada_codigo, entrada_fornecedor, entrada_valor_nf, entrada_sessao, entrada_status)
+    VALUES(:entrada_produto_nome, :entrada_quantidade, :entrada_quantidade_estoque_atual, :entrada_quantidade_estoque, :entrada_medidas, :entrada_validade, :entrada_nf, :entrada_codigo, :entrada_fornecedor, :entrada_valor_nf, :entrada_sessao, :entrada_status)");
+    $Create->bindValue(':entrada_produto_nome', $Search['productNew']);
+    $Create->bindValue(':entrada_quantidade', $StockQuantity);
+    $Create->bindValue(':entrada_quantidade_estoque_atual', $StockBack);
+    $Create->bindValue(':entrada_quantidade_estoque', $StockNow);
+    $Create->bindValue(':entrada_medidas', $Search['unity']);
+    $Create->bindValue(':entrada_validade', $Search['vality']);
+    $Create->bindValue(':entrada_nf', $Search['invoiceNew']);
+    $Create->bindValue(':entrada_codigo', $Token);
+    $Create->bindValue(':entrada_fornecedor', $Search['provider']);
+    $Create->bindValue(':entrada_valor_nf', $PriceInvoice);
+    $Create->bindValue(':entrada_sessao', $Session);
+    $Create->bindValue(':entrada_status', $Search['statusNew']);
+    $Create->execute();
+}
 
+// GRAVAR DADOS DE SAIDA
+if($Search['typeNew'] == 2){
+    $StockNow = $StockBack - $StockQuantity;
+    $Create = $pdo->prepare("INSERT INTO " . DB_STOCKOUT . "(saida_produto_nome, saida_quantidade, saida_quantidade_estoque_atual, saida_quantidade_estoque, saida_medidas, saida_validade, saida_nf, saida_codigo, saida_fornecedor, saida_valor_nf, saida_sessao, saida_status)
+    VALUES(:saida_produto_nome, :saida_quantidade, :saida_quantidade_estoque_atual, :saida_quantidade_estoque, :saida_medidas, :saida_validade, :saida_nf, :saida_codigo, :saida_fornecedor, :saida_valor_nf, :saida_sessao, :saida_status)");
+    $Create->bindValue(':saida_produto_nome', $Search['productNew']);
+    $Create->bindValue(':saida_quantidade', $StockQuantity);
+    $Create->bindValue(':saida_quantidade_estoque_atual', $StockBack);
+    $Create->bindValue(':saida_quantidade_estoque', $StockNow);
+    $Create->bindValue(':saida_medidas', $Search['unity']);
+    $Create->bindValue(':saida_validade', $Search['vality']);
+    $Create->bindValue(':saida_nf', $Search['invoiceNew']);
+    $Create->bindValue(':saida_codigo', $Token);
+    $Create->bindValue(':saida_fornecedor', $Search['provider']);
+    $Create->bindValue(':saida_valor_nf', $PriceInvoice);
+    $Create->bindValue(':saida_sessao', $Session);
+    $Create->bindValue(':saida_status', $Search['statusNew']);
+    $Create->execute();
+}
 $Update = $pdo->prepare("UPDATE " . DB_PRODUCT . " SET produto_quantidade = :produto_quantity WHERE produto_nome = :produto_nome");
 $Update -> bindValue(':produto_quantity', $StockNow);
 $Update -> bindValue(':produto_nome', $Search['productNew']);
