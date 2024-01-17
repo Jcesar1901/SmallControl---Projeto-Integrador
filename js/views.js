@@ -407,6 +407,19 @@ $(function(){
 	$(".newStock").click(function(){
 		$('.new').css('display', 'flex');
 	});
+
+    // Abre os inputs da operação de devolução
+    $("#typeNew").click(function(){
+        var value = $(this).val();
+
+        if(value == 3){
+            $('.activeInputs').css('display', 'block');
+        }else{
+            $('.activeInputs').css('display', 'none');
+            return false;
+        }
+
+	});
 });
 
 //AUTOCARREGAMENTO DE IMAGENS - PREVIEW

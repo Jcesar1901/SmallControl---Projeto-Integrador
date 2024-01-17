@@ -89,6 +89,13 @@ if($Search['typeNew'] == 2){
     $Read->execute();
 }
 
+// DEVOLUÇÃO 
+if($Search['typeNew'] == 3){
+    $Read = $pdo->prepare("SELECT devolucao_sessao FROM " . DB_DEVOLUTION . " WHERE devolucao_sessao = :devolucao_sessao");
+    $Read->bindValue(':devolucao_sessao', $Session);
+    $Read->execute();
+}
+
 $Lines = $Read->rowCount();
 
 if($Lines >= 1){
@@ -137,6 +144,11 @@ if($Search['typeNew'] == 1){
     $Create->bindValue(':entrada_sessao', $Session);
     $Create->bindValue(':entrada_status', $Search['statusNew']);
     $Create->execute();
+
+    $Update = $pdo->prepare("UPDATE " . DB_PRODUCT . " SET produto_quantidade = :produto_quantity WHERE produto_nome = :produto_nome");
+    $Update -> bindValue(':produto_quantity', $StockNow);
+    $Update -> bindValue(':produto_nome', $Search['productNew']);
+    $Update -> execute(); 
 }
 
 // GRAVAR DADOS DE SAIDA
@@ -157,11 +169,30 @@ if($Search['typeNew'] == 2){
     $Create->bindValue(':saida_sessao', $Session);
     $Create->bindValue(':saida_status', $Search['statusNew']);
     $Create->execute();
+
+    $Update = $pdo->prepare("UPDATE " . DB_PRODUCT . " SET produto_quantidade = :produto_quantity WHERE produto_nome = :produto_nome");
+    $Update -> bindValue(':produto_quantity', $StockNow);
+    $Update -> bindValue(':produto_nome', $Search['productNew']);
+    $Update -> execute();
 }
-$Update = $pdo->prepare("UPDATE " . DB_PRODUCT . " SET produto_quantidade = :produto_quantity WHERE produto_nome = :produto_nome");
-$Update -> bindValue(':produto_quantity', $StockNow);
-$Update -> bindValue(':produto_nome', $Search['productNew']);
-$Update -> execute();
+
+// GRAVAR DADOS DE DEVOLUÇÃO
+if($Search['typeNew'] == 3){
+    $Create = $pdo->prepare("INSERT INTO " . DB_DEVOLUTION . "(devolucao_produto_nome, 	devolucao_quantidade, devolucao_medidas,  devolucao_motivo, devolucao_nf, devolucao_validade, devolucao_codigo, devolucao_fornecedor, devolucao_valor_nf, devolucao_sessao, devolucao_status)
+    VALUES(:devolucao_produto_nome, :devolucao_quantidade, :devolucao_medidas, :devolucao_motivo, :devolucao_nf, :devolucao_validade, :devolucao_codigo, :devolucao_fornecedor, :devolucao_valor_nf, :devolucao_sessao, :devolucao_status)");
+    $Create->bindValue(':devolucao_produto_nome', $Search['productNew']);
+    $Create->bindValue(':devolucao_quantidade', $Search['quantityNew']);
+    $Create->bindValue(':devolucao_medidas', $Search['unity']);
+    $Create->bindValue(':devolucao_motivo', $Search['observation']);
+    $Create->bindValue(':devolucao_nf', $Search['invoiceNew']);
+    $Create->bindValue(':devolucao_validade', $Search['vality']);
+    $Create->bindValue(':devolucao_codigo', $Token);
+    $Create->bindValue(':devolucao_fornecedor', $Search['provider']);
+    $Create->bindValue(':devolucao_valor_nf', $PriceInvoice);
+    $Create->bindValue(':devolucao_sessao', $Session);
+    $Create->bindValue(':devolucao_status', $Search['statusNew']);
+    $Create->execute();
+}
 
 $message = ['status' => 'success', 'message' => 'Operação cadastrada com sucesso!', 'redirect'=> 'stock'];
 echo json_encode($message);

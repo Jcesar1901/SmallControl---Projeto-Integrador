@@ -118,6 +118,21 @@
 							<option value="2">Liberado</option>
 						</select>
 					</div>
+
+					<div class="divisor2 activeInputs" style="display: none">
+						<label for="sender">Data de despacho*</label>
+						<input type="date" name="sender" id="sender">
+					</div>
+
+					<div class="divisor2 activeInputs" style="display: none">
+						<label for="product_sender">Produto Liberado*</label>
+						<input type="text" name="product_sender" id="product_sender">
+					</div>
+
+					<div class="divisor1 activeInputs" style="display: none">
+						<label for="observation">Motivo*</label>
+						<textarea name="observation" id="observation"></textarea>
+					</div>
 					
 					<div class="divisor2">
 						<br><button name="btn_newstock" id="btn_newstock" class="btn_new radius"><i class="fa fa-pen"></i> Cadastrar Dados</button>
