@@ -171,11 +171,11 @@
 			<article class="bgcolor-white">
 				
 				<div class="searching">
-					<form method="post" id="form_search">
+					<form method="post" id="formSearchStock">
 						<div class="espaco-min"></div>
 						<h2 class="text-margin text-center">Digite o termo abaixo ou selecione uma opção para sua consulta.</h2>
 						<div class="divisor3">
-							<label for="searching">Digite o nº do pedido:</label>
+							<label for="searching">Digite o nº da Nota Fiscal:</label>
 							<input type="text" name="searching" id="searching" placeholder="Ex. 12345" required>
 						</div>
 						
@@ -184,14 +184,15 @@
 							<select name="type" id="type" required>
 								<option value="n"> Escolha uma opção </option>
 								<option value="1"> Entrada </option>
-								<option value="2"> Saída </option>
-								<option value="3"> Cancelado </option>
+								<option value="2"> Saída </option>								
+								<option value="3"> Devolução </option>
+								<option value="4"> Cancelado </option>
 							</select>
 						</div>
 
 						<br>
 						<div class="divisor3" style="display: flex; justify-content: center; align-items: center;">
-							<button name="btn_search" id="btn_search" class="btn_edit radius" style="float: left"><i class="fa fa-search"></i> Pesquisar</button>
+							<button name="btn_search" id="btnSearchStock" class="btn_edit radius btnSearchStock" style="float: left"><i class="fa fa-search"></i> Pesquisar</button>
 							
 							<a href="#" class="btn_new radius font-text-sub newStock"><i class="fa fa-plus-circle"></i> NOVO</a>
 						</div>

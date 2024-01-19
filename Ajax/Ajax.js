@@ -842,6 +842,65 @@ $(document).ready(function(){
         return false;
     });
 
+        // Consulta operação de estoque
+        $("body").on('click', '.btnSearchStock', function (e) {
+            e.preventDefault();
+        
+            var form = $("#formSearchStock");
+            var formdata = form.serialize();
+            var url = page+"Ajax/Estoque/Read.php";
+            
+            $.ajax({
+                url: url,
+                data: formdata,
+                type: 'POST',
+                dataType: 'json',
+                
+                success: function (data) {
+                
+                    // nao montar a tabela se o banco ou campo de pesquisa estiver vazio
+                    if(data['lines'] == 0){
+                        $('.row').html('');
+                        if(data['status'] == 'info'){
+                            $(".result").text('');
+                            $(".result").prepend('<div id="status-container" class="status-top-right text-center"><div class="status status-'+data['status']+'"><div class="status-message"> <span class="fa fa-info-circle"></span>  '+data['message']+'</div></div></div>');
+        
+                        }else if(data['status'] == 'warning'){
+                            $(".result").text('');
+                            $(".result").prepend('<div id="status-container" class="status-top-right text-center"><div class="status status-'+data['status']+'"><div class="status-message"> <span class="fa fa-triangle-exclamation"></span>  '+data['message']+'</div></div></div>');
+        
+                        } else {
+                            $(".result").text('');
+                            $(".result").prepend('<div id="status-container" class="status-top-right text-center"><div class="status status-'+data['status']+'"><div class="status-message"> <span class="fa fa-times-circle"></span>  '+data['message']+'</div></div></div>');
+                        }
+        
+                        setTimeout(function () {
+                            $('#status-container').hide();
+                            $('.loading').hide();
+                            
+                        }, 1500); 
+                        return false;
+                    }
+
+                    $('.row').empty();
+                    
+                    var countData = data.pedido.length;
+
+                    for(var i = 0; i < countData; i++){
+                    // Trabalhar com os dados do php    
+                    var mount = '<tr><td><p class="font-text-sub"><b>N° do pedido:</b></p><p>' + data['pedido'][i] + '</p></td>\n' +
+                        '<td><p class="font-text-sub"><b>Nota Fiscal:</b></p><p>' + data['nf'][i] + '</p></td>\n' +
+                        '<td><p class="font-text-sub"><b>Operação:</b></p><p>' + data['operacao'][i] + '</p></td>\n' +
+                        '<td><p class="font-text-sub"><b>Status:</b></p><p class="font-text-sub"><span class="btn_edit radius" style=padding:3px 4px !important;">' + data['stat'][i] + '</span></p></td>\n' +
+                        '<td><p class="text-center"><a href="#" title="Visualizar e editar informações" class="radius btn_edit editStock" data-id="'+data['id'][i]+'"style="margin: 4px"><i class="fa fa-pen"></i></a><a href="#" title="Remover este registro" class="radius btn_delete deleteStock" data-id="'+data['id'][i]+'" style="margin: 4px"><i class="fa fa-trash-alt"></i></a></p></td></tr>'
+
+                    $('.row').prepend(mount);
+                    }
+                }
+            });
+            return false;
+        });
+
     // Nova operação de estoque
     $("body").on('click', '#btn_newstock', function (e) {
         e.preventDefault();
