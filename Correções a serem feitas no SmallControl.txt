@@ -1,0 +1,5 @@
+Correções a serem feitas no SmallControl
+
+1 - Corrigir o redirecionamento do Ajax.
+
+2 - Corrigir problema na exibição da mensagem em alguns casos (ex: quando coloca uma nota não existente no campo de busca do STOCK)
