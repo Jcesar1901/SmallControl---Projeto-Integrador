@@ -17,17 +17,17 @@
 					
 					<div class="divisor2">
 						<label for="product">Produto*</label>
-						<input type="text" name="product" id="product" required>
+						<input type="text" name="product" id="productEditStock" required>
 					</div>
 					
 					<div class="divisor2">
 						<label for="quantity">Quantidade*</label>
-						<input type="text" name="quantity" id="quantity" required>
+						<input type="text" name="quantity" id="quantityEditStock" required>
 					</div>
 					
 					<div class="divisor2">
 						<label for="type">Tipo de Operação*</label>
-						<select name="type" id="type" required>
+						<select name="type" id="typeEditStock" required>
 							<option value="n">Selecione uma opção</option>
 							<option value="1">Entrada</option>
 							<option value="2">Saída</option>
@@ -37,7 +37,7 @@
 					
 					<div class="divisor2">
 						<label for="status">Status*</label>
-						<select name="status" id="status" required>
+						<select name="status" id="statusEditStock" required>
 							<option value="n">Selecione uma opção</option>
 							<option value="1">Aguardando</option>
 							<option value="2">Liberado</option>

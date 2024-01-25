@@ -394,9 +394,60 @@ $(function(){
 	
 	
 	//Abre a modal do editar estoque
-	$(".editStock").click(function(){
-		$('.modal').css('display', 'flex');
-	});
+	$(document).on('click', '.editStock', function(e){
+        e.preventDefault();
+        var value = $(this).attr('data-id');
+        var type = $(this).attr('data-type');
+        $('.modal').css('display', 'flex');
+        $('#product_id').val(value);
+    
+        // Trazer os dados para o formulário de modal de edição de dados
+    
+        var url = page + "Ajax/Estoque/Search.php?searching="+value+"&type="+type;
+    
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: { value: value },
+            dataType: 'JSON',
+            success: function (data, textStatus, jqXHR) {
+                // Alimenta o formulário na modal "editar fornecedores"
+                $('#idStock').val(data['id']);
+                $('#productEditStock').val(data['product']);
+                $('#quantityEditStock').val(data['quantity']); 
+                //$('#statusEditStock').val(data['stat']);  
+                //$('#typeEditStock').val(data['operacao']);         
+                
+                //Para limpar o select
+                $('#typeEditStock').html('');
+                $('#statusEditStock').html('');
+
+                //Insere o campo de operações
+                if(data['operacao'] == 'Entrada'){
+                    var optionsType = "<option value='1' selected> Entrada </option><option value='2'>Saída</option><option value='3'> Devolução </option><option value='4'>Cancelado</option>"; 
+                }else if(data['operacao'] == 'Saída'){
+                    var optionsType = "<option value='1'> Entrada </option><option value='2' selected>Saída</option><option value='3'> Devolução </option><option value='4'>Cancelado</option>"; 
+                }else if(data['operacao'] == 'Devolução'){
+                    var optionsType = "<option value='1'> Entrada </option><option value='2'>Saída</option><option value='3' selected> Devolução </option><option value='4'>Cancelado</option>"; 
+                }else if(data['operacao'] == 'Cancelado'){
+                    var optionsType = "<option value='1'> Entrada </option><option value='2'>Saída</option><option value='3'> Devolução </option><option value='4' selected>Cancelado</option>"; 
+                }else{
+                    var optionsType = "<option value='n' selected> Selecione uma opção </option><option value='1'> Entrada </option><option value='2'>Saída</option><option value='3'> Devolução </option><option value='4' selected>Cancelado</option>"; 
+                }
+                $('#typeEditStock').prepend(optionsType); 
+
+                //Insere o campo de status
+                if(data['stat'] == 1){
+                    var options = "<option value='1'selected>Aguardando</option><option value='2'>Liberado</option>"; 
+                    $('#statusEditStock').prepend(options); 
+                }else{
+                    var options = "<option value='1'>Aguardando</option><option value='2'selected>Liberado</option>"; 
+                    $('#statusEditStock').prepend(options); 
+                }
+            
+            }
+        });
+    });
 	
 	//Abre a modal do remover estoque
 	$(".deleteStock").click(function(){

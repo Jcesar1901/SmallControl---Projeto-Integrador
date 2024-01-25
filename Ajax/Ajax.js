@@ -892,7 +892,7 @@ $(document).ready(function(){
                         '<td><p class="font-text-sub"><b>Nota Fiscal:</b></p><p>' + data['nf'][i] + '</p></td>\n' +
                         '<td><p class="font-text-sub"><b>Operação:</b></p><p>' + data['operacao'][i] + '</p></td>\n' +
                         '<td><p class="font-text-sub"><b>Status:</b></p><p class="font-text-sub"><span class="btn_edit radius" style=padding:3px 4px !important;">' + data['stat'][i] + '</span></p></td>\n' +
-                        '<td><p class="text-center"><a href="#" title="Visualizar e editar informações" class="radius btn_edit editStock" data-id="'+data['id'][i]+'"style="margin: 4px"><i class="fa fa-pen"></i></a><a href="#" title="Remover este registro" class="radius btn_delete deleteStock" data-id="'+data['id'][i]+'" style="margin: 4px"><i class="fa fa-trash-alt"></i></a></p></td></tr>'
+                        '<td><p class="text-center"><a href="#" title="Visualizar e editar informações" class="radius btn_edit editStock" data-id="'+data['id'][i]+'" data-type="'+data['operacao'][i]+'"style="margin: 4px"><i class="fa fa-pen"></i></a><a href="#" title="Remover este registro" class="radius btn_delete deleteStock" data-id="'+data['id'][i]+'" style="margin: 4px"><i class="fa fa-trash-alt"></i></a></p></td></tr>'
 
                     $('.row').prepend(mount);
                     }

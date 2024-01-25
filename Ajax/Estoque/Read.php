@@ -138,10 +138,8 @@ if($Search['type'] == 3 && empty($Search['searching'])){
         $id[] = strip_tags($Show['devolucao_id']);
         $operacao[] = 'Devolução';
 
-        $message = ["pedido" => $pedido, "nf" => $nf, "stat" => $status, "id" => $id, "operacao" => $operacao];
-    }
-    
-    
+    }    
+    $message = ["pedido" => $pedido, "nf" => $nf, "stat" => $status, "id" => $id, "operacao" => $operacao];
     echo json_encode($message);
     return;
 }
@@ -183,10 +181,9 @@ if($Search['type'] == 'n' && !empty($Search['searching'])){
         $id[] = strip_tags($Show['devolucao_id']);
         $operacao[] = 'Devolução';
 
-        $message = ["pedido" => $pedido, "nf" => $nf, "stat" => $status, "id" => $id, "operacao" => $operacao];
     }
     
-    
+    $message = ["pedido" => $pedido, "nf" => $nf, "stat" => $status, "id" => $id, "operacao" => $operacao];
     echo json_encode($message);
     return; 
 }
@@ -214,8 +211,10 @@ if($Search['type'] != 'n' && !empty($Search['searching'])){
             $id[] = strip_tags($Show['entrada_produto_id']);
             $operacao[] = 'Entrada';
 
-            $message = ["pedido" => $pedido, "nf" => $nf, "stat" => $status, "id" => $id, "operacao" => $operacao];
         }
+        $message = ["pedido" => $pedido, "nf" => $nf, "stat" => $status, "id" => $id, "operacao" => $operacao];
+        echo json_encode($message);
+        return; 
     }else if($Search['type'] == 2){ // SAÍDA
         $Read = $pdo->prepare("SELECT saida_nf, saida_codigo, saida_id, saida_status
         FROM si_saida WHERE saida_nf = :saida_nf");
@@ -237,8 +236,11 @@ if($Search['type'] != 'n' && !empty($Search['searching'])){
             $id[] = strip_tags($Show['saida_id']);
             $operacao[] = 'Saída';
 
-            $message = ["pedido" => $pedido, "nf" => $nf, "stat" => $status, "id" => $id, "operacao" => $operacao];
+           
         }
+        $message = ["pedido" => $pedido, "nf" => $nf, "stat" => $status, "id" => $id, "operacao" => $operacao];
+        echo json_encode($message);
+        return; 
     }else if($Search['type'] == 3){ // DEVOLUÇÃO
             $Read = $pdo->prepare("SELECT devolucao_nf, devolucao_codigo, devolucao_id, devolucao_status
             FROM si_devolucao WHERE devolucao_nf = :devolucao_nf");
@@ -260,8 +262,11 @@ if($Search['type'] != 'n' && !empty($Search['searching'])){
                 $id[] = strip_tags($Show['devolucao_id']);
                 $operacao[] = 'Devolução';
     
-                $message = ["pedido" => $pedido, "nf" => $nf, "stat" => $status, "id" => $id, "operacao" => $operacao];
+                
             }
+        $message = ["pedido" => $pedido, "nf" => $nf, "stat" => $status, "id" => $id, "operacao" => $operacao];
+        echo json_encode($message);
+        return; 
     }else if($Search['type'] == 4){ // CANCELADO   
         $message = ["status" => "info", "message" => "Não é possivel buscar NF no estado cancelado", "Lines" => 0];
     }
