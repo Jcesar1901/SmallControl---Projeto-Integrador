@@ -14,6 +14,8 @@
 				<h1 class="text-center font-text-min">Editar Dados do Estoque</h1>
 				
 				<form method="post" enctype="multipart/form-data" id="form_editStock">
+					<input type="hidden" name="idStock" id="idStock" value="" required>
+					<input type="hidden" name="qtdStock" id="qtdStock" value="" required>
 					
 					<div class="divisor2">
 						<label for="product">Produto*</label>

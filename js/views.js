@@ -413,7 +413,8 @@ $(function(){
             success: function (data, textStatus, jqXHR) {
                 // Alimenta o formulário na modal "editar fornecedores"
                 $('#idStock').val(data['id']);
-                $('#productEditStock').val(data['product']);
+                $('#qtdStock').val(data['quantity']);
+                $('#productEditStock').val(data['produto']);
                 $('#quantityEditStock').val(data['quantity']); 
                 //$('#statusEditStock').val(data['stat']);  
                 //$('#typeEditStock').val(data['operacao']);         

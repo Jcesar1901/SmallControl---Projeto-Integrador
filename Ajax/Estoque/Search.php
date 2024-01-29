@@ -16,8 +16,7 @@ if(empty($Search)){
 
 // ENTRADA
 if($Type == 'Entrada'){
-    $Read = $pdo->prepare("SELECT entrada_nf, entrada_codigo, entrada_quantidade, entrada_produto_id, entrada_status FROM " . DB_STOCKIN . " WHERE entrada_status = :entrada_status AND entrada_produto_id = :entrada_produto_id");
-    $Read->bindValue(':entrada_status', 1);
+    $Read = $pdo->prepare("SELECT entrada_nf, entrada_codigo, entrada_quantidade, entrada_produto_id, entrada_produto_nome, entrada_status FROM " . DB_STOCKIN . " WHERE entrada_produto_id = :entrada_produto_id");
     $Read->bindValue(':entrada_produto_id', $Search);
     $Read->execute();
 
@@ -31,13 +30,14 @@ if($Type == 'Entrada'){
 
     foreach($Read as $Show){
         $pedido[] = strip_tags($Show['entrada_codigo']);
+        $produto[] = strip_tags($Show['entrada_produto_nome']);
         $quantity[] = strip_tags($Show['entrada_quantidade']);
         $status[] = strip_tags($Show['entrada_status'] == 1 ? 'Ativo' : 'Inativo');
         $id[] = strip_tags($Show['entrada_produto_id']);
         $operacao[] = 'Entrada';
     }
     
-    $message = ['status' => 'success', 'pedido' => $pedido, 'quantity' => $quantity, 'stat' => $status, 'id' => $id, 'operacao' => $operacao];
+    $message = ['status' => 'success', 'pedido' => $pedido, 'produto' => $produto, 'quantity' => $quantity, 'stat' => $status, 'id' => $id, 'operacao' => $operacao];
     echo json_encode($message);
     return; 
 
@@ -45,7 +45,7 @@ if($Type == 'Entrada'){
 
 // SAIDA
 if($Type == 'Saída'){
-    $Read = $pdo->prepare("SELECT saida_nf, saida_codigo, saida_id, saida_status FROM " . DB_STOCKOUT . " WHERE saida_status = :saida_status AND saida_id = :saida_id");
+    $Read = $pdo->prepare("SELECT saida_nf, saida_codigo, saida_id, saida_produto_nome, saida_status FROM " . DB_STOCKOUT . " WHERE saida_status = :saida_status AND saida_id = :saida_id");
     $Read->bindValue(':saida_status', 1);
     $Read->bindValue(':saida_id', $Search['searching']);
     $Read->execute();
@@ -60,20 +60,21 @@ if($Type == 'Saída'){
 
     foreach($Read as $Show){
         $pedido[] = strip_tags($Show['saida_codigo']);
+        $produto[] = strip_tags($Show['saida_produto_nome']);
         $nf[] = strip_tags($Show['saida_nf']);
         $status[] = strip_tags($Show['saida_status'] == 1 ? 'Ativo' : 'Inativo');
         $id[] = strip_tags($Show['saida_id']);
         $operacao[] = 'Saída';
     }
     
-    $message = ['status' => 'success', 'pedido' => $pedido, 'nf' => $nf, 'stat' => $status, 'id' => $id, 'operacao' => $operacao];
+    $message = ['status' => 'success', 'pedido' => $pedido, 'produto' => $produto, 'stat' => $status, 'id' => $id, 'operacao' => $operacao];
     echo json_encode($message);
     return; 
 }
 
 // DEVOLUÇÃO 
 if($Type == 'Devolução'){
-    $Read = $pdo->prepare("SELECT devolucao_nf, devolucao_codigo, devolucao_id, devolucao_status FROM " . DB_DEVOLUTION . " WHERE devolucao_status = :devolucao_status AND devolucao_id = :devolucao_id");
+    $Read = $pdo->prepare("SELECT devolucao_nf, devolucao_codigo, devolucao_id, devolucao_produto_nome, devolucao_status FROM " . DB_DEVOLUTION . " WHERE devolucao_status = :devolucao_status AND devolucao_id = :devolucao_id");
     $Read->bindValue(':devolucao_status', 1);
     $Read->bindValue(':devolucao_id', $Search['searching']);
     $Read->execute();
@@ -88,20 +89,21 @@ if($Type == 'Devolução'){
 
     foreach($Read as $Show){
         $pedido[] = strip_tags($Show['devolucao_codigo']);
+        $produto[] = strip_tags($Show['devolucao_produto_nome']);
         $nf[] = strip_tags($Show['devolucao_nf']);
         $status[] = strip_tags($Show['devolucao_status'] == 1 ? 'Ativo' : 'Inativo');
         $id[] = strip_tags($Show['devolucao_id']);
         $operacao[] = 'Saída';
     }
     
-    $message = ['status' => 'success', 'pedido' => $pedido, 'nf' => $nf, 'stat' => $status, 'id' => $id, 'operacao' => $operacao];
+    $message = ['status' => 'success', 'pedido' => $pedido, 'produto' => $produto, 'stat' => $status, 'id' => $id, 'operacao' => $operacao];
     echo json_encode($message);
     return; 
 }
 
 // CANCELADO 
 if($Type == 'Cancelado'){
-    $Read = $pdo->prepare("SELECT a.entrada_nf, a.entrada_codigo, a.entrada_produto_id, a.entrada_status, b.saida_nf, b.saida_codigo, b.saida_id, b.saida_status, c.devolucao_nf, c.devolucao_codigo, c.devolucao_id, c.devolucao_status FROM si_entrada a INNER JOIN si_saida b ON (b.saida_nf = a.entrada_nf) INNER JOIN si_devolucao c ON (c.devolucao_nf = a.entrada_nf) WHERE a.entrada_status = :entrada_status");
+    $Read = $pdo->prepare("SELECT a.entrada_nf, a.entrada_codigo, a.entrada_produto_id, a.entrada_produto_nome, a.entrada_status, b.saida_nf, b.saida_codigo, b.saida_id, b.saida_status, c.devolucao_nf, c.devolucao_codigo, c.devolucao_id, c.devolucao_status FROM si_entrada a INNER JOIN si_saida b ON (b.saida_nf = a.entrada_nf) INNER JOIN si_devolucao c ON (c.devolucao_nf = a.entrada_nf) WHERE a.entrada_status = :entrada_status");
     $Read->bindValue(':entrada_status', 0);
     $Read->execute();
 
@@ -139,34 +141,7 @@ if($Type == 'Cancelado'){
         $operacao[] = 'Devolução';
 
     }    
-    $message = ["pedido" => $pedido, "nf" => $nf, "stat" => $status, "id" => $id, "operacao" => $operacao];
+    $message = ["pedido" => $pedido, 'produto' => $produto, "stat" => $status, "id" => $id, "operacao" => $operacao];
     echo json_encode($message);
     return;
 }
-$Lines = $Read->rowCount();
-
-if($Lines == 0){
-    $message = ['status'=> 'info', 'message'=> 'Nenhum resultado encontrado.', 'redirect'=> '', 'lines' => 0];
-    echo json_encode($message);
-    return; 
-}
-
-foreach($Read as $Show){
-    $Price = number_format($Show['produto_preco'], 2, ',' , '.');
-    $Category = strip_tags($Show['produto_categoria']);
-    $ProductId = strip_tags($Show['produto_id']);
-    $ProductName = strip_tags($Show['produto_nome']);
-    $Quantity = strip_tags($Show['produto_quantidade']);
-}
-
-for($i = 0; $i < $LinesCat; $i++){
-    $message = ['status'=> 'success', 
-        'product_id'=> strip_tags($ProductId),
-        'product'=> strip_tags($ProductName),
-        'quantity'=> strip_tags($Quantity),
-        'price'=> strip_tags($Price)];
-    $result[$i] = $message;
-}    
-//var_dump($result);
-echo json_encode($result);
-return;

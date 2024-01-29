@@ -148,7 +148,7 @@ if($Search['typeNew'] == 1){
     $Update = $pdo->prepare("UPDATE " . DB_PRODUCT . " SET produto_quantidade = :produto_quantity WHERE produto_nome = :produto_nome");
     $Update -> bindValue(':produto_quantity', $StockNow);
     $Update -> bindValue(':produto_nome', $Search['productNew']);
-    $Update -> execute(); 
+    $Update -> execute();
 }
 
 // GRAVAR DADOS DE SAIDA

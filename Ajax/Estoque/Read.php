@@ -34,7 +34,7 @@ if($Search['type'] == 1 && empty($Search['searching'])){
     foreach($Read as $Show){
         $pedido[] = strip_tags($Show['entrada_codigo']);
         $nf[] = strip_tags($Show['entrada_nf']);
-        $status[] = strip_tags($Show['entrada_status'] == 1 ? 'Ativo' : 'Inativo');
+        $status[] = strip_tags($Show['entrada_status'] == 1 ? 'Aguardando' : 'Liberado');
         $id[] = strip_tags($Show['entrada_produto_id']);
         $operacao[] = 'Entrada';
     }
@@ -62,7 +62,7 @@ if($Search['type'] == 2 && empty($Search['searching'])){
     foreach($Read as $Show){
         $pedido[] = strip_tags($Show['saida_codigo']);
         $nf[] = strip_tags($Show['saida_nf']);
-        $status[] = strip_tags($Show['saida_status'] == 1 ? 'Ativo' : 'Inativo');
+        $status[] = strip_tags($Show['saida_status'] == 1 ? 'Aguardando' : 'Liberado');
         $id[] = strip_tags($Show['saida_id']);
         $operacao[] = 'Saída';
     }
@@ -89,7 +89,7 @@ if($Search['type'] == 3 && empty($Search['searching'])){
     foreach($Read as $Show){
         $pedido[] = strip_tags($Show['devolucao_codigo']);
         $nf[] = strip_tags($Show['devolucao_nf']);
-        $status[] = strip_tags($Show['devolucao_status'] == 1 ? 'Ativo' : 'Inativo');
+        $status[] = strip_tags($Show['devolucao_status'] == 1 ? 'Aguardando' : 'Liberado');
         $id[] = strip_tags($Show['devolucao_id']);
         $operacao[] = 'Saída';
     }
@@ -122,19 +122,19 @@ if($Search['type'] == 3 && empty($Search['searching'])){
     foreach($Read as $Show){
         $pedido[] = strip_tags($Show['entrada_codigo']);
         $nf[] = strip_tags($Show['entrada_nf']);
-        $status[] = strip_tags($Show['entrada_status'] == 1 ? 'Ativo' : 'Inativo');
+        $status[] = strip_tags($Show['entrada_status'] == 1 ? 'Aguardando' : 'Liberado');
         $id[] = strip_tags($Show['entrada_produto_id']);
         $operacao[] = 'Entrada';
 
         $pedido[] = strip_tags($Show['saida_codigo']);
         $nf[] = strip_tags($Show['saida_nf']);
-        $status[] = strip_tags($Show['saida_status'] == 1 ? 'Ativo' : 'Inativo');
+        $status[] = strip_tags($Show['saida_status'] == 1 ? 'Aguardando' : 'Liberado');
         $id[] = strip_tags($Show['saida_id']);
         $operacao[] = 'Saída';
 
         $pedido[] = strip_tags($Show['devolucao_codigo']);
         $nf[] = strip_tags($Show['devolucao_nf']);
-        $status[] = strip_tags($Show['devolucao_status'] == 1 ? 'Ativo' : 'Inativo');
+        $status[] = strip_tags($Show['devolucao_status'] == 1 ? 'Aguardando' : 'Liberado');
         $id[] = strip_tags($Show['devolucao_id']);
         $operacao[] = 'Devolução';
 
@@ -165,19 +165,19 @@ if($Search['type'] == 'n' && !empty($Search['searching'])){
     foreach($Read as $Show){
         $pedido[] = strip_tags($Show['entrada_codigo']);
         $nf[] = strip_tags($Show['entrada_nf']);
-        $status[] = strip_tags($Show['entrada_status'] == 1 ? 'Ativo' : 'Inativo');
+        $status[] = strip_tags($Show['entrada_status'] == 1 ? 'Aguardando' : 'Liberado');
         $id[] = strip_tags($Show['entrada_produto_id']);
         $operacao[] = 'Entrada';
 
         $pedido[] = strip_tags($Show['saida_codigo']);
         $nf[] = strip_tags($Show['saida_nf']);
-        $status[] = strip_tags($Show['saida_status'] == 1 ? 'Ativo' : 'Inativo');
+        $status[] = strip_tags($Show['saida_status'] == 1 ? 'Aguardando' : 'Liberado');
         $id[] = strip_tags($Show['saida_id']);
         $operacao[] = 'Saída';
 
         $pedido[] = strip_tags($Show['devolucao_codigo']);
         $nf[] = strip_tags($Show['devolucao_nf']);
-        $status[] = strip_tags($Show['devolucao_status'] == 1 ? 'Ativo' : 'Inativo');
+        $status[] = strip_tags($Show['devolucao_status'] == 1 ? 'Aguardando' : 'Liberado');
         $id[] = strip_tags($Show['devolucao_id']);
         $operacao[] = 'Devolução';
 
@@ -207,7 +207,7 @@ if($Search['type'] != 'n' && !empty($Search['searching'])){
         foreach($Read as $Show){
             $pedido[] = strip_tags($Show['entrada_codigo']);
             $nf[] = strip_tags($Show['entrada_nf']);
-            $status[] = strip_tags($Show['entrada_status'] == 1 ? 'Ativo' : 'Inativo');
+            $status[] = strip_tags($Show['entrada_status'] == 1 ? 'Aguardando' : 'Liberado');
             $id[] = strip_tags($Show['entrada_produto_id']);
             $operacao[] = 'Entrada';
 
@@ -232,7 +232,7 @@ if($Search['type'] != 'n' && !empty($Search['searching'])){
         foreach($Read as $Show){
             $pedido[] = strip_tags($Show['saida_codigo']);
             $nf[] = strip_tags($Show['saida_nf']);
-            $status[] = strip_tags($Show['saida_status'] == 1 ? 'Ativo' : 'Inativo');
+            $status[] = strip_tags($Show['saida_status'] == 1 ? 'Aguardando' : 'Liberado');
             $id[] = strip_tags($Show['saida_id']);
             $operacao[] = 'Saída';
 
@@ -258,7 +258,7 @@ if($Search['type'] != 'n' && !empty($Search['searching'])){
             foreach($Read as $Show){
                 $pedido[] = strip_tags($Show['devolucao_codigo']);
                 $nf[] = strip_tags($Show['devolucao_nf']);
-                $status[] = strip_tags($Show['devolucao_status'] == 1 ? 'Ativo' : 'Inativo');
+                $status[] = strip_tags($Show['devolucao_status'] == 1 ? 'Aguardando' : 'Liberado');
                 $id[] = strip_tags($Show['devolucao_id']);
                 $operacao[] = 'Devolução';
     
