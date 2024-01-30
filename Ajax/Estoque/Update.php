@@ -83,3 +83,52 @@ if($Search['type'] == 1){
     echo json_encode($message);
     return;
 }
+
+// SAÍDA
+if($Search['type'] == 2){
+
+    if($Search['quantity'] == $Search['qtdStock']){
+        $Update = $pdo->prepare("UPDATE " . DB_STOCKOUT . " SET saida_produto_nome = :saida_produto_nome, saida_status = :saida_status WHERE saida_id = :saida_id");
+        $Update->bindValue(':saida_produto_nome', $Search['product']);
+        $Update->bindValue(':saida_status', $Search['status']);
+        $Update->bindValue(':saida_id', $Search['idStock']);
+        $Update->execute();
+    }else{
+        //Consulta na tabela de produtos
+        $ReadProd = $pdo->prepare("SELECT * FROM " . DB_PRODUCT . " WHERE produto_nome = :produto_nome");
+        $ReadProd->bindValue(':produto_nome', $Search['product']);
+        $ReadProd->execute();
+
+        $LinesProd = $ReadProd -> rowCount();
+
+        if($LinesProd == 0){
+            $message = ['status'=> 'info', 'message'=> 'Este produto está inativo ou nao existe mais!', 'redirect'=> '', 'lines' => 0];
+            echo json_encode($message);
+            return;
+        }
+
+        foreach($ReadProd as $Show){}
+        $StockNow = strip_tags($Show['produto_quantidade']);
+        $Qt = $Search['quantity'];
+        $QtNow = $StockNow;        
+        $Calc = abs($Search['quantity'] - $Search['qtdStock']);
+        $QtStock = $QtNow - $Calc;   
+        //var_dump($QtStock);
+        $Update = $pdo->prepare("UPDATE " . DB_STOCKOUT . " SET saida_produto_nome = :saida_produto_nome, saida_quantidade = :saida_quantidade, saida_quantidade_estoque_atual = :saida_quantidade_estoque_atual, saida_quantidade_estoque = :saida_quantidade_estoque, saida_status = :saida_status WHERE saida_id = :saida_id");
+        $Update->bindValue(':saida_produto_nome', $Search['product']);
+        $Update->bindValue(':saida_quantidade', $Qt);
+        $Update->bindValue(':saida_quantidade_estoque_atual', $QtNow);
+        $Update->bindValue(':saida_quantidade_estoque', $QtStock);
+        $Update->bindValue(':saida_status', $Search['status']);
+        $Update->bindValue(':saida_id', $Search['idStock']);
+        $Update->execute();
+
+        $Update = $pdo->prepare("UPDATE " . DB_PRODUCT . " SET produto_quantidade = :produto_quantity WHERE produto_nome = :produto_nome");
+        $Update -> bindValue(':produto_quantity', $QtStock);
+        $Update -> bindValue(':produto_nome', $Search['product']);
+        $Update -> execute();
+    }
+    $message = ['status' => 'success', 'message' => 'Dados da operação de entrada atualizados com sucesso!', 'redirect'=> 'stock'];
+    echo json_encode($message);
+    return;
+}

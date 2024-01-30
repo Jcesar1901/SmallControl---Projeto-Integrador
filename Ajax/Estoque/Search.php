@@ -45,9 +45,8 @@ if($Type == 'Entrada'){
 
 // SAIDA
 if($Type == 'Saída'){
-    $Read = $pdo->prepare("SELECT saida_nf, saida_codigo, saida_id, saida_produto_nome, saida_status FROM " . DB_STOCKOUT . " WHERE saida_status = :saida_status AND saida_id = :saida_id");
-    $Read->bindValue(':saida_status', 1);
-    $Read->bindValue(':saida_id', $Search['searching']);
+    $Read = $pdo->prepare("SELECT saida_nf, saida_codigo, saida_id, saida_produto_nome, saida_quantidade, saida_status FROM " . DB_STOCKOUT . " WHERE saida_id = :saida_id");
+    $Read->bindValue(':saida_id', $Search);
     $Read->execute();
 
     $Lines = $Read->rowCount();
@@ -60,6 +59,7 @@ if($Type == 'Saída'){
 
     foreach($Read as $Show){
         $pedido[] = strip_tags($Show['saida_codigo']);
+        $quantity[] = strip_tags($Show['saida_quantidade']);
         $produto[] = strip_tags($Show['saida_produto_nome']);
         $nf[] = strip_tags($Show['saida_nf']);
         $status[] = strip_tags($Show['saida_status'] == 1 ? 'Ativo' : 'Inativo');
@@ -67,16 +67,15 @@ if($Type == 'Saída'){
         $operacao[] = 'Saída';
     }
     
-    $message = ['status' => 'success', 'pedido' => $pedido, 'produto' => $produto, 'stat' => $status, 'id' => $id, 'operacao' => $operacao];
+    $message = ['status' => 'success', 'pedido' => $pedido, 'produto' => $produto, 'quantity' => $quantity, 'stat' => $status, 'id' => $id, 'operacao' => $operacao];
     echo json_encode($message);
-    return; 
+    return;
 }
 
 // DEVOLUÇÃO 
 if($Type == 'Devolução'){
-    $Read = $pdo->prepare("SELECT devolucao_nf, devolucao_codigo, devolucao_id, devolucao_produto_nome, devolucao_status FROM " . DB_DEVOLUTION . " WHERE devolucao_status = :devolucao_status AND devolucao_id = :devolucao_id");
-    $Read->bindValue(':devolucao_status', 1);
-    $Read->bindValue(':devolucao_id', $Search['searching']);
+    $Read = $pdo->prepare("SELECT devolucao_nf, devolucao_codigo, devolucao_id, devolucao_quantidade, devolucao_produto_nome, devolucao_status FROM " . DB_DEVOLUTION . " WHERE devolucao_id = :devolucao_id");
+    $Read->bindValue(':devolucao_id', $Search);
     $Read->execute();
 
     $Lines = $Read->rowCount();
@@ -89,6 +88,7 @@ if($Type == 'Devolução'){
 
     foreach($Read as $Show){
         $pedido[] = strip_tags($Show['devolucao_codigo']);
+        $quantity[] = strip_tags($Show['devolucao_quantidade']);
         $produto[] = strip_tags($Show['devolucao_produto_nome']);
         $nf[] = strip_tags($Show['devolucao_nf']);
         $status[] = strip_tags($Show['devolucao_status'] == 1 ? 'Ativo' : 'Inativo');
@@ -96,7 +96,7 @@ if($Type == 'Devolução'){
         $operacao[] = 'Saída';
     }
     
-    $message = ['status' => 'success', 'pedido' => $pedido, 'produto' => $produto, 'stat' => $status, 'id' => $id, 'operacao' => $operacao];
+    $message = ['status' => 'success', 'pedido' => $pedido, 'produto' => $produto, 'quantity' => $quantity, 'stat' => $status, 'id' => $id, 'operacao' => $operacao];
     echo json_encode($message);
     return; 
 }
