@@ -445,6 +445,18 @@ $(function(){
                     var options = "<option value='1'>Aguardando</option><option value='2'selected>Liberado</option>"; 
                     $('#statusEditStock').prepend(options); 
                 }
+
+                //Se a operação for "Devolução"
+                if(data['operacao'] == 'Devolução'){
+                    //Habilitar os campos
+                    $('.inputDevolution').css('display' , 'block');
+                    //Alimenta os campos
+                    $("#nfEditStock").val(data['nf']);
+                    $("#nfValueEditStock").val(data['nfValor']);
+                    $("#msgEditStock").val(data['motivo']);
+                    $("#providerEditStock").val(data['fornecedor']);
+
+                }
             
             }
         });

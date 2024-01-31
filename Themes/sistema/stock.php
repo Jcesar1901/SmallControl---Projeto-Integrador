@@ -45,6 +45,28 @@
 							<option value="2">Liberado</option>
 						</select>
 					</div>
+
+					<div class="inputDevolution" style="display: none">
+						<div class="divisor3">
+							<label for="nfEditStock">Nota Fiscal*</label>
+							<input type="text" name="nfEditStock" id="nfEditStock">
+						</div>
+
+						<div class="divisor3">
+							<label for="nfValueEditStock">Valor da Nota Fiscal*</label>
+							<input type="text" name="nfValueEditStock" id="nfValueEditStock" class="money">
+						</div>
+
+						<div class="divisor3">
+							<label for="providerEditStock">Fornecedor*</label>
+							<input type="text" name="providerEditStock" id="providerEditStock">
+						</div>
+						<div class="clear"></div>
+						<div class="divisor1">
+							<label for="msgEditStock">Motivo*</label>
+							<textarea name="msgEditStock" id="msgEditStock"></textarea>
+						</div>
+					</div>
 					
 					<div class="divisor2">
 						<br><button name="btn_editstock" id="btn_editstock" class="btn_edit radius"><i class="fa fa-pen"></i> Atualizar Dados</button>

@@ -132,3 +132,22 @@ if($Search['type'] == 2){
     echo json_encode($message);
     return;
 }
+
+// DEVOLUÇÃO
+if($Search['type'] == 3){
+    $price = str_replace(['.' , ','], ['' , '.'], $Search['nfValueEditStock']);
+    $Update = $pdo->prepare("UPDATE " . DB_DEVOLUTION . " SET devolucao_produto_nome = :devolucao_produto_nome, devolucao_status = :devolucao_status, devolucao_quantidade = :devolucao_quantidade, devolucao_valor_nf = :devolucao_valor_nf, devolucao_nf = :devolucao_nf, devolucao_motivo = :devolucao_motivo, devolucao_fornecedor = :devolucao_fornecedor WHERE devolucao_id = :devolucao_id");
+    $Update->bindValue(':devolucao_produto_nome', $Search['product']);
+    $Update->bindValue(':devolucao_status', $Search['status']);
+    $Update->bindValue(':devolucao_quantidade', $Search['quantity']);
+    $Update->bindValue(':devolucao_valor_nf', $price);
+    $Update->bindValue(':devolucao_nf', $Search['nfEditStock']);
+    $Update->bindValue(':devolucao_motivo', $Search['msgEditStock']);
+    $Update->bindValue(':devolucao_fornecedor', $Search['providerEditStock']);
+    $Update->bindValue(':devolucao_id', $Search['idStock']);
+    $Update->execute();
+    
+    $message = ['status' => 'success', 'message' => 'Dados da operação de entrada atualizados com sucesso!', 'redirect'=> 'stock'];
+    echo json_encode($message);
+    return;
+}

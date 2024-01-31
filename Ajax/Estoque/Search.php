@@ -74,7 +74,7 @@ if($Type == 'Saída'){
 
 // DEVOLUÇÃO 
 if($Type == 'Devolução'){
-    $Read = $pdo->prepare("SELECT devolucao_nf, devolucao_codigo, devolucao_id, devolucao_quantidade, devolucao_produto_nome, devolucao_status FROM " . DB_DEVOLUTION . " WHERE devolucao_id = :devolucao_id");
+    $Read = $pdo->prepare("SELECT devolucao_nf, devolucao_codigo, devolucao_id, devolucao_quantidade, devolucao_produto_nome, devolucao_motivo, devolucao_nf, devolucao_fornecedor, devolucao_valor_nf, devolucao_status FROM " . DB_DEVOLUTION . " WHERE devolucao_id = :devolucao_id");
     $Read->bindValue(':devolucao_id', $Search);
     $Read->execute();
 
@@ -91,12 +91,15 @@ if($Type == 'Devolução'){
         $quantity[] = strip_tags($Show['devolucao_quantidade']);
         $produto[] = strip_tags($Show['devolucao_produto_nome']);
         $nf[] = strip_tags($Show['devolucao_nf']);
+        $nfValor[] = strip_tags($Show['devolucao_valor_nf']);
+        $motivo[] = strip_tags($Show['devolucao_motivo']);
+        $fornecedor[] = strip_tags($Show['devolucao_fornecedor']);        
         $status[] = strip_tags($Show['devolucao_status'] == 1 ? 'Ativo' : 'Inativo');
         $id[] = strip_tags($Show['devolucao_id']);
-        $operacao[] = 'Saída';
+        $operacao[] = 'Devolução';
     }
     
-    $message = ['status' => 'success', 'pedido' => $pedido, 'produto' => $produto, 'quantity' => $quantity, 'stat' => $status, 'id' => $id, 'operacao' => $operacao];
+    $message = ['status' => 'success', 'pedido' => $pedido, 'produto' => $produto, 'quantity' => $quantity, 'stat' => $status, 'id' => $id, 'operacao' => $operacao, 'nf' => $nf, 'nfValor' => $nfValor, 'motivo' => $motivo, 'fornecedor' => $fornecedor];
     echo json_encode($message);
     return; 
 }
