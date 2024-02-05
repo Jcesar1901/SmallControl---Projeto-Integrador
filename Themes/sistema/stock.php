@@ -210,7 +210,6 @@
 								<option value="1"> Entrada </option>
 								<option value="2"> Saída </option>								
 								<option value="3"> Devolução </option>
-								<option value="4"> Cancelado </option>
 							</select>
 						</div>
 

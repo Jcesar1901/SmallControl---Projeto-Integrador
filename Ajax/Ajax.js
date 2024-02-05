@@ -892,7 +892,7 @@ $(document).ready(function(){
                         '<td><p class="font-text-sub"><b>Nota Fiscal:</b></p><p>' + data['nf'][i] + '</p></td>\n' +
                         '<td><p class="font-text-sub"><b>Operação:</b></p><p>' + data['operacao'][i] + '</p></td>\n' +
                         '<td><p class="font-text-sub"><b>Status:</b></p><p class="font-text-sub"><span class="btn_edit radius" style=padding:3px 4px !important;">' + data['stat'][i] + '</span></p></td>\n' +
-                        '<td><p class="text-center"><a href="#" title="Visualizar e editar informações" class="radius btn_edit editStock" data-id="'+data['id'][i]+'" data-type="'+data['operacao'][i]+'"style="margin: 4px"><i class="fa fa-pen"></i></a><a href="#" title="Remover este registro" class="radius btn_delete deleteStock" data-id="'+data['id'][i]+'" style="margin: 4px"><i class="fa fa-trash-alt"></i></a></p></td></tr>'
+                        '<td><p class="text-center"><a href="#" title="Visualizar e editar informações" class="radius btn_edit editStock" data-id="'+data['id'][i]+'" data-type="'+data['operacao'][i]+'"style="margin: 4px"><i class="fa fa-pen"></i></a><a href="#" title="Remover este registro" class="radius btn_delete deleteStock" data-id="'+data['id'][i]+'" data-value="' + data['operacao'][i]+'" style="margin: 4px"><i class="fa fa-trash-alt"></i></a></p></td></tr>'
 
                     $('.row').prepend(mount);
                     }
@@ -995,6 +995,51 @@ $(document).ready(function(){
         return false;
     });
 
+    // Remover Operação de estoque
+    $(document).on('click', ".removeStock", function(e){
+        e.preventDefault();
+
+        var id = $(this).attr('data-id');
+        var value = $(this).attr('data-value');
+        var url = page+"Ajax/Estoque/Delete.php?id="+id+"&val="+value;
+        
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: value,
+            dataType: 'JSON',
+
+            success: function (data, textStatus, jqXHR) {
+
+                if (data['status'] == 'success') {
+                    $(".result").text('');
+                    $(".result").prepend('<div id="status-container" class="status-top-right text-center"><div class="status status-' + data['status'] + '"><div class="status-message"><i class="fa fa-user"></i> '+data['message']+'</div></div></div>');
+
+                } else if (data['status'] == 'info') {
+                    $(".result").text('');
+                    $(".result").prepend('<div id="status-container" class="status-top-right text-center"><div class="status status-' + data['status'] + '"><div class="status-message"><i class="fa fa-info-circle"></i>  '+data['message']+'</div></div></div>');
+
+                } else if (data['status'] == 'warning') {
+                    $(".result").text('');
+                    $(".result").prepend('<div id="status-container" class="status-top-right text-center"><div class="status status-' + data['status'] + '"><div class="status-message"><i class="fa fa-triangle-exclamation"></i>  '+data['message']+'</div></div></div>');
+
+                } else {
+                    $(".result").text('');
+                    $(".result").prepend('<div id="status-container" class="status-top-right text-center"><div class="status status-' + data['status'] + '"><div class="status-message"><i class="fa fa-times-circle"></i>  '+data['message']+'</div></div></div>');
+                }
+
+                setTimeout(function () {
+                    $('#status-container').hide();
+                    $('.loading').css('display', 'none');
+                    
+                    if(data['redirect'] != ''){
+                        window.location.href = data['redirect'];
+                    }
+                }, 1500);              
+                    
+            }
+        });
+    });
 
 
 

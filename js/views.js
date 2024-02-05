@@ -463,9 +463,15 @@ $(function(){
     });
 	
 	//Abre a modal do remover estoque
-	$(".deleteStock").click(function(){
-		$('.delete').css('display', 'flex');
-	});
+	$(document).on('click', '.deleteStock', function(e){
+        e.preventDefault();
+
+        $('.delete').css('display', 'flex');
+        var id = $('.deleteStock').attr('data-id');
+        var value = $('.deleteStock').attr('data-value');
+        $('.removeStock').attr('data-id', id);
+        $('.removeStock').attr('data-value', value);
+    });
 	
 	//Abre a modal do novo estoque
 	$(".newStock").click(function(){
