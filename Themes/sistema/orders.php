@@ -138,10 +138,19 @@
 				<h1 class="text-center font-text-min">Dados do Novo Pedido</h1>
 				
 				<form method="post" enctype="multipart/form-data" id="form_newOrder">
+
+					<?php
+						if(empty($_SESSION['order']) || !$_SESSION['order']){
+							$_SESSION['order'] = rand(100, 10000).time();
+							$Session = $_SESSION['order'];
+						}
+
+						$Session = $_SESSION['order'];
+					?>
 					
 					<div class="divisor3">
 						<label for="numberOrder">Nº Pedido*</label>
-						<input type="text" name="numberOrder" id="numberOrder" required>
+						<input type="text" name="numberOrder" id="numberOrder" value="<?= $Session ?>" required>
 					</div>
 					
 					<div class="divisor3">
@@ -161,14 +170,25 @@
 					
 					<div class="clear"></div>
 					
-					<div class="divisor2">
+					<div class="divisor3">
 						<label for="city">Cidade*</label>
 						<input type="text" name="city" id="city" required>
 					</div>
 					
-					<div class="divisor2">
+					<div class="divisor3">
 						<label for="state">Estado*</label>
 						<input type="text" name="state" id="state" required>
+					</div>
+
+					<div class="divisor3">
+						<label for="type">Status:</label>
+						<select name="type" id="type" required>
+							<option value="n"> Escolha uma opção </option>
+							<option value="1"> Pendente </option>
+							<option value="2"> Aguardando </option>
+							<option value="3"> Despachado </option>
+							<option value="4"> Devolvido </option>
+						</select>
 					</div>
 					
 					<div class="divisor2">
@@ -260,6 +280,21 @@
 				<h1 class="text-center font-text-min">Você Deseja Remover Este Pedido?</h1>
 				<p class="text-center"><br>
 					<a href="#" title="Remover este Pedido" class="btn_edit radius removeOrder"><i class="fa fa-check"></i> SIM </a>&nbsp;&nbsp;
+					<a href="#" title="Fechar a modal" class="btn_delete radius modal-close"><i class="fa fa-times-circle"></i> NÃO</a>
+				</p>
+				
+				<div class="clear"></div>
+				<div class="espaco-medium"></div>
+			</div>
+		</div>
+
+		<!-- Modal Incluir Produtos Pedido -->
+		<div class="modal orderNew" style="display:none;">
+			<div class="modal_container radius" style="widdth: 30% !important;">
+				<div class="espaco-medium"></div>
+				<h1 class="text-center font-text-min">Você Deseja Incluir Produtos Neste Pedido?</h1>
+				<p class="text-center"><br>
+					<a href="#" title="Sim, desejo incluir outro produto" class="btn_edit radius plusOrder"><i class="fa fa-check"></i> SIM </a>&nbsp;&nbsp;
 					<a href="#" title="Fechar a modal" class="btn_delete radius modal-close"><i class="fa fa-times-circle"></i> NÃO</a>
 				</p>
 				

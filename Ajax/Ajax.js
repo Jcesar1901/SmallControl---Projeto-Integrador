@@ -1042,7 +1042,7 @@ $(document).ready(function(){
     });
 
     // Nova operação de Pedido
-    $("body").on('click', '#btn_neworder', function (e) {
+    $("#btn_neworder").click(function (e) {
         e.preventDefault();
     
         var form = $("#form_newOrder");
@@ -1072,6 +1072,8 @@ $(document).ready(function(){
                     $(".result").text('');
                     $(".result").prepend('<div id="status-container" class="status-top-right text-center"><div class="status status-'+data['status']+'"><div class="status-message"> <span class="fa fa-times-circle"></span>  '+data['message']+'</div></div></div>');
                 }
+                //Abrir a modal para acrescentar novos produtos ao pedido
+                $('.orderNew').css('display', 'flex');
 
                 setTimeout(function () {
                     $('#status-container').hide();
