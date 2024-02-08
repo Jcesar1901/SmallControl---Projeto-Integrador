@@ -136,6 +136,6 @@ $Update -> bindValue(':produto_nome', $Search['product']);
 $Update -> execute();
 */
 
-$message = ['status' => 'success', 'message' => 'Operação cadastrada com sucesso!', 'redirect'=> 'orders'];
+$message = ['status' => 'success', 'message' => 'Operação cadastrada com sucesso!', 'redirect'=> ''];
 echo json_encode($message);
 return; 

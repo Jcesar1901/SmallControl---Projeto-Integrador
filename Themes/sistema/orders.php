@@ -15,18 +15,18 @@
 				<form method="post" enctype="multipart/form-data" id="form_editOrder">
 					
 					<div class="divisor3">
-						<label for="numberOrder">Nº Pedido*</label>
-						<input type="text" name="numberOrder" id="numberOrder" required>
+						<label for="numberOrderEdit">Nº Pedido*</label>
+						<input type="text" name="numberOrderEdit" id="numberOrderEdit" required>
 					</div>
 					
 					<div class="divisor3">
-						<label for="numberInvoice">Nº Nota Fiscal*</label>
-						<input type="text" name="numberInvoice" id="numberInvoice" required>
+						<label for="numberInvoiceEdit">Nº Nota Fiscal*</label>
+						<input type="text" name="numberInvoiceEdit" id="numberInvoiceEdit" required>
 					</div>
 					
 					<div class="divisor3">
-						<label for="typeOrder">Tipo de Remessa*</a></label>
-						<select name="typeOrder" id="typeOrder" required>
+						<label for="typeOrderEdit">Tipo de Remessa*</a></label>
+						<select name="typeOrderEdit" id="typeOrderEdit" required>
 							<option value="n">Selecione uma opção</option>
 							<option value="1">Correios</option>
 							<option value="2">Transportadora</option>
@@ -37,23 +37,23 @@
 					<div class="clear"></div>
 					
 					<div class="divisor2">
-						<label for="city">Cidade*</label>
-						<input type="text" name="city" id="city" required>
+						<label for="cityEdit">Cidade*</label>
+						<input type="text" name="cityEdit" id="cityEdit" required>
 					</div>
 					
 					<div class="divisor2">
-						<label for="state">Estado*</label>
-						<input type="text" name="state" id="state" required>
+						<label for="stateEdit">Estado*</label>
+						<input type="text" name="stateEdit" id="stateEdit" required>
 					</div>
 					
 					<div class="divisor2">
-						<label for="product">Produto*</label>
-						<input type="text" name="product" id="product" required>
+						<label for="productEdit">Produto*</label>
+						<input type="text" name="productEdit" id="productEdit" required>
 					</div>
 					
 					<div class="divisor2">
-						<label for="quantity">Quantidade*</label>
-						<input type="text" name="quantity" id="quantity" required>
+						<label for="quantityEdit">Quantidade*</label>
+						<input type="text" name="quantityEdit" id="quantityEdit" required>
 					</div>
 					
 					<div class="clear"></div>
@@ -288,14 +288,14 @@
 			</div>
 		</div>
 
-		<!-- Modal Incluir Produtos Pedido -->
+		<!-- Modal Incluir Produtos no Pedido -->
 		<div class="modal orderNew" style="display:none;">
-			<div class="modal_container radius" style="widdth: 30% !important;">
+			<div class="modal_container radius" style="width: 30% !important;">
 				<div class="espaco-medium"></div>
 				<h1 class="text-center font-text-min">Você Deseja Incluir Produtos Neste Pedido?</h1>
 				<p class="text-center"><br>
 					<a href="#" title="Sim, desejo incluir outro produto" class="btn_edit radius plusOrder"><i class="fa fa-check"></i> SIM </a>&nbsp;&nbsp;
-					<a href="#" title="Fechar a modal" class="btn_delete radius modal-close"><i class="fa fa-times-circle"></i> NÃO</a>
+					<a href="#" title="Fechar a modal" class="btn_delete orderHide radius modal-close"><i class="fa fa-times-circle"></i> NÃO</a>
 				</p>
 				
 				<div class="clear"></div>

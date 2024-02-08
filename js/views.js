@@ -490,6 +490,23 @@ $(function(){
         }
 
 	});
+
+    //Manter os dados na modal de pedido e limpar os campos produto e quantidade - ORDER 
+	$(document).on('click', ".plusOrder", function(e){
+        e.preventDefault();
+		$('#product').val('');
+        $('#quantity').val('');
+        $('.orderNew').css('display', 'none');
+	});
+    
+    //Fechar a modal de pedido e limpar todos os campos - ORDER 
+	$(document).on('click', ".orderHide", function(e){
+        e.preventDefault();
+		$('#product').val('');
+        $('#quantity').val('');
+        $('#form_newOrder')[0].reset();
+        $('.orderNew').css('display', 'none');
+	});
 });
 
 //AUTOCARREGAMENTO DE IMAGENS - PREVIEW
