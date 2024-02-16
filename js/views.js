@@ -491,24 +491,50 @@ $(function(){
 
 	});
 
+    //Atualiza a tabela de novo pedido
+    var cart = setInterval(function(){
+
+        $(".loader").load(page+"orders .loader");
+    }, 1000);
+
     //Manter os dados na modal de pedido e limpar os campos produto e quantidade - ORDER 
 	$(document).on('click', ".plusOrder", function(e){
         e.preventDefault();
 		$('#product').val('');
         $('#quantity').val('');
+
         $('.orderNew').css('display', 'none');
 	});
     
     //Fechar a modal de pedido e limpar todos os campos - ORDER 
 	$(document).on('click', ".orderHide", function(e){
         e.preventDefault();
-		$('#product').val('');
-        $('#quantity').val('');
+        
+		//Limpa o formulário antes de fechar a modal
         $('#form_newOrder')[0].reset();
-        $('.orderNew').css('display', 'none');
-	});
-});
 
+        $('.orderNew').css('display', 'none');
+
+        //Limpar e excluir a sessão
+        var value = 1;
+        var url = page+"Ajax/Pedidos/Session.php?val="+value;
+        
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: value,
+            dataType: 'JSON',
+
+            success: function (data, textStatus, jqXHR) {
+                setTimeout(function () {                    
+                    if(data['redirect'] != ''){
+                        window.location.href = data['redirect'];
+                    }
+                }, 1000);        
+            } 
+	    });
+    });
+});
 //AUTOCARREGAMENTO DE IMAGENS - PREVIEW
 var loadFile = function(event){
     var reader = new FileReader();

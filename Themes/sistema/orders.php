@@ -140,11 +140,11 @@
 				<form method="post" enctype="multipart/form-data" id="form_newOrder">
 
 					<?php
-						if(empty($_SESSION['order']) || !$_SESSION['order']){
+						if(empty($_SESSION['order']) || !$_SESSION['order'] || $_SESSION['order'] == '') {
 							$_SESSION['order'] = rand(100, 10000).time();
 							$Session = $_SESSION['order'];
-						}
-
+						}	
+						//unset($_SESSION['order']);
 						$Session = $_SESSION['order'];
 					?>
 					
@@ -205,53 +205,53 @@
 					
 					<div class="divisor1">
 						<h1 class="font-text-min font-weight-medium"  style="margin: 10px 2% !important;">Lista do Pedido</h1>
+
+						<div class="loader">
 						<table style="width: 96% !important; margin: 10px 2% !important;">
-							<tr>
-								<td>
-									<p class="font-text-sub"><b>Produto:</b></p>
-									<p>Açucar Refinado 1Kg</p>
-								</td>
+							<tbody>
+								<?php
 								
-								<td>
-									<p class="font-text-sub"><b>Quantidade:</b></p>
-									<p>2</p>
-								</td>
-								
-								<td>
-									<p class="font-text-sub"><b>Valor:</b></p>
-									<p>R$ 50,00</p>
-								</td>
-								
-								<td>
-									<p class="text-center">
-										<a href="#" title="Remover este produto do pedido" class="radius btn_delete deleteProductOrder"><i class="fa fa-trash-alt"></i></a>
-									</p>
-								</td>
-							</tr>
-							
-							<tr>
-								<td>
-									<p class="font-text-sub"><b>Produto:</b></p>
-									<p>Arroz Integral 5Kg</p>
-								</td>
-								
-								<td>
-									<p class="font-text-sub"><b>Quantidade:</b></p>
-									<p>1</p>
-								</td>
-								
-								<td>
-									<p class="font-text-sub"><b>Valor:</b></p>
-									<p>R$ 25,00</p>
-								</td>
-								
-								<td>
-									<p class="text-center">
-										<a href="#" title="Remover este produto do pedido" class="radius btn_delete deleteProductOrder"><i class="fa fa-trash-alt"></i></a>
-									</p>
-								</td>
-							</tr>
+								$Read = $pdo->prepare("SELECT pedido_id, pedido_sessao, pedido_numero, pedido_nf, pedido_produto_id, pedido_produto_nome, pedido_quantidade, pedido_quantidade_estoque, pedido_valor FROM " .DB_ORDERS. " WHERE pedido_sessao = :pedido_sessao OR pedido_numero = :pedido_numero");
+								$Read->bindValue(':pedido_sessao', $Session);
+								$Read->bindValue(':pedido_numero', $Session);
+								$Read->execute();
+
+								$Lines = $Read->rowCount();
+
+								if($Lines == 0){
+									echo '<tr><td>Não há nenhum produto nesse pedido!</td></tr>';
+								}
+
+								foreach($Read as $Show):
+
+
+								?>
+								<tr>
+									<td>
+										<p class="font-text-sub"><b>Produto:</b></p>
+										<p><?= strip_tags($Show['pedido_produto_nome']) ?></p>
+									</td>
+									
+									<td>
+										<p class="font-text-sub"><b>Quantidade:</b></p>
+										<p><?= strip_tags($Show['pedido_quantidade']) ?></p>
+									</td>
+									
+									<td>
+										<p class="font-text-sub"><b>Valor:</b></p>
+										<p>R$ <?= strip_tags(number_format($Show['pedido_valor'], 2, ',', '.')) ?></p>
+									</td>
+									
+									<td>
+										<p class="text-center">
+											<a href="#" title="Remover este produto do pedido" class="radius btn_delete deleteProductOrder" data-id="<?= strip_tags($Show['pedido_id']) ?>"><i class="fa fa-trash-alt"></i></a>
+										</p>
+									</td>
+								</tr>
+								<?php endforeach;?>
+							</tbody>
 						</table>
+						</div>
 					</div>
 					
 					<div class="clear"></div>

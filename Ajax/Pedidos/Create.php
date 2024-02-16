@@ -73,10 +73,10 @@ if(empty($Search['price'])){
 
 // Verifica se a sessão ja existe
 
-    $Read = $pdo->prepare("SELECT pedido_nf, pedido_produto_nome FROM " . DB_ORDERS . " WHERE pedido_produto_nome = :pedido_produto_nome AND pedido_nf = :pedido_nf");
-    $Read->bindValue(':pedido_nf', $Search['numberInvoice']);
-    $Read->bindValue(':pedido_produto_nome', $Search['product']);
-    $Read->execute();
+$Read = $pdo->prepare("SELECT pedido_nf, pedido_produto_nome FROM " . DB_ORDERS . " WHERE pedido_produto_nome = :pedido_produto_nome AND pedido_nf = :pedido_nf");
+$Read->bindValue(':pedido_nf', $Search['numberInvoice']);
+$Read->bindValue(':pedido_produto_nome', $Search['product']);
+$Read->execute();
 
 $Lines = $Read->rowCount();
 
@@ -113,10 +113,10 @@ $Token = rand(100000, 100000000);
 $StockNow = $StockBack - $StockQuantity;
 
 //Inserção do pedido
-/*$Create = $pdo->prepare("INSERT INTO " . DB_ORDERS . "(pedido_sessao, pedido_numero, pedido_nf, pedido_remessa, pedido_cidade, pedido_uf, pedido_produto_id, pedido_produto_nome, pedido_quantidade, pedido_quantidade_estoque, pedido_valor, pedido_valor_total, pedido_status)
+$Create = $pdo->prepare("INSERT INTO " . DB_ORDERS . "(pedido_sessao, pedido_numero, pedido_nf, pedido_remessa, pedido_cidade, pedido_uf, pedido_produto_id, pedido_produto_nome, pedido_quantidade, pedido_quantidade_estoque, pedido_valor, pedido_valor_total, pedido_status)
 VALUES(:pedido_sessao, :pedido_numero, :pedido_nf, :pedido_remessa, :pedido_cidade, :pedido_uf, :pedido_produto_id, :pedido_produto_nome, :pedido_quantidade, :pedido_quantidade_estoque, :pedido_valor, :pedido_valor_total, :pedido_status)");
 $Create->bindValue(':pedido_sessao', $Search['numberOrder']);
-$Create->bindValue(':pedido_numero', $Search['product']);
+$Create->bindValue(':pedido_numero', $Search['numberOrder']);
 $Create->bindValue(':pedido_nf', $Search['numberInvoice']);
 $Create->bindValue(':pedido_remessa', $Search['typeOrder']);
 $Create->bindValue(':pedido_cidade', $Search['city']);
@@ -134,7 +134,7 @@ $Update = $pdo->prepare("UPDATE " . DB_PRODUCT . " SET produto_quantidade = :pro
 $Update -> bindValue(':produto_quantity', $StockNow);
 $Update -> bindValue(':produto_nome', $Search['product']);
 $Update -> execute();
-*/
+
 
 $message = ['status' => 'success', 'message' => 'Operação cadastrada com sucesso!', 'redirect'=> ''];
 echo json_encode($message);
