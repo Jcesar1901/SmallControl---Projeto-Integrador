@@ -507,7 +507,7 @@ $(function(){
 	});
     
     //Fechar a modal de pedido e limpar todos os campos - ORDER 
-	$(document).on('click', ".orderHide", function(e){
+	$(document).on('click', ".orderHide, .modal-close", function(e){
         e.preventDefault();
         
 		//Limpa o formulário antes de fechar a modal
