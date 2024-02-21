@@ -372,8 +372,93 @@ $(function(){
 	
 	
 	//Abre a modal do editar pedidos
-	$(".editOrder").click(function(){
-		$('.modal').css('display', 'flex');
+	$("body").on('click', '.editOrder', function(e){
+		e.preventDefault();
+        $('.modal_Order').css('display', 'flex');
+        var value = $(this).attr('data-id');
+        $('#product_id').val(value);
+    
+        // Trazer os dados para o formulário de modal de edição de dados
+    
+        var url = page + "Ajax/Pedidos/Search.php?val=" + value;
+    
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: { value: value },
+            dataType: 'JSON',
+            success: function (data, textStatus, jqXHR) {
+                // Alimenta o formulário na modal "editar fornecedores"
+                $('#product_id').val(data[0]['numberOrder']);
+                $('#productEdit').val(data[0]['numberInvoice']);
+                $('#city').val(data[0]['city']); 
+                $('#state').val(data[0]['state']); 
+                $('#price').val(data[0]['price']);         
+                
+                //Para limpar o select
+                $('#type').html('');
+                $('#typeOrder').html('');
+
+                //Select do Status
+                for(var i in data){
+                    if(data[i]['status'] == 1){
+                        var options = "<option value='n'> Escolha uma opção </option>" +
+                        "<option value='1' selected> Pendente </option>" +
+                        "<option value='2'> Aguardando </option>" +
+                        "<option value='3'> Despachado </option>" + 
+                        "<option value='4'> Devolvido </option>"; 
+                        
+                    }else if(data[i]['status'] == 2){
+                        var options = "<option value='n'> Escolha uma opção </option>" +
+                        "<option value='1'> Pendente </option>" +
+                        "<option value='2' selected> Aguardando </option>" +
+                        "<option value='3'> Despachado </option>" + 
+                        "<option value='4'> Devolvido </option>"; 
+                    }else if(data[i]['status'] == 3){
+                        var options = "<option value='n'> Escolha uma opção </option>" +
+                        "<option value='1'> Pendente </option>" +
+                        "<option value='2'> Aguardando </option>" +
+                        "<option value='3' selected> Despachado </option>" + 
+                        "<option value='4'> Devolvido </option>";  
+                    }else{
+                        var options = "<option value='n'> Escolha uma opção </option>" +
+                        "<option value='1'> Pendente </option>" +
+                        "<option value='2'> Aguardando </option>" +
+                        "<option value='3'> Despachado </option>" + 
+                        "<option value='4' selected> Devolvido </option>";  
+                        
+                    }
+
+                    $('#type').prepend(options); 
+
+                }
+                
+                //Select do tipo de remessa
+                for(var i in data){
+                    if(data[i]['type'] == 1){
+                        var tp = "<option value='n'> Selecione uma opção </option>" +
+                        "<option value='1' selected> Correios </option>" +
+                        "<option value='2'> Transportadora </option>" +
+                        "<option value='3'> Retira No Local </option>"; 
+                        
+                    }else if(data[i]['type'] == 2){
+                        var tp = "<option value='n'> Selecione uma opção </option>" +
+                        "<option value='1'> Correios </option>" +
+                        "<option value='2' selected> Transportadora </option>" +
+                        "<option value='3'> Retira No Local </option>"; 
+                    
+                    }else{
+                        var tp = "<option value='n'> Selecione uma opção </option>" +
+                        "<option value='1'> Correios </option>" +
+                        "<option value='2'> Transportadora </option>" +
+                        "<option value='3'> Retira No Local </option>";
+                    }
+
+                    $('#type').prepend(tp); 
+
+                }
+            }
+        });
 	});
 	
 	//Abre a modal do remover pedidos
@@ -495,6 +580,7 @@ $(function(){
     var cart = setInterval(function(){
 
         $(".loader").load(page+"orders .loader");
+        $(".loaders").load(page+"orders .loaders");
     }, 1000);
 
     //Manter os dados na modal de pedido e limpar os campos produto e quantidade - ORDER 

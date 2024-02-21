@@ -35,6 +35,7 @@ if($Search['type'] == 'n' && !empty($Search['searching'])){
     foreach($Read as $Show){
         $pedido[] = strip_tags($Show['pedido_numero']);
         $nf[] = strip_tags($Show['pedido_nf']);
+        $_SESSION['order'] = strip_tags($Show['pedido_numero']);
 
         // Verificar o tipo de remessa
         if($Show['pedido_remessa'] == 1){
@@ -75,6 +76,7 @@ if($Search['type'] != 'n' && empty($Search['searching'])){
     foreach($Read as $Show){
         $pedido[] = strip_tags($Show['pedido_numero']);
         $nf[] = strip_tags($Show['pedido_nf']);
+        $_SESSION['order'] = strip_tags($Show['pedido_numero']);
 
         // Verificar o tipo de remessa
         if($Show['pedido_remessa'] == 1){

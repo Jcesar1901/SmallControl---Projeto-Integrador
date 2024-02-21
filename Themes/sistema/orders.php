@@ -1,10 +1,11 @@
 <?php 
 	include_once 'includes/config.php';
 	$pages = 'orders';
+
 ?>
 	<main>
 		<!-- Modal Edição de Dados -->
-		<div class="modal" style="display:none">
+		<div class="modal modal_Order" style="display:none">
 			<div class="modal_container radius">
 				<p class="text-right">
 					<br><a href="#" title="Fechar a modal" class="btn_delete radius modal-close"><i class="fa fa-times-circle"></i></a>
@@ -14,19 +15,19 @@
 				
 				<form method="post" enctype="multipart/form-data" id="form_editOrder">
 					
-					<div class="divisor3">
-						<label for="numberOrderEdit">Nº Pedido*</label>
-						<input type="text" name="numberOrderEdit" id="numberOrderEdit" required>
+				<div class="divisor3">
+						<label for="numberOrder">Nº Pedido*</label>
+						<input type="text" name="numberOrder" id="numberOrder" value="<?= $Session ?>" required>
 					</div>
 					
 					<div class="divisor3">
-						<label for="numberInvoiceEdit">Nº Nota Fiscal*</label>
-						<input type="text" name="numberInvoiceEdit" id="numberInvoiceEdit" required>
+						<label for="numberInvoice">Nº Nota Fiscal*</label>
+						<input type="text" name="numberInvoice" id="numberInvoice" required>
 					</div>
 					
 					<div class="divisor3">
-						<label for="typeOrderEdit">Tipo de Remessa*</a></label>
-						<select name="typeOrderEdit" id="typeOrderEdit" required>
+						<label for="typeOrder">Tipo de Remessa*</a></label>
+						<select name="typeOrder" id="typeOrder" required>
 							<option value="n">Selecione uma opção</option>
 							<option value="1">Correios</option>
 							<option value="2">Transportadora</option>
@@ -36,92 +37,101 @@
 					
 					<div class="clear"></div>
 					
-					<div class="divisor2">
-						<label for="cityEdit">Cidade*</label>
-						<input type="text" name="cityEdit" id="cityEdit" required>
+					<div class="divisor3">
+						<label for="city">Cidade*</label>
+						<input type="text" name="city" id="city" required>
+					</div>
+					
+					<div class="divisor3">
+						<label for="state">Estado*</label>
+						<input type="text" name="state" id="state" required>
+					</div>
+
+					<div class="divisor3">
+						<label for="type">Status:</label>
+						<select name="type" id="type" required>
+							<option value="n"> Escolha uma opção </option>
+							<option value="1"> Pendente </option>
+							<option value="2"> Aguardando </option>
+							<option value="3"> Despachado </option>
+							<option value="4"> Devolvido </option>
+						</select>
 					</div>
 					
 					<div class="divisor2">
-						<label for="stateEdit">Estado*</label>
-						<input type="text" name="stateEdit" id="stateEdit" required>
+						<label for="product">Produto*</label>
+						<input type="text" name="product" id="product" required>
 					</div>
 					
 					<div class="divisor2">
-						<label for="productEdit">Produto*</label>
-						<input type="text" name="productEdit" id="productEdit" required>
-					</div>
-					
-					<div class="divisor2">
-						<label for="quantityEdit">Quantidade*</label>
-						<input type="text" name="quantityEdit" id="quantityEdit" required>
+						<label for="quantity">Quantidade*</label>
+						<input type="text" name="quantity" id="quantity" required>
 					</div>
 					
 					<div class="clear"></div>
 					
 					<div class="divisor1">
 						<h1 class="font-text-min font-weight-medium"  style="margin: 10px 2% !important;">Lista do Pedido</h1>
+
+						<div class="loaders">
 						<table style="width: 96% !important; margin: 10px 2% !important;">
-							<tr>
-								<td>
-									<p class="font-text-sub"><b>Produto:</b></p>
-									<p>Açucar Refinado 1Kg</p>
-								</td>
-								
-								<td>
-									<p class="font-text-sub"><b>Quantidade:</b></p>
-									<p>2</p>
-								</td>
-								
-								<td>
-									<p class="font-text-sub"><b>Valor:</b></p>
-									<p>R$ 50,00</p>
-								</td>
-								
-								<td>
-									<p class="text-center">
-										<a href="#" title="Remover este produto do pedido" class="radius btn_delete deleteProductOrder"><i class="fa fa-trash-alt"></i></a>
-									</p>
-								</td>
-							</tr>
-							
-							<tr>
-								<td>
-									<p class="font-text-sub"><b>Produto:</b></p>
-									<p>Arroz Integral 5Kg</p>
-								</td>
-								
-								<td>
-									<p class="font-text-sub"><b>Quantidade:</b></p>
-									<p>1</p>
-								</td>
-								
-								<td>
-									<p class="font-text-sub"><b>Valor:</b></p>
-									<p>R$ 25,00</p>
-								</td>
-								
-								<td>
-									<p class="text-center">
-										<a href="#" title="Remover este produto do pedido" class="radius btn_delete deleteProductOrder"><i class="fa fa-trash-alt"></i></a>
-									</p>
-								</td>
-							</tr>
+							<tbody>
+								<?php
+								$Session = strip_tags($_SESSION['order']);
+								$Read = $pdo->prepare("SELECT pedido_id, pedido_sessao, pedido_numero, pedido_nf, pedido_produto_id, pedido_produto_nome, pedido_quantidade, pedido_quantidade_estoque, pedido_valor FROM " .DB_ORDERS. " WHERE pedido_numero = :pedido_numero");
+								$Read->bindValue(':pedido_numero', $Session);
+								$Read->execute();
+
+								$Lines = $Read->rowCount();
+
+								if($Lines == 0){
+									echo '<tr><td>Não há nenhum produto nesse pedido!</td></tr>';
+								}
+
+								foreach($Read as $Show):
+
+
+								?>
+								<tr>
+									<td>
+										<p class="font-text-sub"><b>Produto:</b></p>
+										<p><?= strip_tags($Show['pedido_produto_nome']) ?></p>
+									</td>
+									
+									<td>
+										<p class="font-text-sub"><b>Quantidade:</b></p>
+										<p><?= strip_tags($Show['pedido_quantidade']) ?></p>
+									</td>
+									
+									<td>
+										<p class="font-text-sub"><b>Valor:</b></p>
+										<p>R$ <?= strip_tags(number_format($Show['pedido_valor'], 2, ',', '.')) ?></p>
+									</td>
+									
+									<td>
+										<p class="text-center">
+											<a href="#" title="Remover este produto do pedido" class="radius btn_delete deleteProductOrder" data-id="<?= strip_tags($Show['pedido_id']) ?>"><i class="fa fa-trash-alt"></i></a>
+										</p>
+									</td>
+								</tr>
+								<?php endforeach;?>
+							</tbody>
 						</table>
 					</div>
+				</div>
 					
-					<div class="clear"></div>
-					
-					<div class="divisor3">
-						<label for="price">Valor do Pedido R$*</label><br>
-						<input type="text" name="price" id="price" class="money" required>
-					</div>
+				<div class="clear"></div>
+				
+				<div class="divisor3">
+					<label for="price">Valor do Pedido R$*</label><br>
+					<input type="text" name="price" id="price" class="money" required>
+				</div>
 
-                    <div class="divisor3">&nbsp;</div>
-
-                    <div class="divisor3">
-                        <br><p class="text-right"><button name="btn_editorder" id="btn_editorder" class="btn_edit radius"><i class="fa fa-pen"></i> Atualizar Dados</button></p>
-					</div>
-				</form>
+				<div class="divisor3">&nbsp;</div>
+				
+				<div class="divisor3"><br><p class="text-right"><button name="btn_editorder" id="btn_editorder" class="btn_edit radius"><i class="fa fa-pen"></i> Atualizar Dados</button></div>
+				</div>
+			</form>
 				
 				<div class="clear"></div>
 				<div class="espaco-medium"></div>
