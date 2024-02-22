@@ -1,7 +1,6 @@
 <?php 
 	include_once 'includes/config.php';
 	$pages = 'orders';
-
 ?>
 	<main>
 		<!-- Modal Edição de Dados -->
@@ -16,18 +15,18 @@
 				<form method="post" enctype="multipart/form-data" id="form_editOrder">
 					
 				<div class="divisor3">
-						<label for="numberOrder">Nº Pedido*</label>
-						<input type="text" name="numberOrder" id="numberOrder" value="<?= $Session ?>" required>
+						<label for="numberOrders">Nº Pedido*</label>
+						<input type="text" name="numberOrders" id="numberOrders" value="<?= $Session ?>" required>
 					</div>
 					
 					<div class="divisor3">
-						<label for="numberInvoice">Nº Nota Fiscal*</label>
-						<input type="text" name="numberInvoice" id="numberInvoice" required>
+						<label for="numberInvoices">Nº Nota Fiscal*</label>
+						<input type="text" name="numberInvoices" id="numberInvoices" required>
 					</div>
 					
 					<div class="divisor3">
-						<label for="typeOrder">Tipo de Remessa*</a></label>
-						<select name="typeOrder" id="typeOrder" required>
+						<label for="typeOrders">Tipo de Remessa*</a></label>
+						<select name="typeOrders" id="typeOrders" required>
 							<option value="n">Selecione uma opção</option>
 							<option value="1">Correios</option>
 							<option value="2">Transportadora</option>
@@ -38,18 +37,18 @@
 					<div class="clear"></div>
 					
 					<div class="divisor3">
-						<label for="city">Cidade*</label>
-						<input type="text" name="city" id="city" required>
+						<label for="citys">Cidade*</label>
+						<input type="text" name="citys" id="citys" required>
 					</div>
 					
 					<div class="divisor3">
-						<label for="state">Estado*</label>
-						<input type="text" name="state" id="state" required>
+						<label for="states">Estado*</label>
+						<input type="text" name="states" id="states" required>
 					</div>
 
 					<div class="divisor3">
-						<label for="type">Status:</label>
-						<select name="type" id="type" required>
+						<label for="types">Status:</label>
+						<select name="types" id="types" required>
 							<option value="n"> Escolha uma opção </option>
 							<option value="1"> Pendente </option>
 							<option value="2"> Aguardando </option>
@@ -59,13 +58,13 @@
 					</div>
 					
 					<div class="divisor2">
-						<label for="product">Produto*</label>
-						<input type="text" name="product" id="product" required>
+						<label for="products">Produto*</label>
+						<input type="text" name="products" id="products" required>
 					</div>
 					
 					<div class="divisor2">
-						<label for="quantity">Quantidade*</label>
-						<input type="text" name="quantity" id="quantity" required>
+						<label for="quantitys">Quantidade*</label>
+						<input type="text" name="quantitys" id="quantitys" required>
 					</div>
 					
 					<div class="clear"></div>
@@ -123,8 +122,8 @@
 				<div class="clear"></div>
 				
 				<div class="divisor3">
-					<label for="price">Valor do Pedido R$*</label><br>
-					<input type="text" name="price" id="price" class="money" required>
+					<label for="prices">Valor do Pedido R$*</label><br>
+					<input type="text" name="prices" id="prices" class="money" required>
 				</div>
 
 				<div class="divisor3">&nbsp;</div>

@@ -389,74 +389,69 @@ $(function(){
             dataType: 'JSON',
             success: function (data, textStatus, jqXHR) {
                 // Alimenta o formulário na modal "editar fornecedores"
-                $('#product_id').val(data[0]['numberOrder']);
-                $('#productEdit').val(data[0]['numberInvoice']);
-                $('#city').val(data[0]['city']); 
-                $('#state').val(data[0]['state']); 
-                $('#price').val(data[0]['price']);         
+                $('#numberOrders').val(data['numberOrder']);
+                $('#numberInvoices').val(data['numberInvoice']);
+                $('#citys').val(data['city']); 
+                $('#states').val(data['state']); 
+                $('#prices').val(data['price']);         
                 
                 //Para limpar o select
-                $('#type').html('');
-                $('#typeOrder').html('');
+                $('#types').html('');
+                $('#typeOrders').html('');
 
                 //Select do Status
-                for(var i in data){
-                    if(data[i]['status'] == 1){
-                        var options = "<option value='n'> Escolha uma opção </option>" +
-                        "<option value='1' selected> Pendente </option>" +
-                        "<option value='2'> Aguardando </option>" +
-                        "<option value='3'> Despachado </option>" + 
-                        "<option value='4'> Devolvido </option>"; 
-                        
-                    }else if(data[i]['status'] == 2){
-                        var options = "<option value='n'> Escolha uma opção </option>" +
-                        "<option value='1'> Pendente </option>" +
-                        "<option value='2' selected> Aguardando </option>" +
-                        "<option value='3'> Despachado </option>" + 
-                        "<option value='4'> Devolvido </option>"; 
-                    }else if(data[i]['status'] == 3){
-                        var options = "<option value='n'> Escolha uma opção </option>" +
-                        "<option value='1'> Pendente </option>" +
-                        "<option value='2'> Aguardando </option>" +
-                        "<option value='3' selected> Despachado </option>" + 
-                        "<option value='4'> Devolvido </option>";  
-                    }else{
-                        var options = "<option value='n'> Escolha uma opção </option>" +
-                        "<option value='1'> Pendente </option>" +
-                        "<option value='2'> Aguardando </option>" +
-                        "<option value='3'> Despachado </option>" + 
-                        "<option value='4' selected> Devolvido </option>";  
-                        
-                    }
-
-                    $('#type').prepend(options); 
-
-                }
-                
-                //Select do tipo de remessa
-                for(var i in data){
-                    if(data[i]['type'] == 1){
-                        var tp = "<option value='n'> Selecione uma opção </option>" +
-                        "<option value='1' selected> Correios </option>" +
-                        "<option value='2'> Transportadora </option>" +
-                        "<option value='3'> Retira No Local </option>"; 
-                        
-                    }else if(data[i]['type'] == 2){
-                        var tp = "<option value='n'> Selecione uma opção </option>" +
-                        "<option value='1'> Correios </option>" +
-                        "<option value='2' selected> Transportadora </option>" +
-                        "<option value='3'> Retira No Local </option>"; 
+                if(data['status'] == 1){
+                    var options = "<option value='n'> Escolha uma opção </option>" +
+                    "<option value='1' selected> Pendente </option>" +
+                    "<option value='2'> Aguardando </option>" +
+                    "<option value='3'> Despachado </option>" + 
+                    "<option value='4'> Devolvido </option>"; 
                     
-                    }else{
-                        var tp = "<option value='n'> Selecione uma opção </option>" +
-                        "<option value='1'> Correios </option>" +
-                        "<option value='2'> Transportadora </option>" +
-                        "<option value='3'> Retira No Local </option>";
-                    }
-
-                    $('#type').prepend(tp); 
-
+                }else if(data['status'] == 2){
+                    var options = "<option value='n'> Escolha uma opção </option>" +
+                    "<option value='1'> Pendente </option>" +
+                    "<option value='2' selected> Aguardando </option>" +
+                    "<option value='3'> Despachado </option>" + 
+                    "<option value='4'> Devolvido </option>"; 
+                }else if(data['status'] == 3){
+                    var options = "<option value='n'> Escolha uma opção </option>" +
+                    "<option value='1'> Pendente </option>" +
+                    "<option value='2'> Aguardando </option>" +
+                    "<option value='3' selected> Despachado </option>" + 
+                    "<option value='4'> Devolvido </option>";  
+                }else{
+                    var options = "<option value='n'> Escolha uma opção </option>" +
+                    "<option value='1'> Pendente </option>" +
+                    "<option value='2'> Aguardando </option>" +
+                    "<option value='3'> Despachado </option>" + 
+                    "<option value='4' selected> Devolvido </option>";  
+                    
                 }
+
+                $('#types').prepend(options); 
+            
+            //Select do tipo de remessa
+                if(data['type'] == 1){
+                    var tp = "<option value='n'> Selecione uma opção </option>" +
+                    "<option value='1' selected> Correios </option>" +
+                    "<option value='2'> Transportadora </option>" +
+                    "<option value='3'> Retira No Local </option>"; 
+                    
+                }else if(data['type'] == 2){
+                    var tp = "<option value='n'> Selecione uma opção </option>" +
+                    "<option value='1'> Correios </option>" +
+                    "<option value='2' selected> Transportadora </option>" +
+                    "<option value='3'> Retira No Local </option>"; 
+                
+                }else{
+                    var tp = "<option value='n'> Selecione uma opção </option>" +
+                    "<option value='1'> Correios </option>" +
+                    "<option value='2'> Transportadora </option>" +
+                    "<option value='3'> Retira No Local </option>";
+                }
+
+                $('#typeOrders').prepend(tp); 
+
             }
         });
 	});
