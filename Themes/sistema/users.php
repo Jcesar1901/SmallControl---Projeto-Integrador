@@ -1,6 +1,6 @@
 <?php 
     ob_start();
-	session_start();
+	//session_start();
 	include_once 'includes/config.php';
 	$pages = 'users';
   	$_SESSION['blocked'] = 0;

@@ -163,7 +163,7 @@
 					
 				<div class="divisor3">
 						<label for="numberOrders">Nº Pedido*</label>
-						<input type="text" name="numberOrders" id="numberOrders" value="<?= $Session ?>" required>
+						<input type="text" name="numberOrders" id="numberOrders" value="<?= $Session ?>" readonly required>
 					</div>
 					
 					<div class="divisor3">
@@ -206,12 +206,12 @@
 					
 					<div class="divisor2">
 						<label for="products">Produto*</label>
-						<input type="text" name="products" id="products" required>
+						<input type="text" name="products" id="products">
 					</div>
 					
 					<div class="divisor2">
 						<label for="quantitys">Quantidade*</label>
-						<input type="text" name="quantitys" id="quantitys" required>
+						<input type="text" name="quantitys" id="quantitys">
 					</div>
 					
 					<div class="clear"></div>
@@ -292,21 +292,6 @@
 				<p class="text-center"><br>
 					<a href="#" title="Remover este Pedido" class="btn_edit radius removeOrder"><i class="fa fa-check"></i> SIM </a>&nbsp;&nbsp;
 					<a href="#" title="Fechar a modal" class="btn_delete radius modal-close"><i class="fa fa-times-circle"></i> NÃO</a>
-				</p>
-				
-				<div class="clear"></div>
-				<div class="espaco-medium"></div>
-			</div>
-		</div>
-
-		<!-- Modal Incluir Produtos no Pedido -->
-		<div class="modal orderNew" style="display:none;">
-			<div class="modal_container radius" style="width: 30% !important;">
-				<div class="espaco-medium"></div>
-				<h1 class="text-center font-text-min">Você Deseja Incluir Produtos Neste Pedido?</h1>
-				<p class="text-center"><br>
-					<a href="#" title="Sim, desejo incluir outro produto" class="btn_edit radius plusOrder"><i class="fa fa-check"></i> SIM </a>&nbsp;&nbsp;
-					<a href="#" title="Fechar a modal" class="btn_delete orderHide radius modal-close"><i class="fa fa-times-circle"></i> NÃO</a>
 				</p>
 				
 				<div class="clear"></div>
