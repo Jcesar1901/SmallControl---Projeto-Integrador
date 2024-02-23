@@ -1,141 +1,9 @@
 <?php 
 	include_once 'includes/config.php';
 	$pages = 'orders';
+	
 ?>
 	<main>
-		<!-- Modal Edição de Dados -->
-		<div class="modal modal_Order" style="display:none">
-			<div class="modal_container radius">
-				<p class="text-right">
-					<br><a href="#" title="Fechar a modal" class="btn_delete radius modal-close"><i class="fa fa-times-circle"></i></a>
-				</p>
-				
-				<h1 class="text-center font-text-min">Editar Dados do Pedido</h1>
-				
-				<form method="post" enctype="multipart/form-data" id="form_editOrder">
-					
-				<div class="divisor3">
-						<label for="numberOrders">Nº Pedido*</label>
-						<input type="text" name="numberOrders" id="numberOrders" value="<?= $Session ?>" required>
-					</div>
-					
-					<div class="divisor3">
-						<label for="numberInvoices">Nº Nota Fiscal*</label>
-						<input type="text" name="numberInvoices" id="numberInvoices" required>
-					</div>
-					
-					<div class="divisor3">
-						<label for="typeOrders">Tipo de Remessa*</a></label>
-						<select name="typeOrders" id="typeOrders" required>
-							<option value="n">Selecione uma opção</option>
-							<option value="1">Correios</option>
-							<option value="2">Transportadora</option>
-							<option value="3">Retira No Local</option>
-						</select>
-					</div>
-					
-					<div class="clear"></div>
-					
-					<div class="divisor3">
-						<label for="citys">Cidade*</label>
-						<input type="text" name="citys" id="citys" required>
-					</div>
-					
-					<div class="divisor3">
-						<label for="states">Estado*</label>
-						<input type="text" name="states" id="states" required>
-					</div>
-
-					<div class="divisor3">
-						<label for="types">Status:</label>
-						<select name="types" id="types" required>
-							<option value="n"> Escolha uma opção </option>
-							<option value="1"> Pendente </option>
-							<option value="2"> Aguardando </option>
-							<option value="3"> Despachado </option>
-							<option value="4"> Devolvido </option>
-						</select>
-					</div>
-					
-					<div class="divisor2">
-						<label for="products">Produto*</label>
-						<input type="text" name="products" id="products" required>
-					</div>
-					
-					<div class="divisor2">
-						<label for="quantitys">Quantidade*</label>
-						<input type="text" name="quantitys" id="quantitys" required>
-					</div>
-					
-					<div class="clear"></div>
-					
-					<div class="divisor1">
-						<h1 class="font-text-min font-weight-medium"  style="margin: 10px 2% !important;">Lista do Pedido</h1>
-
-						<div class="loaders">
-						<table style="width: 96% !important; margin: 10px 2% !important;">
-							<tbody>
-								<?php
-								$Session = strip_tags($_SESSION['order']);
-								$Read = $pdo->prepare("SELECT pedido_id, pedido_sessao, pedido_numero, pedido_nf, pedido_produto_id, pedido_produto_nome, pedido_quantidade, pedido_quantidade_estoque, pedido_valor FROM " .DB_ORDERS. " WHERE pedido_numero = :pedido_numero");
-								$Read->bindValue(':pedido_numero', $Session);
-								$Read->execute();
-
-								$Lines = $Read->rowCount();
-
-								if($Lines == 0){
-									echo '<tr><td>Não há nenhum produto nesse pedido!</td></tr>';
-								}
-
-								foreach($Read as $Show):
-
-
-								?>
-								<tr>
-									<td>
-										<p class="font-text-sub"><b>Produto:</b></p>
-										<p><?= strip_tags($Show['pedido_produto_nome']) ?></p>
-									</td>
-									
-									<td>
-										<p class="font-text-sub"><b>Quantidade:</b></p>
-										<p><?= strip_tags($Show['pedido_quantidade']) ?></p>
-									</td>
-									
-									<td>
-										<p class="font-text-sub"><b>Valor:</b></p>
-										<p>R$ <?= strip_tags(number_format($Show['pedido_valor'], 2, ',', '.')) ?></p>
-									</td>
-									
-									<td>
-										<p class="text-center">
-											<a href="#" title="Remover este produto do pedido" class="radius btn_delete deleteProductOrder" data-id="<?= strip_tags($Show['pedido_id']) ?>"><i class="fa fa-trash-alt"></i></a>
-										</p>
-									</td>
-								</tr>
-								<?php endforeach;?>
-							</tbody>
-						</table>
-					</div>
-				</div>
-					
-				<div class="clear"></div>
-				
-				<div class="divisor3">
-					<label for="prices">Valor do Pedido R$*</label><br>
-					<input type="text" name="prices" id="prices" class="money" required>
-				</div>
-
-				<div class="divisor3">&nbsp;</div>
-				
-				<div class="divisor3"><br><p class="text-right"><button name="btn_editorder" id="btn_editorder" class="btn_edit radius"><i class="fa fa-pen"></i> Atualizar Dados</button></div>
-				</div>
-			</form>
-				
-				<div class="clear"></div>
-				<div class="espaco-medium"></div>
-			</div>
-		</div>
 		
 		<!-- Modal Novo Pedido -->
 		<div class="new" style="display:none;">
@@ -276,6 +144,140 @@
                         <br><p class="text-right"><button name="btn_neworder" id="btn_neworder" class="btn_new radius"><i class="fa fa-pen"></i> Cadastrar Dados</button></div>
 					</div>
 				</form>
+				
+				<div class="clear"></div>
+				<div class="espaco-medium"></div>
+			</div>
+		</div>
+		
+		<!-- Modal Edição de Dados -->
+		<div class="modal modal_Order" style="display:none">
+			<div class="modal_container radius">
+				<p class="text-right">
+					<br><a href="#" title="Fechar a modal" class="btn_delete radius modal-close"><i class="fa fa-times-circle"></i></a>
+				</p>
+				
+				<h1 class="text-center font-text-min">Editar Dados do Pedido</h1>
+				
+				<form method="post" enctype="multipart/form-data" id="form_editOrder">
+					
+				<div class="divisor3">
+						<label for="numberOrders">Nº Pedido*</label>
+						<input type="text" name="numberOrders" id="numberOrders" value="<?= $Session ?>" required>
+					</div>
+					
+					<div class="divisor3">
+						<label for="numberInvoices">Nº Nota Fiscal*</label>
+						<input type="text" name="numberInvoices" id="numberInvoices" required>
+					</div>
+					
+					<div class="divisor3">
+						<label for="typeOrders">Tipo de Remessa*</a></label>
+						<select name="typeOrders" id="typeOrders" required>
+							<option value="n">Selecione uma opção</option>
+							<option value="1">Correios</option>
+							<option value="2">Transportadora</option>
+							<option value="3">Retira No Local</option>
+						</select>
+					</div>
+					
+					<div class="clear"></div>
+					
+					<div class="divisor3">
+						<label for="citys">Cidade*</label>
+						<input type="text" name="citys" id="citys" required>
+					</div>
+					
+					<div class="divisor3">
+						<label for="states">Estado*</label>
+						<input type="text" name="states" id="states" required>
+					</div>
+
+					<div class="divisor3">
+						<label for="types">Status:</label>
+						<select name="types" id="types" required>
+							<option value="n"> Escolha uma opção </option>
+							<option value="1"> Pendente </option>
+							<option value="2"> Aguardando </option>
+							<option value="3"> Despachado </option>
+							<option value="4"> Devolvido </option>
+						</select>
+					</div>
+					
+					<div class="divisor2">
+						<label for="products">Produto*</label>
+						<input type="text" name="products" id="products" required>
+					</div>
+					
+					<div class="divisor2">
+						<label for="quantitys">Quantidade*</label>
+						<input type="text" name="quantitys" id="quantitys" required>
+					</div>
+					
+					<div class="clear"></div>
+					
+					<div class="divisor1">
+						<h1 class="font-text-min font-weight-medium"  style="margin: 10px 2% !important;">Lista do Pedido</h1>
+
+						<div class="loaders">
+						<table style="width: 96% !important; margin: 10px 2% !important;">
+							<tbody>
+								<?php
+								$Session = strip_tags($_SESSION['order']);
+								$Read = $pdo->prepare("SELECT pedido_id, pedido_sessao, pedido_numero, pedido_nf, pedido_produto_id, pedido_produto_nome, pedido_quantidade, pedido_quantidade_estoque, pedido_valor FROM " .DB_ORDERS. " WHERE pedido_numero = :pedido_numero");
+								$Read->bindValue(':pedido_numero', $Session);
+								$Read->execute();
+
+								$Lines = $Read->rowCount();
+
+								if($Lines == 0){
+									echo '<tr><td>Não há nenhum produto nesse pedido!</td></tr>';
+								}
+
+								foreach($Read as $Show):
+
+
+								?>
+								<tr>
+									<td>
+										<p class="font-text-sub"><b>Produto:</b></p>
+										<p><?= strip_tags($Show['pedido_produto_nome']) ?></p>
+									</td>
+									
+									<td>
+										<p class="font-text-sub"><b>Quantidade:</b></p>
+										<p><?= strip_tags($Show['pedido_quantidade']) ?></p>
+									</td>
+									
+									<td>
+										<p class="font-text-sub"><b>Valor:</b></p>
+										<p>R$ <?= strip_tags(number_format($Show['pedido_valor'], 2, ',', '.')) ?></p>
+									</td>
+									
+									<td>
+										<p class="text-center">
+											<a href="#" title="Remover este produto do pedido" class="radius btn_delete deleteProductOrder" data-id="<?= strip_tags($Show['pedido_id']) ?>"><i class="fa fa-trash-alt"></i></a>
+										</p>
+									</td>
+								</tr>
+								<?php endforeach;?>
+							</tbody>
+						</table>
+					</div>
+				</div>
+					
+				<div class="clear"></div>
+				
+				<div class="divisor3">
+					<label for="prices">Valor do Pedido R$*</label><br>
+					<input type="text" name="prices" id="prices" class="money" required>
+				</div>
+
+				<div class="divisor3">&nbsp;</div>
+				
+				<div class="divisor3"><br><p class="text-right"><button name="btn_editorder" id="btn_editorder" class="btn_edit radius"><i class="fa fa-pen"></i> Atualizar Dados</button></div>
+				</div>
+			</form>
 				
 				<div class="clear"></div>
 				<div class="espaco-medium"></div>

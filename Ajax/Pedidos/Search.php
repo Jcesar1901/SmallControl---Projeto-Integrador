@@ -16,7 +16,7 @@ $Read->bindValue(':pedido_id', $Searching);
 $Read->execute();
 
 $Lines = $Read->rowCount();
-var_dump($Lines);
+
 if($Lines == 0){
     $message = ["status" => "info", "message" => "Não foi encontrado nenhum resultado!", "Lines" => 0];
     echo json_encode($message);
