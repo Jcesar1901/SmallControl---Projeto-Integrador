@@ -37,12 +37,12 @@ if($Search['type'] == 'n' && !empty($Search['searching'])){
         $nf[] = strip_tags($Show['pedido_nf']);
         $_SESSION['order'] = strip_tags($Show['pedido_numero']);
 
-        // Verificar o tipo de remessa
-        if($Show['pedido_remessa'] == 1){
+        // Verificar o tipo de status
+        if($Show['pedido_status'] == 1){
             $status[] = 'Pendente';
-        }elseif($Show['pedido_remessa'] == 2){
+        }elseif($Show['pedido_status'] == 2){
             $status[] = 'Aguardando';
-        }elseif($Show['pedido_remessa'] == 3){
+        }elseif($Show['pedido_status'] == 3){
             $status[] = 'Despachado';
         }else{
             $status[] = 'Devolvido';
@@ -61,8 +61,8 @@ if($Search['type'] == 'n' && !empty($Search['searching'])){
 if($Search['type'] != 'n' && empty($Search['searching'])){
 
     $Read = $pdo->prepare("SELECT pedido_id, pedido_numero, pedido_nf, pedido_cidade, pedido_uf, pedido_remessa, pedido_status
-    FROM si_pedidos WHERE pedido_remessa = :pedido_remessa");
-    $Read->bindValue(':pedido_remessa', $Search['type']);
+    FROM si_pedidos WHERE pedido_status = :pedido_status");
+    $Read->bindValue(':pedido_status', $Search['type']);
     $Read->execute();
 
     $Lines = $Read->rowCount();
@@ -79,11 +79,11 @@ if($Search['type'] != 'n' && empty($Search['searching'])){
         $_SESSION['order'] = strip_tags($Show['pedido_numero']);
 
         // Verificar o tipo de remessa
-        if($Show['pedido_remessa'] == 1){
+        if($Show['pedido_status'] == 1){
             $status[] = 'Pendente';
-        }elseif($Show['pedido_remessa'] == 2){
+        }elseif($Show['pedido_status'] == 2){
             $status[] = 'Aguardando';
-        }elseif($Show['pedido_remessa'] == 3){
+        }elseif($Show['pedido_status'] == 3){
             $status[] = 'Despachado';
         }else{
             $status[] = 'Devolvido';

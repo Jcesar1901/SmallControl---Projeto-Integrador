@@ -400,20 +400,20 @@ $(function(){
                 $('#typeOrders').html('');
 
                 //Select do Status
-                if(data['status'] == 1){
+                if(data['statusOrder'] == 1){
                     var options = "<option value='n'> Escolha uma opção </option>" +
                     "<option value='1' selected> Pendente </option>" +
                     "<option value='2'> Aguardando </option>" +
                     "<option value='3'> Despachado </option>" + 
                     "<option value='4'> Devolvido </option>"; 
                     
-                }else if(data['status'] == 2){
+                }else if(data['statusOrder'] == 2){
                     var options = "<option value='n'> Escolha uma opção </option>" +
                     "<option value='1'> Pendente </option>" +
                     "<option value='2' selected> Aguardando </option>" +
                     "<option value='3'> Despachado </option>" + 
                     "<option value='4'> Devolvido </option>"; 
-                }else if(data['status'] == 3){
+                }else if(data['statusOrder'] == 3){
                     var options = "<option value='n'> Escolha uma opção </option>" +
                     "<option value='1'> Pendente </option>" +
                     "<option value='2'> Aguardando </option>" +
@@ -447,7 +447,7 @@ $(function(){
                     var tp = "<option value='n'> Selecione uma opção </option>" +
                     "<option value='1'> Correios </option>" +
                     "<option value='2'> Transportadora </option>" +
-                    "<option value='3'> Retira No Local </option>";
+                    "<option value='3' selected> Retira No Local </option>";
                 }
 
                 $('#typeOrders').prepend(tp); 
@@ -456,10 +456,16 @@ $(function(){
         });
 	});
 	
-	//Abre a modal do remover pedidos
-	$(".deleteOrder").click(function(){
-		$('.delete').css('display', 'flex');
-	});
+	//Abre a modal do remover pedido
+	$(document).on('click', '.deleteOrder', function(e){
+        e.preventDefault();
+
+        $('.delete').css('display', 'flex');
+        var id = $('.deleteOrder').attr('data-id');
+        var number = $('.deleteOrder').attr('data-value');
+        $('.removeOrder').attr('data-id', id);
+        $('.removeOrder').attr('data-value', number);
+    });
 	
 	//Abre a modal do novo pedidos
 	$(".newOrder").click(function(){

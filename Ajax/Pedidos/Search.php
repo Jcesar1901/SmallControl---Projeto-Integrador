@@ -34,7 +34,7 @@ foreach($Read as $Show){}
     $city = strip_tags($Show['pedido_cidade']); 
     $price = number_format($Show['pedido_valor_total'], 2, ',' , '.');
 
-    $message = ["numberOrder" => $pedido, "numberInvoice" => $nf, "city" => $city, "state" => $uf, "price" => $price, "status" => $status, "type" => $type];
+    $message = ["numberOrder" => $pedido, "numberInvoice" => $nf, "city" => $city, "state" => $uf, "price" => $price, "statusOrder" => $status, "type" => $type];
     echo json_encode($message);
     return; 
 

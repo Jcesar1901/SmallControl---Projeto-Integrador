@@ -150,7 +150,7 @@
 							<td>
 								<p class="font-text-sub"><b>Status:</b></p>
 								<p class="font-text-sub">
-									<span class="active radius"> COLETADO </span>
+									<span class="active radius"> DESPACHADO </span>
 								</p>
 							</td>
 							

@@ -5,3 +5,5 @@ Correções a serem feitas no SmallControl
 2 - Corrigir problema na exibição da mensagem em alguns casos (ex: quando coloca uma nota não existente no campo de busca do STOCK), outro ex: quando busca uma nota que nao existe no STOCK saída(verificar se acontece nos outros casos)
 
 2.1 - Quando busca por tipo de remessa somente, no orders, nao aparece nenhuma mensagem.
+
+3 - No orders, quando criado dois produtos para a mesma nota fiscal, quando faz a busca aparecem duas vezes a mesma nota na tabela. Onde era para aparecer apenas uma.

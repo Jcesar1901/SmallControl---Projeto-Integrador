@@ -11,7 +11,6 @@
 <div class="navigator bgcolor noPrint">
 	<ul class="nav">
 		<li> <a href="dashboard" title="Retornar ao dashboard"><i class="fa fa-home"></i> <span>Dashboard</span></a> </li>
-		<li> <a href="search" title="Realizar uma pesquisa no sistema"><i class="fa fa-search"></i> <span>Pesquisar</span></a> </li>
 		<li> <a href="clients" title="Gestão de clientes"><i class="fa fa-users"></i> <span>Clientes</span></a> </li>
 		<li> <a href="providers" title="Gestão de fornecedores"><i class="fa fa-warehouse"></i> <span>Fornecedores</span></a> </li>
 		<li> <a href="products" title="Gestão de produtos"><i class="fa fa-box-open"></i> <span>Produtos</span></a> </li>

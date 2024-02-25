@@ -320,7 +320,7 @@
 						</div>
 						
 						<div class="divisor3">
-							<label for="type">Busca Por Remessa:</label>
+							<label for="type">Busca Por Tipo:</label>
 							<select name="type" id="type" required>
 								<option value="n"> Escolha uma opção </option>
 								<option value="1"> Pendente </option>

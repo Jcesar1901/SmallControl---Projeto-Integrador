@@ -1233,7 +1233,7 @@ $(document).ready(function(){
                         '<td><p class="font-text-sub"><b>Nota Fiscal:</b></p><p>' + data['nf'][i] + '</p></td>\n' +
                         '<td><p class="font-text-sub"><b>Cidade/UF:</b></p><p>' + data['uf'][i] + '</p></td>\n' +
                         '<td><p class="font-text-sub"><b>Status:</b></p><p class="font-text-sub"><span class="btn_edit radius" style=padding:3px 4px !important;">' + data['stat'][i] + '</span></p></td>\n' +
-                        '<td><p class="text-center"><a href="#" title="Visualizar e editar informações" class="radius btn_edit editOrder" data-id="'+data['id'][i]+'" style="margin: 4px"><i class="fa fa-pen"></i></a><a href="#" title="Remover este registro" class="radius btn_delete deleteOrder" data-id="'+data['id'][i]+'" style="margin: 4px"><i class="fa fa-trash-alt"></i></a></p></td></tr>'
+                        '<td><p class="text-center"><a href="#" title="Visualizar e editar informações" class="radius btn_edit editOrder" data-id="'+data['id'][i]+'" style="margin: 4px"><i class="fa fa-pen"></i></a><a href="#" title="Remover este registro" class="radius btn_delete deleteOrder" data-id="'+data['id'][i]+'" data-value="'+data['pedido'][i]+'" style="margin: 4px"><i class="fa fa-trash-alt"></i></a></p></td></tr>'
 
                     $('.row').prepend(mount);
                     }
@@ -1253,6 +1253,53 @@ $(document).ready(function(){
         $.ajax({
             url: url,
             data: formdata,
+            type: 'POST',
+            dataType: 'json',
+            
+            success: function (data) {
+                if(data['status'] == 'success'){
+                    $(".result").text('');
+                    $(".result").prepend('<div id="status-container" class="status-top-right text-center"><div class="status status-'+data['status']+'"><div class="status-message"> <span class="fa fa-check-circle"></span>  '+data['message']+'</div></div></div>');
+
+                }else if(data['status'] == 'info'){
+                    $(".result").text('');
+                    $(".result").prepend('<div id="status-container" class="status-top-right text-center"><div class="status status-'+data['status']+'"><div class="status-message"> <span class="fa fa-info-circle"></span>  '+data['message']+'</div></div></div>');
+
+                }else if(data['status'] == 'warning'){
+                    $(".result").text('');
+                    $(".result").prepend('<div id="status-container" class="status-top-right text-center"><div class="status status-'+data['status']+'"><div class="status-message"> <span class="fa fa-triangle-exclamation"></span>  '+data['message']+'</div></div></div>');
+
+                } else {
+                    $(".result").text('');
+                    $(".result").prepend('<div id="status-container" class="status-top-right text-center"><div class="status status-'+data['status']+'"><div class="status-message"> <span class="fa fa-times-circle"></span>  '+data['message']+'</div></div></div>');
+                }
+                //Abrir a modal para acrescentar novos produtos ao pedido
+                $('.orderNew').css('display', 'flex');
+
+                setTimeout(function () {
+                    $('#status-container').hide();
+                    $('.loading').hide();
+                    
+                    if(data['redirect'] != ''){
+                        window.location.href= data['redirect'];
+                    }
+                }, 1500); 
+            }
+        });
+        return false;
+    });
+
+    //Remover Pedido
+    $(".removeOrder").click(function (e) {
+        e.preventDefault();
+        
+        var data = $(this).attr('data-id');
+        var number = $(this).attr('data-value');
+        var url = page+"Ajax/Pedidos/DeleteOrder.php?val="+data+"&order="+number;
+        
+        $.ajax({
+            url: url,
+            data: data,
             type: 'POST',
             dataType: 'json',
             
