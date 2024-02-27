@@ -7,3 +7,7 @@ Correções a serem feitas no SmallControl
 2.1 - Quando busca por tipo de remessa somente, no orders, nao aparece nenhuma mensagem.
 
 3 - No orders, quando criado dois produtos para a mesma nota fiscal, quando faz a busca aparecem duas vezes a mesma nota na tabela. Onde era para aparecer apenas uma.
+
+3.1 - Ainda no orders quando cria um produto nao aparece mais a modal perguntando se deseja criar outro no mesmo pedido
+
+4 - no Ordem de serviço, está puxando a nota independente de qual tipo de remessa escolhido, sem filtrar

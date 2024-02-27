@@ -87,7 +87,7 @@
 						<table style="width: 96% !important; margin: 10px 2% !important;">
 							<tbody>
 								<?php
-								
+								$Session = strip_tags($_SESSION['order']);
 								$Read = $pdo->prepare("SELECT pedido_id, pedido_sessao, pedido_numero, pedido_nf, pedido_produto_id, pedido_produto_nome, pedido_quantidade, pedido_quantidade_estoque, pedido_valor FROM " .DB_ORDERS. " WHERE pedido_sessao = :pedido_sessao OR pedido_numero = :pedido_numero");
 								$Read->bindValue(':pedido_sessao', $Session);
 								$Read->bindValue(':pedido_numero', $Session);
@@ -223,7 +223,7 @@
 						<table style="width: 96% !important; margin: 10px 2% !important;">
 							<tbody>
 								<?php
-								$Session = strip_tags($_SESSION['order']);
+								
 								$Read = $pdo->prepare("SELECT pedido_id, pedido_sessao, pedido_numero, pedido_nf, pedido_produto_id, pedido_produto_nome, pedido_quantidade, pedido_quantidade_estoque, pedido_valor FROM " .DB_ORDERS. " WHERE pedido_numero = :pedido_numero");
 								$Read->bindValue(':pedido_numero', $Session);
 								$Read->execute();

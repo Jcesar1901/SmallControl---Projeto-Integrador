@@ -474,9 +474,13 @@ $(function(){
 	
 	
 	//Abre a modal do visualizar pedido - OS
-	$(".viewOrder").click(function(){
-		$('.new').css('display', 'flex');
-	});
+    $(document).on('click', '.viewOrder', function(e){
+        e.preventDefault();
+
+        var value = $(this).attr('data-id');
+        $('.new').css('display', 'flex');
+        $('#numberOrder').val(value);
+    });
 	
 	
 	//Abre a modal do editar estoque
@@ -582,6 +586,7 @@ $(function(){
 
         $(".loader").load(page+"orders .loader");
         $(".loaders").load(page+"orders .loaders");
+        $(".loaderOrder").load(page+"services .loaderOrder");
     }, 1000);
 
     //Manter os dados na modal de pedido e limpar os campos produto e quantidade - ORDER 
