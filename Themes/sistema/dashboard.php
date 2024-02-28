@@ -141,9 +141,9 @@
 				</div>
 				
 				<?php
-					$Read = $pdo->prepare("SELECT pedido_id, pedido_despachado, pedido_status FROM ".DB_ORDERS." WHERE pedido_status = :pedido_status AND pedido_despachado = :pedido_despachado");
-					$Read->bindValue(':pedido_status', 1);
-					$Read->bindValue(':pedido_despachado', 1);
+					$Read = $pdo->prepare("SELECT pedido_id, os_situation, pedido_status FROM ".DB_ORDERS." WHERE pedido_status = :pedido_status AND os_situation = :os_situation");
+					$Read->bindValue(':pedido_status', 3);
+					$Read->bindValue(':os_situation', 2);
 					$Read->execute();
 					
 					$Lines = $Read->rowCount();

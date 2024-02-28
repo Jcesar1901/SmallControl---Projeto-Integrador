@@ -38,7 +38,7 @@
 							<option value="1"> Produtos</option>
 							<option value="2"> Entrada </option>
 							<option value="3"> Saída </option>
-							<option value="4"> Estoque </option>
+							<option value="4"> Nota Fiscal </option>
 							<option value="5"> Fornecedores </option>
 							<option value="6"> Clientes </option>
 							<option value="7"> Usuários </option>
@@ -47,7 +47,7 @@
 					</div>
 					
 					<div class="divisor4">
-						<label for="type">Tipo de Relatório</label>
+						<label for="type"> Período: </label>
 						<select name="type" id="type" required>
 							<option value="n"> Escolha uma opção </option>
 							<option value="1"> De Hoje </option>
@@ -72,7 +72,7 @@
 					</div>
 					
 					<div class="divisor4">
-						<br><button name="btn_search" id="btn_search" class="btn_edit radius" style="float: left"><i class="fa fa-search"></i> Pesquisar</button>
+						<br><button name="btn_reports" id="btn_reports" class="btn_edit radius" style="float: left"><i class="fa fa-search"></i> Pesquisar</button>
 					</div>
 					
 					<div class="clear"></div>
@@ -80,8 +80,75 @@
 				</form>
 				
 				<?php
-					//Através da escolha das opções mostra o relatório aqui.
-					include 'reports-stock.php';
+					if(isset($_POST['btn_reports'])){
+						//Através da escolha das opções mostra o relatório aqui.
+						$srcReports = strip_tags(filter_input(INPUT_POST, 'searching', FILTER_SANITIZE_STRIPPED));
+						$tpReports = strip_tags(filter_input(INPUT_POST, 'type', FILTER_SANITIZE_STRIPPED));
+
+						if(empty($srcReports) || empty($tpReports) || $srcReports == 'n' || $tpReports == 'n'){
+							echo '<div id="status-container" class="status-top-right text-center"><div class="status status-info"><div class="status-message"> <span class="fa fa-info-circle"></span> Selecione o tipo de relatório e o período </div></div></div>';
+							header("Refresh: 1.5; url=reports");
+							exit();
+						}
+						switch ($srcReports) {
+							case 1: // Relatório de Produtos
+								$table = 'si_produtos';
+								$dateInitial = strip_tags(filter_input(INPUT_POST, 'initial' , FILTER_SANITIZE_STRIPPED));
+								$Final = strip_tags(filter_input(INPUT_POST, 'final' , FILTER_SANITIZE_STRIPPED));
+								$dateFinal = date('Y-m-d', strtotime($Final . '+1Day'));
+								include 'reports-products.php';
+								break;
+							case 2: // Relatório de Entrada 
+								$table = 'si_entrada';
+								$dateInitial = strip_tags(filter_input(INPUT_POST, 'initial' , FILTER_SANITIZE_STRIPPED));
+								$Final = strip_tags(filter_input(INPUT_POST, 'final' , FILTER_SANITIZE_STRIPPED));
+								$dateFinal = date('Y-m-d', strtotime($Final . '+1Day'));
+								include 'reports-input.php';
+								break;
+							case 3: // Relatório de Saída 
+								$table = 'si_saida';
+								$dateInitial = strip_tags(filter_input(INPUT_POST, 'initial' , FILTER_SANITIZE_STRIPPED));
+								$Final = strip_tags(filter_input(INPUT_POST, 'final' , FILTER_SANITIZE_STRIPPED));
+								$dateFinal = date('Y-m-d', strtotime($Final . '+1Day'));
+								include 'reports-output.php';
+								break;
+							case 4: // Relatório de NF 
+								$table = 'si_pedidos';
+								$dateInitial = strip_tags(filter_input(INPUT_POST, 'initial' , FILTER_SANITIZE_STRIPPED));
+								$Final = strip_tags(filter_input(INPUT_POST, 'final' , FILTER_SANITIZE_STRIPPED));
+								$dateFinal = date('Y-m-d', strtotime($Final . '+1Day'));
+								include 'reports-stock.php';
+								break;
+							case 5: // Relatório de Fornecedores 
+								$table = 'si_fornecedores';
+								$dateInitial = strip_tags(filter_input(INPUT_POST, 'initial' , FILTER_SANITIZE_STRIPPED));
+								$Final = strip_tags(filter_input(INPUT_POST, 'final' , FILTER_SANITIZE_STRIPPED));
+								$dateFinal = date('Y-m-d', strtotime($Final . '+1Day'));
+								include 'reports-providers.php';
+								break;
+							case 6: // Relatório de Clientes
+								$table = 'si_clientes';
+								$dateInitial = strip_tags(filter_input(INPUT_POST, 'initial' , FILTER_SANITIZE_STRIPPED));
+								$Final = strip_tags(filter_input(INPUT_POST, 'final' , FILTER_SANITIZE_STRIPPED));
+								$dateFinal = date('Y-m-d', strtotime($Final . '+1Day'));
+								include 'reports-clients.php';
+								break;
+							case 7: // Relatório de Usuários 
+							$table = 'si_usuarios';	
+							$dateInitial = strip_tags(filter_input(INPUT_POST, 'initial' , FILTER_SANITIZE_STRIPPED));
+							$Final = strip_tags(filter_input(INPUT_POST, 'final' , FILTER_SANITIZE_STRIPPED));
+							$dateFinal = date('Y-m-d', strtotime($Final . '+1Day'));
+							include 'reports-users.php';
+								break;
+							default:
+							$table = 'si_registros_acessos';
+							$dateInitial = strip_tags(filter_input(INPUT_POST, 'initial', FILTER_SANITIZE_STRIPPED));
+							$Final = strip_tags(filter_input(INPUT_POST, 'final', FILTER_SANITIZE_STRIPPED));
+							$dateFinal = date('Y-m-d', strtotime($Final .'+1Day'));
+							include 'reports-access.php';
+							break;
+						}
+					}					
 				?>
 			</div>
 			<div class="espaco-min"></div>

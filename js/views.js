@@ -82,12 +82,11 @@ $(function(){
 	});
 
 	//Relatórios, se período for selecionado mostra os campos com as datas inicial e FinalizationRegistry
-	$("#form_search").change(function(){
-		
+	$("#type").change(function(){
+        
 		var selected = $('#type').val();
-		var search = $('#searching').val();
 		
-		if(selected == 5 && search == 3 || selected == 5 && search == 4){
+		if(selected == 5){
 			$(".date").css('display', 'block');
 		}else{
 			$(".date").css('display', 'none');
