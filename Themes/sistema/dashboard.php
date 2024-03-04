@@ -27,7 +27,7 @@
 			<?php require 'includes/header.php';?>
 	
 			<article class="bgcolor-white">
-				<img src="<?= $configBase ?><?= $themePathSite ?>/images/logo.png" alt="Logo da Empresa" title="Logo da Empresa">
+				
 				
 				<?php
 					$Read = $pdo->prepare("SELECT cliente_id, cliente_status FROM ".DB_CLIENTS." WHERE cliente_status = :cliente_status");

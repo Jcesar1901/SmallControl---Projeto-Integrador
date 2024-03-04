@@ -23,7 +23,7 @@
 		<title>Login Smallcontrol</title>
         <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=0">
         <meta name="robots" content="noindex, nofollow"/>
-        <link href="../Views/Views.css" rel="stylesheet">
+        <link href="../css/login.css" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@300;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
 
@@ -48,23 +48,23 @@
 			header('location: ../login.php');
 		}
 	?>
-        <article class="container_login">
-            <h1 class="log_title">Sistema de acesso ao <?= TITLE_LOGIN ?></h1>
+        <div class="login-box">
+            <img src="<?= $configBase ?><?= $themePathSite ?>/images/logo.png" alt="Logo da Empresa" title="Logo da Empresa">
             <form method="post" id="form_login">
-                <label for="login_email">E-mail de Acesso: </label>
-                <input type="email" name="login_email" id="login_email" required value="<?= (isset($_COOKIE['LE']) ? $_COOKIE['LE'] : ''); ?>" placeholder="Digite seu email">
-
-                <label for="login_password">Senha de Acesso: <a id="showPass"><span class="fa fa-eye"></span></a></label>
-                <input type="password" name="login_password" id="login_password" required value="<?= (isset($_COOKIE['LP']) ? $_COOKIE['LP'] : ''); ?>" placeholder="Digite sua senha">
-
-                <!-- <div><input type="checkbox" name="login_remember" id="remember" <?= (isset($_COOKIE['LE']) && !empty($_COOKIE['LE']) ? 'checked' : ''); ?>> Lembrar Senha</div> -->
-
-                <button name="btn_login" id="btn_login"><span class="fa fa-paper-plane"></span> Entrar</button>
-                <a href="../recovery"><u>Nova Senha!</u></a>
+                <div class="user-box">                    
+                    <input type="email" name="login_email" id="login_email" required value="<?= (isset($_COOKIE['LE']) ? $_COOKIE['LE'] : ''); ?>">
+                    <label for="login_email">E-mail: </label>
+                </div>
+                <div class="user-box">
+                    <input type="password" name="login_password" id="login_password" required value="<?= (isset($_COOKIE['LP']) ? $_COOKIE['LP'] : ''); ?>">
+                    <label for="login_password">Senha de Acesso:</label>
+                </div>
+                <a name="btn_login" id="btn_login"><span></span><span></span><span></span><span></span>Entrar</a>
 				
 				<p class="demo">Exemplo: Email: admin@admin.com - Password: admin</p>
             </form>
-        </article>
+        
+    </div>
     </main>
     <script src="../../Views/jquery.js"></script>
     <script src="../../Views/Views.js"></script>
