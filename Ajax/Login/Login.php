@@ -1,6 +1,10 @@
 <?php
     session_start();
-	include_once '../../includes/config.php';
+    include_once '../../includes/config.php';
+    require_once '../../vendor/autoload.php';
+    
+    use GuzzleHttp\Client;
+    
     $Post = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRIPPED);
     $PostFilters = array_map('strip_tags', $Post);
     
@@ -71,18 +75,26 @@
     //Verificar e checar a senha
     $VerifyPass = password_verify($PostFilters['login_password'], $Show['user_password']);
 
-    //Verifica se o model de lembrar senha está ativo
-    if($VerifyPass){
-        if(!empty($PostFilters['login_remember'])){
-            //Cookie valido por 30 dias
-            $time = time() + (3600*24*30);
-            $Email = $PostFilters['login_email'];
-            $pass = $PostFilters['login_password'];
-            
-            setcookie("LE", $Email, $time + 3600, '/');
-            setcookie("LP", $pass, $time + 3600, '/');
+    //Verifica o RECAPTCHA
+    if(isset($_POST['btn_login'])){
+        if(!empty($_POST['g-recaptcha-response'])){
+            $url = 'https://www.google.com/recaptcha/api/siteverify';
+            $secret = '6LcXOcopAAAAAFyHqBnRh-PLDLNmWefmbb-mhm8Z';
+            $response = $_POST['g-recaptcha-response'];
+            $variaveis = "secret=" . $secret . "&response=" . $response;
+
+            $ch = curl_init($url);
+            curl_setopt( $ch, CURLOPT_POST, 1);
+            curl_setopt( $ch, CURLOPT_POSTFIELDS, $variaveis);
+            curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1);
+            curl_setopt( $ch, CURLOPT_HEADER, 0);
+            curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
+            $resposta = curl_exec($ch);
+            var_dump($resposta);
         }
-        
+    }
+
+    if($VerifyPass){        
         // Cria as sessões de acesso
         $_SESSION['user_id'] = $Show['user_id'];
         $_SESSION['user_firstname'] = $Show['user_firstname'];
@@ -90,7 +102,7 @@
         $_SESSION['user_level'] = $Show['user_level'];
         $_SESSION['user_token'] = $Show['user_token'];
         $_SESSION['logged'] = 1;
-        //var_dump($_SESSION['logged']);
+        //var_dump($_SESSION);
         unset($_SESSION['counter']);
         
         $message = ['status' => 'success', 'message'=>'Login realizado com sucesso!', 'redirect'=>'../dashboard'];

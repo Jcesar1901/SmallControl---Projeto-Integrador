@@ -1456,7 +1456,7 @@ $(document).ready(function(){
                 
                     case 'warning':
                         $(".result").text('');
-                        $(".result").prepend('<div class="status-top-right text-center" id="status-container"><div class="status status-' + data['status'] + '"><div class="status-message"><span class="fa fa-info-circle"></span>' + data['message'] + '</span></div></div></div>');
+                        $(".result").prepend('<div class="status-top-right text-center" id="status-container"><div class="status status-' + data['status'] + '"><div class="status-message"><span class="fa fa-exclamation-triangle"></span>' + data['message'] + '</span></div></div></div>');
                         $("#form_login")[0].reset(); 
                         break;
                 

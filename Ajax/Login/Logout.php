@@ -1,5 +1,5 @@
 <?php
-    require '../../Developers/Config.php';
+    include_once '../../includes/config.php';
     $Get = filter_input(INPUT_GET, 'action', FILTER_SANITIZE_STRIPPED);
     $GetFilters = strip_tags($Get);
 
