@@ -70,6 +70,8 @@ if(!empty($_COOKIE['LE']) && !empty($_COOKIE['LP']) && $_SESSION['logout'] == 0 
                     if(grecaptcha.getResponse() == ""){
                         alert("Por favor, preencha o Recaptcha!")
                         return false;
+                    }else{
+                        return true;
                     }
                 }
             </script>
