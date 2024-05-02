@@ -48,77 +48,75 @@
         return;
     }
 
-    //Verifica o RECAPTCHA
-    if(isset($_POST['btn_login'])){
-        if(!empty($_POST['g-recaptcha-response'])){
-            $url = 'https://www.google.com/recaptcha/api/siteverify';
-            $secret = '6LcXOcopAAAAAFyHqBnRh-PLDLNmWefmbb-mhm8Z';
-            $response = $_POST['g-recaptcha-response'];
-            $variaveis = "secret=" . $secret . "&response=" . $response;
+//Verifica o RECAPTCHA
+if (!isset($_POST['g-recaptcha-response']) || empty($_POST['g-recaptcha-response'])) {
+    $message = ['status' => 'info', 'message'=>'Por favor, marque o reCAPTCHA!', 'redirect'=>''];
+    echo json_encode($message);
+    return;
+}
+$captcha_data = $_POST['g-recaptcha-response'];
+//Verificação do reCaptcha
+$url ="https://www.google.com/recaptcha/api/siteverify";
+$secret = "6LcXOcopAAAAAFyHqBnRh-PLDLNmWefmbb-mhm8Z";
+$resposta = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=" . $secret . "&response=" . $captcha_data);
+if (!$resposta) {
+    $message = ['status' => 'error', 'message'=>'Falha ao verificar o reCAPTCHA. Tente novamente mais tarde.', 'redirect'=>''];
+    echo json_encode($message);
+    return;
+}
 
-            $ch = curl_init($url);
-            curl_setopt( $ch, CURLOPT_POST, 1);
-            curl_setopt( $ch, CURLOPT_POSTFIELDS, $variaveis);
-            curl_setopt( $ch, CURLOPT_FOLLOWLOCATION, 1);
-            curl_setopt( $ch, CURLOPT_HEADER, 0);
-            curl_setopt( $ch, CURLOPT_RETURNTRANSFER, 1);
-            $resposta = curl_exec($ch);
-            $captcha_response = json_decode($resposta);
+$recaptcha_result = json_decode($resposta);
+if (!$recaptcha_result->success) {
+    // Se o reCAPTCHA não foi validado com sucesso
+    $message = ['status' => 'error', 'message'=>'Erro no reCAPTCHA. Tente novamente.', 'redirect'=>''];
+    echo json_encode($message);
+    return;
+}
+// Se o reCAPTCHA foi validado com sucesso, continue com o processo de login
 
-            if ($captcha_response->success != 1) {
-                $message = ['status' => 'info', 'message' => 'Por favor, verifique o reCAPTCHA.', 'redirect' => ''];
-                echo json_encode($message);
-                return;
-            }
-        }else{
-            $message = ['status' => 'info', 'message' => 'Por favor, complete o reCAPTCHA.', 'redirect' => ''];
-            echo json_encode($message);
-            return;
-        } 
-        //Consulta para verificar se o email já existe
-        $Read = $pdo->prepare("SELECT user_id, user_email, user_password, user_firstname, user_level, user_token FROM ".DB_LOGIN."  WHERE user_email = :user_email");
-        $Read->bindValue(':user_email', $Email);
-        $Read->execute();
+//Consulta para verificar se o email já existe
+$Read = $pdo->prepare("SELECT user_id, user_email, user_password, user_firstname, user_level, user_token FROM ".DB_LOGIN."  WHERE user_email = :user_email");
+$Read->bindValue(':user_email', $Email);
+$Read->execute();
 
-        $Lines = $Read->rowCount();
-        
-        if($Lines == 0 ){
-            $_SESSION['counter'] = $counter + 1;
-            
-            if($counter == TIMESBLOCKED){
-                $message = ['status' => 'warning', 'message'=>'Você só possui mais uma tentativa', 'redirect'=>''];
-                echo json_encode($message);
-                return;
-            }else{
-                $message = ['status' => 'info', 'message'=>'Email ou senha incorretos', 'redirect'=>''];
-                echo json_encode($message);
-                return;
-            }
-        }
-        //Recuperando os dados
-        foreach($Read as $Show){}
-        
-        //Verificar e checar a senha
-        $VerifyPass = password_verify($PostFilters['login_password'], $Show['user_password']);
+$Lines = $Read->rowCount();
 
-        if($VerifyPass){        
-            // Cria as sessões de acesso
-            $_SESSION['user_id'] = $Show['user_id'];
-            $_SESSION['user_firstname'] = $Show['user_firstname'];
-            $_SESSION['user_email'] = $Show['user_email'];
-            $_SESSION['user_level'] = $Show['user_level'];
-            $_SESSION['user_token'] = $Show['user_token'];
-            $_SESSION['logged'] = 1;
-            //var_dump($_SESSION);
-            unset($_SESSION['counter']);
-            
-            $message = ['status' => 'success', 'message'=>'Login realizado com sucesso!', 'redirect'=>'../dashboard'];
-            echo json_encode($message);
-            return;
-        } else{
-            $message = ['status' => 'info', 'message'=>'Email ou senha incorretos!', 'redirect'=>''];
-            echo json_encode($message);
-            return;
-        }
+if($Lines == 0 ){
+    $_SESSION['counter'] = $counter + 1;
+    
+    if($counter == TIMESBLOCKED){
+        $message = ['status' => 'warning', 'message'=>'Você só possui mais uma tentativa', 'redirect'=>''];
+        echo json_encode($message);
+        return;
+    }else{
+        $message = ['status' => 'info', 'message'=>'Email ou senha incorretos', 'redirect'=>''];
+        echo json_encode($message);
+        return;
     }
+}
+//Recuperando os dados
+foreach($Read as $Show){}
+
+//Verificar e checar a senha
+$VerifyPass = password_verify($PostFilters['login_password'], $Show['user_password']);
+
+if($VerifyPass){        
+    // Cria as sessões de acesso
+    $_SESSION['user_id'] = $Show['user_id'];
+    $_SESSION['user_firstname'] = $Show['user_firstname'];
+    $_SESSION['user_email'] = $Show['user_email'];
+    $_SESSION['user_level'] = $Show['user_level'];
+    $_SESSION['user_token'] = $Show['user_token'];
+    $_SESSION['logged'] = 1;
+    //var_dump($_SESSION);
+    unset($_SESSION['counter']);
+    
+    $message = ['status' => 'success', 'message'=>'Login realizado com sucesso!', 'redirect'=>'../dashboard'];
+    echo json_encode($message);
+    return;
+} else{
+    $message = ['status' => 'info', 'message'=>'Email ou senha incorretos!', 'redirect'=>''];
+    echo json_encode($message);
+    return;
+}
 ?>
