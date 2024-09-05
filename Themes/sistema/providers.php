@@ -32,11 +32,12 @@
 				
 				<form method="post" enctype="multipart/form-data" id="form_editprovider">
 					<input type="hidden" name="provider_id" id="provider_id" required>
+					<!--
 					<div class="divisor2">
 						<label for="imagem">Foto do Fornecedor</label><br>
 						<input type="file" name="files" id="files" accept="image/*" onchange="loadFile(event)">
 					</div>
-						
+					-->
 					<div class="divisor2">
 						<label for="company">Empresa</label><br>
 						<input type="text" name="company" id="company" required>
@@ -109,11 +110,12 @@
 				<h1 class="text-center font-text-min">Dados do Novo Fornecedor</h1>
 				
 				<form method="post" enctype="multipart/form-data" id="form_providerNew">
-					<div class="divisor2">
+<!--
+				<div class="divisor2">
 						<label for="imagem">Foto do Fornecedor</label><br>
 						<input type="file" name="files" id="files" required accept="image/*" onchange="loadFile(event)">
 					</div>
-						
+-->
 					<div class="divisor2">
 						<label for="company">Nome do Fornecedor</label><br>
 						<input type="text" name="company" id="company" required>

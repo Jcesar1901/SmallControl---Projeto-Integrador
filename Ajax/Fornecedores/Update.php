@@ -69,7 +69,7 @@ if(empty($Search['state'])){
     return; 
 }
 
-$Read = $pdo->prepare("SELECT fornecedor_id, fornecedor_img FROM ".DB_PROVIDERS ." WHERE fornecedor_id = :fornecedor_id");
+$Read = $pdo->prepare("SELECT fornecedor_id FROM ".DB_PROVIDERS ." WHERE fornecedor_id = :fornecedor_id");
 $Read->bindValue(':fornecedor_id', $Search['provider_id']);
 $Read->execute();
 
@@ -77,7 +77,7 @@ $Lines = $Read->rowCount();
 foreach($Read as $Show){
 
 }
-$Img = strip_tags($Show ['fornecedor_img']);
+//$Img = strip_tags($Show ['fornecedor_img']);
 
 if($Lines == 0){
     $message = ['status'=> 'info', 'message'=> 'Este fornecedor não está registrado!', 'redirect'=> '', 'lines' => 0];
@@ -85,7 +85,7 @@ if($Lines == 0){
     return; 
 }
 
-
+/*
 // Excluir imagem anterior
 if($_FILES['files']['name'] == ''){
     $CreateFileName = $Img;
@@ -155,9 +155,9 @@ if($_FILES['files']['name'] == ''){
         //Realizamos o upload
         move_uploaded_file($FilePath, $destiny);
 }
-
-    $Update = $pdo->prepare("UPDATE " . DB_PROVIDERS . " SET fornecedor_img = :fornecedor_img, fornecedor_nome = :fornecedor_nome, fornecedor_email = :fornecedor_email, fornecedor_endereco = :fornecedor_endereco, fornecedor_number = :fornecedor_number, fornecedor_neighborhood = :fornecedor_neighborhood, fornecedor_cep = :fornecedor_cep, fornecedor_cidade  = :fornecedor_cidade, 	fornecedor_estado = :fornecedor_estado, fornecedor_documento = :fornecedor_documento, fornecedor_telefone = :fornecedor_telefone, fornecedor_sessao = :fornecedor_sessao WHERE fornecedor_id = :fornecedor_id");
-    $Update->bindValue(':fornecedor_img', $CreateFileName);
+*/
+    $Update = $pdo->prepare("UPDATE " . DB_PROVIDERS . " SET fornecedor_nome = :fornecedor_nome, fornecedor_email = :fornecedor_email, fornecedor_endereco = :fornecedor_endereco, fornecedor_number = :fornecedor_number, fornecedor_neighborhood = :fornecedor_neighborhood, fornecedor_cep = :fornecedor_cep, fornecedor_cidade  = :fornecedor_cidade, 	fornecedor_estado = :fornecedor_estado, fornecedor_documento = :fornecedor_documento, fornecedor_telefone = :fornecedor_telefone, fornecedor_sessao = :fornecedor_sessao WHERE fornecedor_id = :fornecedor_id");
+//    $Update->bindValue(':fornecedor_img', $CreateFileName);
     $Update->bindValue(':fornecedor_nome', $Search['company']);
     $Update->bindValue(':fornecedor_email', $Search['email']);
     $Update->bindValue(':fornecedor_endereco', $Search['address']);

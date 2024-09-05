@@ -80,7 +80,7 @@ if($Lines >= 1){
     $message = ['status'=> 'info', 'message'=> 'Este fornecedor já está registrado!', 'redirect'=> '', 'lines' => 0];
     echo json_encode($message);
     return; 
-}
+}/*
 // Excluir imagem anterior
 if($_FILES['files']['name'] == ''){
     $CreateFileName = '';
@@ -141,10 +141,10 @@ if($_FILES['files']['name'] == ''){
 
     //Realizamos o upload
     move_uploaded_file($FilePath, $destiny);
-}
-$Create = $pdo->prepare("INSERT INTO " . DB_PROVIDERS . "(fornecedor_img, fornecedor_nome, fornecedor_email, fornecedor_endereco, fornecedor_number, fornecedor_neighborhood, fornecedor_cep, fornecedor_cidade, fornecedor_estado, fornecedor_documento, fornecedor_telefone, fornecedor_status, fornecedor_sessao)
-VALUES(:fornecedor_img, :fornecedor_nome, :fornecedor_email, :fornecedor_endereco, :fornecedor_number, :fornecedor_neighborhood, :fornecedor_cep, :fornecedor_cidade, :fornecedor_estado, :fornecedor_documento, :fornecedor_telefone, :fornecedor_status, :fornecedor_sessao)");
-$Create->bindValue(':fornecedor_img', $CreateFileName);
+}*/
+$Create = $pdo->prepare("INSERT INTO " . DB_PROVIDERS . "( fornecedor_nome, fornecedor_email, fornecedor_endereco, fornecedor_number, fornecedor_neighborhood, fornecedor_cep, fornecedor_cidade, fornecedor_estado, fornecedor_documento, fornecedor_telefone, fornecedor_status, fornecedor_sessao)
+VALUES(:fornecedor_nome, :fornecedor_email, :fornecedor_endereco, :fornecedor_number, :fornecedor_neighborhood, :fornecedor_cep, :fornecedor_cidade, :fornecedor_estado, :fornecedor_documento, :fornecedor_telefone, :fornecedor_status, :fornecedor_sessao)");
+//$Create->bindValue(':fornecedor_img', $CreateFileName);
 $Create->bindValue(':fornecedor_nome', $Search['company']);
 $Create->bindValue(':fornecedor_email', $Search['email']);
 $Create->bindValue(':fornecedor_endereco', $Search['address']);

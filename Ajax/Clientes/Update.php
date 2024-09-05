@@ -50,7 +50,7 @@ if($Search['doc'] == 1){
     $doc = strip_tags($Search['cnpj']);
 }
 
-$Read = $pdo->prepare("SELECT cliente_id, cliente_imagem FROM ".DB_CLIENTS." WHERE cliente_id = :cliente_id");
+$Read = $pdo->prepare("SELECT cliente_id FROM ".DB_CLIENTS." WHERE cliente_id = :cliente_id");
 $Read->bindValue(':cliente_id', $Search['client_id']);
 $Read->execute();
 
@@ -58,7 +58,7 @@ $Lines = $Read->rowCount();
 foreach($Read as $Show){
 
 }
-$Img = strip_tags($Show ['cliente_imagem']);
+//$Img = strip_tags($Show ['cliente_imagem']);
 
 if($Lines == 0){
     $message = ['status'=> 'info', 'message'=> 'Este cliente não está registrado!', 'redirect'=> '', 'lines' => 0];
@@ -68,7 +68,7 @@ if($Lines == 0){
 
 
 // Excluir imagem anterior
-if($_FILES['file']['name'] == ''){
+/*if($_FILES['file']['name'] == ''){
     $CreateFileName = $Img;
     //Verificar se a imagem foi cadastrada no registro anterior
     if($_FILES['files']['name'] != ''){
@@ -136,9 +136,9 @@ if($_FILES['file']['name'] == ''){
         //Realizamos o upload
         move_uploaded_file($FilePath, $destiny);
 }
-
-    $Update = $pdo->prepare("UPDATE " . DB_CLIENTS . " SET cliente_imagem = :cliente_imagem, cliente_nome = :cliente_nome, cliente_email = :cliente_email, cliente_endereco = :cliente_endereco, cliente_numero = :cliente_numero, cliente_bairro = :cliente_bairro, cliente_cep = :cliente_cep, cliente_cidade = :cliente_cidade, cliente_estado = :cliente_estado, cliente_documento = :cliente_documento, cliente_telefone = :cliente_telefone WHERE cliente_id = :cliente_id");
-    $Update->bindValue(':cliente_imagem', $CreateFileName);
+*/
+    $Update = $pdo->prepare("UPDATE " . DB_CLIENTS . " SET cliente_nome = :cliente_nome, cliente_email = :cliente_email, cliente_endereco = :cliente_endereco, cliente_numero = :cliente_numero, cliente_bairro = :cliente_bairro, cliente_cep = :cliente_cep, cliente_cidade = :cliente_cidade, cliente_estado = :cliente_estado, cliente_documento = :cliente_documento, cliente_telefone = :cliente_telefone WHERE cliente_id = :cliente_id");
+//    $Update->bindValue(':cliente_imagem', $CreateFileName);
     $Update->bindValue(':cliente_nome', $Search['client']);
     $Update->bindValue(':cliente_email', $Search['email']);
     $Update->bindValue(':cliente_endereco', $Search['address']);

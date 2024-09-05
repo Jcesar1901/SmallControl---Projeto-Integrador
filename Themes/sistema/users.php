@@ -31,11 +31,11 @@
 			
 			<form method="post" enctype="multipart/form-data" id="form_editUser">
 				<input type="hidden" name="user_id" id="user_id" value="">
-
+				<!--
 				<div class="divisor2">
 					<label for="file">Foto</label>
 					<input type="file" name="file" id="file">
-				</div>
+				</div> -->
 				
 				<div class="divisor2">
 					<label for="username">Nome Completo*</label>
@@ -78,10 +78,10 @@
 			<h1 class="text-center font-text-min">Dados do Novo Usuário</h1>
 			
 			<form method="post" enctype="multipart/form-data" id="form_newUser">
-				<div class="divisor2">
+				<!-- <div class="divisor2">
 					<label for="file">Foto</label>
 					<input type="file" name="files" id="files">
-				</div>
+				</div> -->
 				
 				<div class="divisor2">
 					<label for="username">Nome Completo*</label>

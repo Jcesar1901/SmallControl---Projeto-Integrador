@@ -34,7 +34,7 @@ if(empty($Search['quantityEdit'])){
     return; 
 }
 
-$Read = $pdo->prepare("SELECT produto_id, produto_capa FROM ".DB_PRODUCT." WHERE produto_id = :produto_id");
+$Read = $pdo->prepare("SELECT produto_id FROM ".DB_PRODUCT." WHERE produto_id = :produto_id");
 $Read->bindValue(':produto_id', $Search['product_id']);
 $Read->execute();
 
@@ -42,7 +42,7 @@ $Lines = $Read->rowCount();
 foreach($Read as $Show){
 
 }
-$Img = strip_tags($Show ['produto_capa']);
+//$Img = strip_tags($Show ['produto_capa']);
 
 if($Lines == 0){
     $message = ['status'=> 'info', 'message'=> 'Este produto não está registrado!', 'redirect'=> '', 'lines' => 0];
@@ -50,7 +50,7 @@ if($Lines == 0){
     return; 
 }
 
-
+/*
 // Excluir imagem anterior
 if($_FILES['files']['name'] == ''){
     $CreateFileName = $Img;
@@ -119,10 +119,10 @@ if($_FILES['files']['name'] == ''){
 
         //Realizamos o upload
         move_uploaded_file($FilePath, $destiny);
-}
+}*/
     $Price = str_replace(',' , '.', $Search['priceEdit']);
-    $Update = $pdo->prepare("UPDATE " . DB_PRODUCT . " SET produto_capa = :produto_capa, produto_nome = :produto_nome, produto_preco = :produto_preco, produto_quantidade = :produto_quantidade, produto_categoria = :produto_categoria WHERE produto_id = :produto_id");
-    $Update->bindValue(':produto_capa', $CreateFileName);
+    $Update = $pdo->prepare("UPDATE " . DB_PRODUCT . " SET produto_nome = :produto_nome, produto_preco = :produto_preco, produto_quantidade = :produto_quantidade, produto_categoria = :produto_categoria WHERE produto_id = :produto_id");
+    //$Update->bindValue(':produto_capa', $CreateFileName);
     $Update->bindValue(':produto_nome', $Search['productEdit']);
     $Update->bindValue(':produto_preco', $Price);
     $Update->bindValue(':produto_quantidade', $Search['quantityEdit']);

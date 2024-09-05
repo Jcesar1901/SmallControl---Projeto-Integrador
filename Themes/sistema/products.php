@@ -15,11 +15,11 @@
 			
 			<form method="post" enctype="multipart/form-data" id="form_editProduct">
 				<input type="hidden" name="product_id" id="product_id" required>
-
+<!--
 				<div class="divisor1">
 					<input type="file" name="files" id="files" required accept="image/*" onchange="loadFile(event)" style="height: 42px !important; width: 94% !important; margin: 10px 3%!important;">
 				</div>
-				
+-->
 				<div class="divisor2">
 					<label for="product">Nome Produto</label>
 					<input type="text" name="productEdit" id="productEdit" required>
@@ -62,10 +62,11 @@
 			<h1 class="text-center font-text-min">Dados do Novo Produto</h1>
 			
 			<form method="post" enctype="multipart/form-data" id="form_newProduct">
+<!--
 				<div class="divisor1">
 					<input type="file" name="files" id="files" required accept="image/*" onchange="loadFile(event)" style="height: 42px !important; width: 94% !important; margin: 10px 3%!important;">
 				</div>
-				
+-->
 				<div class="divisor2">
 					<label for="product">Nome Produto</label>
 					<input type="text" name="product" id="product" required>

@@ -31,12 +31,12 @@
 				
 				<form method="post" enctype="multipart/form-data" id="form_editclient">
 					<input type="hidden" id="client_id" name="client_id">
-
+					<!--
 					<div class="divisor2">
 						<label for="imagem">Foto do Cliente</label><br>
 						<input type="file" name="file" id="file" accept="image/*">
 					</div>
-						
+					-->
 					<div class="divisor2">
 						<label for="client">Nome do Cliente</label><br>
 						<input type="text" name="client" id="client" value="">
@@ -123,11 +123,11 @@
 				<h1 class="text-center font-text-min">Dados do Novo Cliente</h1>
 				
 				<form method="post" enctype="multipart/form-data" id="form_clientNew">
-					<div class="divisor2">
+					<!-- <div class="divisor2">
 						<label for="imagem">Foto do Cliente</label><br>
 						<input type="file" name="files"  accept="image/*" onchange="loadFile(event)">
 					</div>
-						
+					-->
 					<div class="divisor2">
 						<label for="client">Nome do Cliente</label><br>
 						<input type="text" name="client" id="client" >

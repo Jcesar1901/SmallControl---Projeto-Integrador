@@ -45,7 +45,7 @@ if($Lines >= 1){
     $message = ['status'=> 'info', 'message'=> 'Este produto já está registrado!', 'redirect'=> '', 'lines' => 0];
     echo json_encode($message);
     return; 
-}
+}/*
 // Excluir imagem anterior
 if($_FILES['files']['name'] == ''){
     $CreateFileName = '';
@@ -107,16 +107,16 @@ if($_FILES['files']['name'] == ''){
     //Realizamos o upload
     move_uploaded_file($FilePath, $destiny);
 }
-
+*/
 $Token = rand(10, 100). rand(1000, 10000);
 $Price = str_replace(',', '.', $Search['price']);
-$Create = $pdo->prepare("INSERT INTO " . DB_PRODUCT . "(produto_nome, produto_preco, produto_quantidade, produto_categoria, produto_capa, produto_status, produto_sessao)
-VALUES( :produto_nome, :produto_preco, :produto_quantidade, :produto_categoria, :produto_capa, :produto_status, :produto_sessao)");
+$Create = $pdo->prepare("INSERT INTO " . DB_PRODUCT . "(produto_nome, produto_preco, produto_quantidade, produto_categoria, produto_status, produto_sessao)
+VALUES( :produto_nome, :produto_preco, :produto_quantidade, :produto_categoria, :produto_status, :produto_sessao)");
 $Create->bindValue(':produto_nome', $Search['product']);
 $Create->bindValue(':produto_preco', $Price);
 $Create->bindValue(':produto_quantidade', $Search['quantity']);
 $Create->bindValue(':produto_categoria', $Search['category']);
-$Create->bindValue(':produto_capa', $CreateFileName);
+//$Create->bindValue(':produto_capa', $CreateFileName);
 $Create->bindValue(':produto_status', 1);
 $Create->bindValue(':produto_sessao', $Token);
 $Create->execute();
